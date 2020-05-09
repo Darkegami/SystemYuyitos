@@ -1,0 +1,31 @@
+﻿<Controls:MetroWindow x:Class="SystemYuyitos.Menu"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemYuyitos"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Menu" Height="596" Width="934.668">
+    <Grid Background="DarkGray">
+        <Controls:Tile Title="Administrar Inventario" Margin="110,31,505,384" Click="btnInventario" Width="Auto" Height="Auto">
+            <iconPacks:PackIconMaterial Kind="PackageVariant" VerticalAlignment="Center" HorizontalAlignment="Right" Height="74" Width="64" />
+        </Controls:Tile>
+        <Controls:Tile Title="Administrar Proveedores" Margin="110,190,505,225" Click="btnProveedor" Width="Auto" Height="Auto">
+            <iconPacks:PackIconMaterial Kind="PackageUp" VerticalAlignment="Center" HorizontalAlignment="Right" Height="74" Width="57" />
+        </Controls:Tile>
+        <Controls:Tile Title="Generar Informes" Margin="110,351,505,64" Click="btnInformes" Width="Auto" Height="Auto">
+            <iconPacks:PackIconMaterial Kind="Book" VerticalAlignment="Center" HorizontalAlignment="Right" Height="74" Width="57" />
+        </Controls:Tile>
+        <Controls:Tile Title="Registro Orden Compra" Margin="504,31,100,384" Click="btnOrden" Width="Auto" Height="Auto">
+            <iconPacks:PackIconMaterial Kind="Cart" VerticalAlignment="Center" HorizontalAlignment="Right" Height="74" Width="57" />
+        </Controls:Tile>
+        <Controls:Tile Title="Recepcion Orden Compra" Margin="504,190,100,225" Click="btnRecepcion" Width="Auto" Height="Auto">
+            <iconPacks:PackIconMaterial Kind="CheckAll" VerticalAlignment="Center" HorizontalAlignment="Right" Height="74" Width="57" />
+        </Controls:Tile>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="160" Margin="504,356,0,0" VerticalAlignment="Top" Width="323" Source="Imagenes/almacen.png"/>
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,25 @@
+﻿<Controls:MetroWindow x:Class="SystemYuyitos.MainWindow"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemYuyitos"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+     
+        Title="Login" Background="DarkGray" Height="510.864"  Width="426.215">
+    <Grid>
+        <TextBox x:Name="txtUsuario" HorizontalAlignment="Left"  Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Usuario" Height="32" Margin="117,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" RenderTransformOrigin="0.503,0.436" Background="Black" BorderBrush="White" FontSize="14">
+
+        </TextBox>
+        <PasswordBox x:Name="pbContrasenia" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Contraseña" Margin="117,309,0,0" VerticalAlignment="Top" Width="204" Height="32" BorderBrush="White" FontSize="14" Background="Black"/>
+        <Button x:Name="btnIngresar" Content="Ingresar" HorizontalAlignment="Left" Margin="174,395,0,0" VerticalAlignment="Top" Width="86" BorderBrush="{x:Null}" Background="Black" Foreground="White" FontSize="14" Click="BtnIngresar_Click"/>
+        <Label Content="Usuario" HorizontalAlignment="Left" Margin="117,205,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="117,280,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Image Source="Imagenes/almacen.png" HorizontalAlignment="Left" Height="219" Margin="58,12,0,0" VerticalAlignment="Top" Width="284"/>
+        <Label Content="¿Has olvidado tu contraseña?" HorizontalAlignment="Left" Margin="121,346,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Width="200"/>
+
+    </Grid>
+</Controls:MetroWindow>

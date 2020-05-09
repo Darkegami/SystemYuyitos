@@ -1,0 +1,60 @@
+﻿<Controls:MetroWindow x:Class="SystemYuyitos.Registro_Orden_Compra"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemYuyitos"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        Title="Registro_Orden_Compra" Height="596" Width="934.668">
+    <Grid Background="DarkGray" Margin="0,0,0,-1">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="label" Content="Proveedor:" HorizontalAlignment="Left" Margin="51,48,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="67"/>
+        <Label x:Name="label_Copy" Content="Producto:" HorizontalAlignment="Left" Margin="54,114,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="61"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="123,52,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="56,180,0,0" VerticalAlignment="Top" Height="187" Width="445">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor   "/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="          Producto          "/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad x pack"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Valor   "/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="123,118,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Label x:Name="label_Copy1" Content="Cantidad:" HorizontalAlignment="Left" Margin="54,146,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="60"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="26" Margin="123,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="41"/>
+        <Label x:Name="label_Copy2" Content="Pack" HorizontalAlignment="Left" Margin="164,148,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="34"/>
+        <Button x:Name="button" Content="Ingresar Producto" HorizontalAlignment="Left" Margin="246,148,0,0" VerticalAlignment="Top" Width="126" Height="24" RenderTransformOrigin="0.509,0.448"/>
+        <Button x:Name="button1" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="377,148,0,0" VerticalAlignment="Top" Width="124" Height="24" RenderTransformOrigin="0.489,0.49"/>
+        <Button x:Name="button2" Content="Crear Orden" HorizontalAlignment="Left" Margin="410,372,0,0" VerticalAlignment="Top" Width="91" Height="26"/>
+        <Label x:Name="label_Copy3" Content="N° Orden Compra:" HorizontalAlignment="Left" Margin="57,438,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
+        <Button x:Name="button3" Content="Visualizar orden" HorizontalAlignment="Left" Margin="294,440,0,0" VerticalAlignment="Top" Width="111" Height="26"/>
+        <Button x:Name="button4" Content="MODIFICAR ORDEN" HorizontalAlignment="Left" Margin="410,440,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
+        <Button x:Name="button5" Content="Eliminar ORDEN" HorizontalAlignment="Left" Margin="529,440,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.185,-0.046" Height="26"/>
+        <Button x:Name="button6" Content="Ver INVENTARIO" HorizontalAlignment="Left" Margin="56,372,0,0" VerticalAlignment="Top" Width="110" Height="26"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="66" Margin="741,12,0,0" VerticalAlignment="Top" Width="114" Source="Imagenes/almacen.png"/>
+        <Label x:Name="label_Copy4" Content="Familia:" HorizontalAlignment="Left" Margin="54,84,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="67"/>
+        <ComboBox x:Name="comboBox_Copy" HorizontalAlignment="Left" Margin="123,84,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="539,180,0,0" VerticalAlignment="Top" Height="187" Width="343">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="N° Orden"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Valor Total"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="165,439,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnVolver1" 
+            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+            BorderBrush="Transparent"
+            ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,822,20">
+            <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
+        </Button>
+    </Grid>
+    </Controls:MetroWindow>
+

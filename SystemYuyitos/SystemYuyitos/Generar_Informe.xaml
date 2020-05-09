@@ -1,0 +1,30 @@
+﻿<Controls:MetroWindow x:Class="SystemYuyitos.Generar_Informe"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemYuyitos"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"  
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Generar_Informe" Height="596" Width="934.668">
+    <Grid Background="DarkGray">
+        
+         <Label x:Name="label" Content="Tipo de informe:" HorizontalAlignment="Left" Margin="185,60,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="318,63,0,0" VerticalAlignment="Top" Width="163" FontSize="14"/>
+        <Button x:Name="button" Content="Generar Informe" HorizontalAlignment="Left" Margin="410,150,0,0" VerticalAlignment="Top" Width="150" FontSize="14"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="309" Margin="54,201,0,0" Stroke="Black" VerticalAlignment="Top" Width="816"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="64" Margin="786,10,0,0" VerticalAlignment="Top" Width="114" Source="Imagenes/almacen.png"/>
+        <DatePicker HorizontalAlignment="Left" Margin="318,104,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="label_Copy" Content="Rango de Fecha:" HorizontalAlignment="Left" Margin="185,103,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="label_Copy1" Content="Hasta" HorizontalAlignment="Left" Margin="486,103,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="1.289,0.379"/>
+        <DatePicker HorizontalAlignment="Left" Margin="536,103,0,0" VerticalAlignment="Top" FontSize="14" Height="29"/>
+        <Button x:Name="btnVolver1" 
+            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+            BorderBrush="Transparent"
+            ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="0,510,832,0">
+            <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
+        </Button>
+    </Grid>
+</Controls:MetroWindow>
