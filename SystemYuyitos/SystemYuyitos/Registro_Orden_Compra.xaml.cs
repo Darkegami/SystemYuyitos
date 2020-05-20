@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls.Dialogs;
+using YuyitosLibrary;
 
 namespace SystemYuyitos
 {
@@ -32,6 +33,11 @@ namespace SystemYuyitos
             Menu menu = new Menu();
             menu.Show();
             this.Close();
+        }
+
+        private void ingresarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            List<Prueba> 
         }
     }
 }

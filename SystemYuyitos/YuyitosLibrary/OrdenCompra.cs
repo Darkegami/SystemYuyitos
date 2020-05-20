@@ -8,5 +8,6 @@ namespace YuyitosLibrary
 {
     class OrdenCompra
     {
+        private string
     }
 }
