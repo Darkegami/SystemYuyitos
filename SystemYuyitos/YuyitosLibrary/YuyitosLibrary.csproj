@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\Yuyitos.DALC\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +54,12 @@
     <Compile Include="Prueba.cs" />
     <Compile Include="RecepcionCompra.cs" />
     <Compile Include="YuyitosCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DALC\DALC.csproj">
+      <Project>{683363f4-923f-43f8-a76a-ee60d2256944}</Project>
+      <Name>DALC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

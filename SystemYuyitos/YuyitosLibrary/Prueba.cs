@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YuyitosLibrary
 {
-    class Prueba
+    public class Prueba
     {
         private int _cantidad;
 

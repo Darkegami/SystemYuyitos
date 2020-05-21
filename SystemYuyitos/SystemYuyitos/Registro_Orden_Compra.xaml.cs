@@ -23,6 +23,7 @@ namespace SystemYuyitos
     /// </summary>
     public partial class Registro_Orden_Compra : MetroWindow
     {
+        private YuyitosCollection YC = new YuyitosCollection();
         public Registro_Orden_Compra()
         {
             InitializeComponent();
@@ -35,9 +36,52 @@ namespace SystemYuyitos
             this.Close();
         }
 
-        private void ingresarProducto_Click(object sender, RoutedEventArgs e)
+        private void btnIngresarProducto_Click(object sender, RoutedEventArgs e)
         {
-            List<Prueba> 
+
+        }
+
+        private void btnCrearOrden_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dpFechaEntrega.SelectedDate == null || txtRutAdmin.Text =="")
+                {
+                    MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
+                    return;
+                }
+                else
+                {
+                    if (dpFechaEntrega.SelectedDate.Value < DateTime.Now.AddDays(-1))
+                    {
+                        MessageBox.Show("La fecha de entrega no puede ser antes de la fecha de hoy", "ERROR FECHA RETIRO");
+                        return;
+                    }
+                    OrdenCompra ordenCompra = new OrdenCompra();
+                    ordenCompra.Rut_administrador = txtRutAdmin.Text;
+                    ordenCompra.Id_orden_pedido = 1;
+                    ordenCompra.Fecha_orden = DateTime.Now;
+                    ordenCompra.Fecha_entrega = dpFechaEntrega.SelectedDate.Value;
+                    ordenCompra.Valor_final = 0;
+                    ordenCompra.Id_estado_orden = 1;
+                    if (YC.CrearOrdenCompra(ordenCompra))
+                    {
+                        MessageBox.Show("La orden ha sido ingresada exitosamente", "ORDEN AGREGADA");
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                    }
+
+                }
+
+            }
+            catch (Exception error)
+            {
+
+                throw;
+            }
         }
     }
 }

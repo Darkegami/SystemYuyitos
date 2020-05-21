@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yuyitos.DALC;
 
 namespace YuyitosLibrary
 {
     public class YuyitosCollection
     {
+        yuyitosEntities bd = new yuyitosEntities();
         public List<Proveedor> proveedores = new List<Proveedor>();
         public bool GuardarProveedor(Proveedor proveedor)
         {
@@ -78,6 +80,24 @@ namespace YuyitosLibrary
             }
             this.productos.Remove(prod);
             return true;
+        }
+
+        public bool CrearOrdenCompra(OrdenCompra ordenCompra)
+        {
+            Yuyitos.DALC.ORDEN_PEDIDO a = new Yuyitos.DALC.ORDEN_PEDIDO();
+
+                a.VALOR_FINAL_PEDIDO = ordenCompra.Valor_final;
+                a.RUT_ADMINISTRADOR = ordenCompra.Rut_administrador;
+                a.ID_ORDEN_PEDIDO = ordenCompra.Id_orden_pedido;
+                a.ID_ESTADO_ORDEN = ordenCompra.Id_estado_orden;
+                a.FECHA_PEDIDO = ordenCompra.Fecha_orden;
+                a.FECHA_ENTREGA = ordenCompra.Fecha_entrega;
+                this.bd.ORDEN_PEDIDO.Add(a);
+                this.bd.SaveChanges();
+                return true;
+
+
+
         }
     }
 }
