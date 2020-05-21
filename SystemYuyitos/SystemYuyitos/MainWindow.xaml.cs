@@ -35,6 +35,7 @@ namespace SystemYuyitos
             ora.Open();
             MessageBox.Show("Conectado");
             ora.Close();
+            //hello
 
 
             if (txtUsuario.Text != string.Empty)
