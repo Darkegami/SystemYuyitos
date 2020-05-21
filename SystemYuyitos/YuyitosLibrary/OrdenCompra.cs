@@ -8,25 +8,12 @@ namespace YuyitosLibrary
 {
     public class OrdenCompra
     {
-        private int _id_orden_pedido;
+        private string _id_orden_pedido;
         private DateTime _fecha_orden;
         private DateTime _fecha_entrega;
         private int _valor_final;
         private string _rut_administrador;
         private int _id_estado_orden;
-
-        public int Id_orden_pedido
-        {
-            get
-            {
-                return _id_orden_pedido;
-            }
-
-            set
-            {
-                _id_orden_pedido = value;
-            }
-        }
 
         public DateTime Fecha_orden
         {
@@ -90,6 +77,19 @@ namespace YuyitosLibrary
             set
             {
                 _id_estado_orden = value;
+            }
+        }
+
+        public string Id_orden_pedido
+        {
+            get
+            {
+                return _id_orden_pedido;
+            }
+
+            set
+            {
+                _id_orden_pedido = value;
             }
         }
     }

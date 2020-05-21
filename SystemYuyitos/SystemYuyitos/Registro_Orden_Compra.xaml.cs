@@ -27,6 +27,7 @@ namespace SystemYuyitos
         public Registro_Orden_Compra()
         {
             InitializeComponent();
+            this.cargarGrilla();
         }
 
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
@@ -35,6 +36,13 @@ namespace SystemYuyitos
             menu.Show();
             this.Close();
         }
+
+        private void cargarGrilla()
+        {
+            dgGrillaOrden.ItemsSource = null;
+            dgGrillaOrden.ItemsSource = YC.ListaOrdenCompra();
+        }
+
 
         private void btnIngresarProducto_Click(object sender, RoutedEventArgs e)
         {
@@ -59,10 +67,10 @@ namespace SystemYuyitos
                     }
                     OrdenCompra ordenCompra = new OrdenCompra();
                     ordenCompra.Rut_administrador = txtRutAdmin.Text;
-                    ordenCompra.Id_orden_pedido = 1;
-                    ordenCompra.Fecha_orden = DateTime.Now;
+                    ordenCompra.Id_orden_pedido = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
+                    ordenCompra.Fecha_orden = DateTime.Today; 
                     ordenCompra.Fecha_entrega = dpFechaEntrega.SelectedDate.Value;
-                    ordenCompra.Valor_final = 0;
+                    ordenCompra.Valor_final = 1;
                     ordenCompra.Id_estado_orden = 1;
                     if (YC.CrearOrdenCompra(ordenCompra))
                     {
@@ -80,7 +88,8 @@ namespace SystemYuyitos
             catch (Exception error)
             {
 
-                throw;
+                MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                return;
             }
         }
     }
