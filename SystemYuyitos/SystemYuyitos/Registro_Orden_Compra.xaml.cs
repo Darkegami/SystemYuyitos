@@ -37,7 +37,7 @@ namespace SystemYuyitos
 
         private void ingresarProducto_Click(object sender, RoutedEventArgs e)
         {
-            List<Prueba> 
+
         }
     }
 }
