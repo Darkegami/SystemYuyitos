@@ -24,8 +24,6 @@ namespace YuyitosLibrary
                 OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.PrecioVenta;
                 OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.IdTipoProducto;
                 OC.Parameters.Add("CANTIDAD", OracleType.Number).Value = producto.Cantidad;
-                OC.Parameters.Add("FEC_ELABORACION", OracleType.VarChar).Value = producto.FechaElaboracion.ToString("dd-MM-yyyy");
-                OC.Parameters.Add("FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.FechaVencimiento.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("FEC_INGRESO", OracleType.VarChar).Value = producto.FechaIngreso.ToString("dd-MM-yyyy");
                 OC.ExecuteNonQuery();
                 conexion.Close();
@@ -53,8 +51,6 @@ namespace YuyitosLibrary
                     prod.PrecioVenta = int.Parse(ODR["PRECIO_VENTA"].ToString());
                     prod.IdTipoProducto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
                     prod.Cantidad = int.Parse(ODR["CANTIDAD"].ToString());
-                    prod.FechaElaboracion = DateTime.Parse(ODR["FEC_ELABORACION"].ToString());
-                    prod.FechaVencimiento = DateTime.Parse(ODR["FEC_VENCIMIENTO"].ToString());
                     prod.FechaIngreso = DateTime.Parse(ODR["FEC_INGRESO"].ToString());
 
                     listProducto.Add(prod);

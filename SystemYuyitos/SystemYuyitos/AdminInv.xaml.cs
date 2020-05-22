@@ -60,8 +60,6 @@ namespace SystemYuyitos
                     prod.PrecioVenta = 1;
                     prod.IdTipoProducto = 1;
                     prod.Cantidad = 1;
-                    prod.FechaElaboracion = dpFecha.SelectedDate.Value;
-                    prod.FechaVencimiento = dpFecha_venc.SelectedDate.Value;
                     prod.FechaIngreso = DateTime.Today;
 
                     if (YC.IngresarProducto(prod))
