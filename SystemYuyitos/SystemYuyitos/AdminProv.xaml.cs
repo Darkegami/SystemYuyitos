@@ -22,25 +22,61 @@ namespace SystemYuyitos
     /// </summary>
     public partial class AdminProv : MetroWindow
     {
-        private YuyitosCollection _coleccion = new YuyitosCollection();
+        private YuyitosCollection YC = new YuyitosCollection();
 
         public AdminProv()
         {
             InitializeComponent();
+            this.cargarGrilla();
             
+        }
+        private void cargarGrilla()
+        {
+            dgProveedor.ItemsSource = null;
+            dgProveedor.ItemsSource = YC.ListaProveedor();
+
+
         }
 
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (txtIdProveedor.Text == "")
+                {
+                    MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
+                    return;
+                }
+                else
+                {
 
-            
-        }
+                    Proveedor prov = new Proveedor();
 
-        private void CargarGrilla()
-        {
-            dgProveedor.ItemsSource = null;
-            
-        }
+                    prov.IDProv = 1;
+                    prov.NombreProv = txtNombreProv.Text;
+                    prov.Telefono = 1;
+                    prov.Direccion = txtDireccionProv.Text;
+                    prov.Sucursal = txtSucursal.Text;
+
+                    if (YC.IngresarProveedor(prov))
+                    {
+                        MessageBox.Show("El Proveedor ha sido ingresado exitosamente", "PROVEEDOR AGREGADO");
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                    }
+
+
+                }
+
+             }catch (Exception error){
+                MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                return;
+            }
+         }
+
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {

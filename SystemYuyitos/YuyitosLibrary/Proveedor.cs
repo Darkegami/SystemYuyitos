@@ -8,17 +8,14 @@ namespace YuyitosLibrary
 {
     public class Proveedor
     {
-        private string _iDProv;
+        private int _iDProv;
         private string _nombreProv;
         private int _telefono;
         private string _sucursal;
         private string _direccion;
 
 
-        public Proveedor()
-        {
-
-        }
+    
 
 
         public string Direccion
@@ -47,7 +44,7 @@ namespace YuyitosLibrary
             set { _nombreProv = value; }
         }
 
-        public string IDProv
+        public int IDProv
         {
             get { return _iDProv; }
             set { _iDProv = value; }

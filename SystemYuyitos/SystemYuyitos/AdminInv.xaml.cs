@@ -64,7 +64,7 @@ namespace SystemYuyitos
 
                     if (YC.IngresarProducto(prod))
                     {
-                        MessageBox.Show("La orden ha sido ingresada exitosamente", "ORDEN AGREGADA");
+                        MessageBox.Show("El Producto ha sido ingresado exitosamente", "PRODUCTO AGREGADO");
                         return;
                     }
                     else

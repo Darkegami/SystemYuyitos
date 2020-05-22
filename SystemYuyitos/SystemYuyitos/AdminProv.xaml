@@ -33,7 +33,15 @@
         <Label Content="Sucursal:" HorizontalAlignment="Left" Margin="41,280,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <TextBox x:Name="txtSucursal" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Sucursal" Height="36" Margin="137,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14"/>
         <Label Content="ID Proveedor" HorizontalAlignment="Left" Margin="429,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
-        <DataGrid x:Name="dgProveedor" HorizontalAlignment="Left" Height="232" Margin="429,241,0,0" VerticalAlignment="Top" Width="439"/>
+        <DataGrid x:Name="dgProveedor" HorizontalAlignment="Left" Height="232" Margin="429,241,0,0" VerticalAlignment="Top" Width="439">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding IDProv}" ClipboardContentBinding="{x:Null}" Header="ID Proveedor"/>
+                <DataGridTextColumn Binding="{Binding NombreProv}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
+                <DataGridTextColumn Binding="{Binding Telefono}" ClipboardContentBinding="{x:Null}" Header="Telefono"/>
+                <DataGridTextColumn Binding="{Binding Sucursal}" ClipboardContentBinding="{x:Null}" Header="Sucursal"/>
+                <DataGridTextColumn Binding="{Binding Direccion}" ClipboardContentBinding="{x:Null}" Header="Direccion"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="btnVolver1" 
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"

@@ -43,21 +43,19 @@
         <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="611,450,0,0" VerticalAlignment="Top" Width="92" BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" Height="33" FontSize="14" Click="BtnModificar_Click"/>
         <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="496,450,0,0" VerticalAlignment="Top" Width="88"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="Button_Click"/>
         <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="720,450,0,0" VerticalAlignment="Top" Width="92"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="BtnEliminar_Click"/>
-        <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="675,146,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
-        <DataGrid x:Name="dgProducto" Grid.Column="1" HorizontalAlignment="Left" Height="225" Margin="361,207,0,0" VerticalAlignment="Top" Width="451" IsReadOnly="True">
+        <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="600,151,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
+        <DataGrid x:Name="dgProducto" Grid.Column="1" HorizontalAlignment="Left" Height="225" Margin="339,207,0,0" VerticalAlignment="Top" Width="482" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding IdProducto}" ClipboardContentBinding="{x:Null}" Header="Código"/>
                 <DataGridTextColumn Binding="{Binding NombreProd}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
                 <DataGridTextColumn Binding="{Binding PrecioVenta}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                 <DataGridTextColumn Binding="{Binding Categoria}" ClipboardContentBinding="{x:Null}" Header="Categoria"/>
                 <DataGridTextColumn Binding="{Binding Cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
-                <DataGridTextColumn Binding="{Binding FechaElaboracion}" ClipboardContentBinding="{x:Null}" Header="Fecha Elabor"/>
-                <DataGridTextColumn Binding="{Binding FechaVencimiento}" ClipboardContentBinding="{x:Null}" Header="Fecha Venc"/>
                 <DataGridTextColumn Binding="{Binding FechaIngreso}" ClipboardContentBinding="{x:Null}" Header="Fecha Ingreso"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtBuscarProd" Grid.Column="1" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Código" Height="36" Margin="361,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" FontSize="14"/>
-        <Label Content="Código Producto" HorizontalAlignment="Left" Margin="361,117,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.Column="1"/>
+        <TextBox x:Name="txtBuscarProd" Grid.Column="1" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Código" Height="36" Margin="339,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" FontSize="14"/>
+        <Label Content="Código Producto" HorizontalAlignment="Left" Margin="339,117,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.Column="1"/>
         <Button x:Name="btnVolver1" 
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
