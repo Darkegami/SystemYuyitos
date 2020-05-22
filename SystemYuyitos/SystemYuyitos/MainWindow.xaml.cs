@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls.Dialogs;
+using System.Data.OracleClient;
 
 namespace SystemYuyitos
 {
@@ -30,6 +31,13 @@ namespace SystemYuyitos
 
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
         {
+            OracleConnection ora = new OracleConnection("DATA SOURCE = XE; PASSWORD=123; USER ID =proy;");
+            ora.Open();
+            MessageBox.Show("Conectado");
+            ora.Close();
+            //hello
+
+
             if (txtUsuario.Text != string.Empty)
             {
                 if (pbContrasenia.Password != string.Empty)
