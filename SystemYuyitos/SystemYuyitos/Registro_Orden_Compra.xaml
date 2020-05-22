@@ -39,11 +39,11 @@
         <ComboBox x:Name="cboFamilia" HorizontalAlignment="Left" Margin="602,137,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
         <DataGrid x:Name="dgGrillaOrden" HorizontalAlignment="Left" Margin="30,235,0,0" VerticalAlignment="Top" Height="188" Width="456">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Entrega"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Valor Total"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                <DataGridTextColumn Binding="{Binding Id_orden_pedido}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
+                <DataGridTextColumn Binding="{Binding Fecha_orden}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
+                <DataGridTextColumn Binding="{Binding Fecha_entrega}" ClipboardContentBinding="{x:Null}" Header="Fecha Entrega"/>
+                <DataGridTextColumn Binding="{Binding Valor_Final}" ClipboardContentBinding="{x:Null}" Header="Valor Total"/>
+                <DataGridTextColumn Binding="{Binding Id_estado_orden}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnVolver1" 
