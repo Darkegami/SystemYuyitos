@@ -46,7 +46,15 @@ namespace SystemYuyitos
 
         private void btnIngresarProducto_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
 
         private void btnCrearOrden_Click(object sender, RoutedEventArgs e)

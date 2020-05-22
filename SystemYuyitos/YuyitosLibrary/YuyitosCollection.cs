@@ -10,7 +10,7 @@ namespace YuyitosLibrary
 {
     public class YuyitosCollection
     {
-        OracleConnection conexion = new OracleConnection("DATA SOURCE=orcl;PASSWORD=YUYITOS;USER ID=YUYITOS;");
+        OracleConnection conexion = new OracleConnection("DATA SOURCE=XE;PASSWORD=YUYITOS;USER ID=YUYITOS;");
 
         public List<Proveedor> proveedores = new List<Proveedor>();
         public bool GuardarProveedor(Proveedor proveedor)
