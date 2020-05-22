@@ -72,10 +72,11 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("INSERTARPROVEEDOR", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("ID_PROVEEDOR", OracleType.VarChar).Value = proveedor.IDProv;
+                OC.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = proveedor.IDProv;
                 OC.Parameters.Add("NOMBRE_PROV", OracleType.VarChar).Value = proveedor.NombreProv;
                 OC.Parameters.Add("TELEFONO", OracleType.Number).Value = proveedor.Telefono;
-                OC.Parameters.Add("DIRECCION", OracleType.Number).Value = proveedor.Direccion;
+                OC.Parameters.Add("SUCURSAL", OracleType.VarChar).Value = proveedor.Sucursal;
+                OC.Parameters.Add("DIRECCION", OracleType.VarChar).Value = proveedor.Direccion;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -101,6 +102,7 @@ namespace YuyitosLibrary
                     prov.IDProv = int.Parse(ODR["ID_PROVEEDOR"].ToString());
                     prov.NombreProv = ODR["NOMBRE_PROV"].ToString();
                     prov.Telefono = int.Parse(ODR["TELEFONO"].ToString());
+                    prov.Sucursal = ODR["SUCURSAL"].ToString();
                     prov.Direccion = ODR["DIRECCION"].ToString();
 
 

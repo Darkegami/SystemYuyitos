@@ -32,8 +32,8 @@ namespace SystemYuyitos
         }
         private void cargarGrilla()
         {
-            dgProveedor.ItemsSource = null;
-            dgProveedor.ItemsSource = YC.ListaProveedor();
+            dgProveedoor.ItemsSource = null;
+            dgProveedoor.ItemsSource = YC.ListaProveedor();
 
 
         }
@@ -42,7 +42,7 @@ namespace SystemYuyitos
         {
             try
             {
-                if (txtIdProveedor.Text == "")
+                if (txtIdProveedor.Text == " ")
                 {
                     MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
                     return;
@@ -55,9 +55,10 @@ namespace SystemYuyitos
                     prov.IDProv = 1;
                     prov.NombreProv = txtNombreProv.Text;
                     prov.Telefono = 1;
-                    prov.Direccion = txtDireccionProv.Text;
                     prov.Sucursal = txtSucursal.Text;
+                    prov.Direccion = txtDireccionProv.Text;
 
+                    cargarGrilla();
                     if (YC.IngresarProveedor(prov))
                     {
                         MessageBox.Show("El Proveedor ha sido ingresado exitosamente", "PROVEEDOR AGREGADO");
@@ -67,14 +68,14 @@ namespace SystemYuyitos
                     {
                         MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
                     }
-
-
+                    
                 }
 
              }catch (Exception error){
                 MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
                 return;
             }
+          
          }
 
 
@@ -104,6 +105,7 @@ namespace SystemYuyitos
 
         private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
         {
+
         }
     }
     
