@@ -31,13 +31,8 @@ namespace SystemYuyitos
 
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
         {
-            OracleConnection ora = new OracleConnection("DATA SOURCE = XE; PASSWORD=YUYITOS; USER ID =YUYITOS;");
-            ora.Open();
-            MessageBox.Show("Conectado");
-            ora.Close();
-            //hello
-
-
+           
+            
             if (txtUsuario.Text != string.Empty)
             {
                 if (pbContrasenia.Password != string.Empty)

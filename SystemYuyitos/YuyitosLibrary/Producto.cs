@@ -8,42 +8,54 @@ namespace YuyitosLibrary
 {
     public class Producto
     {
+        private string _id_producto;
         private string _nombreProd;
-        private string _codigo;
-        private string _categoria;
-        private int _precio;
-        private int _total;
-        private DateTime _fecha;
- 
+        private int _precio_venta;
+        private int _id_tipo_producto;
+        private int _cantidad;
+        private DateTime _fecha_elaboracion;
+        private DateTime _fecha_vencimiento;
+        private DateTime _fecha_ingreso;
 
-        public DateTime Fecha
+        public DateTime FechaIngreso
         {
-            get { return _fecha; }
-            set { _fecha = value; }
+            get { return _fecha_ingreso; }
+            set { _fecha_ingreso = value; }
         }
 
-        public int Total
+        public DateTime FechaElaboracion
         {
-            get { return _total; }
-            set { _total = value; }
+            get { return _fecha_elaboracion; }
+            set { _fecha_elaboracion = value; }
         }
 
-        public int Precio
+        public DateTime FechaVencimiento
         {
-            get { return _precio; }
-            set { _precio = value; }
+            get { return _fecha_vencimiento; }
+            set { _fecha_vencimiento = value; }
+        }
+        public int Cantidad
+        {
+            get { return _cantidad; }
+            set { _cantidad = value; }
         }
 
-        public string Categoria
+        public int PrecioVenta
         {
-            get { return _categoria; }
-            set { _categoria = value; }
+            get { return _precio_venta; }
+            set { _precio_venta = value; }
         }
 
-        public string Codigo
+        public int IdTipoProducto
         {
-            get { return _codigo; }
-            set { _codigo = value; }
+            get { return _id_tipo_producto; }
+            set { _id_tipo_producto = value; }
+        }
+
+        public string IdProducto
+        {
+            get { return _id_producto; }
+            set { _id_producto = value; }
         }
 
         public string NombreProd
