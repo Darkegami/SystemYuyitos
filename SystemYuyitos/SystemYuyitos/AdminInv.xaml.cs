@@ -54,6 +54,7 @@ namespace SystemYuyitos
                         return;
                     }
                     Producto prod = new Producto();
+
                     prod.IdProducto = txtCodigo.Text;
                     prod.NombreProd = txtNombreProd.Text;
                     prod.PrecioVenta = 1;
@@ -72,6 +73,7 @@ namespace SystemYuyitos
                     {
                         MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
                     }
+                    cargarGrilla();
 
                 }
 
