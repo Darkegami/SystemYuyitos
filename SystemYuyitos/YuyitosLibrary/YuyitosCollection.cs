@@ -10,79 +10,65 @@ namespace YuyitosLibrary
 {
     public class YuyitosCollection
     {
-        OracleConnection conexion = new OracleConnection("DATA SOURCE=orcl;PASSWORD=YUYITOS;USER ID=YUYITOS;");
+        OracleConnection conexion = new OracleConnection("DATA SOURCE=XE;PASSWORD=YUYITOS;USER ID=YUYITOS;");
 
-        public List<Proveedor> proveedores = new List<Proveedor>();
-        public bool GuardarProveedor(Proveedor proveedor)
+        public bool IngresarProducto(Producto producto)
         {
-            foreach (Proveedor a in proveedores)
+            try
             {
-                if (a.IDProv == proveedor.IDProv)
-                {
-                    return false;
-                }
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("INSERTARPRODUCTO", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.IdProducto;
+                OC.Parameters.Add("NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
+                OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.PrecioVenta;
+                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.IdTipoProducto;
+                OC.Parameters.Add("CANTIDAD", OracleType.Number).Value = producto.Cantidad;
+                OC.Parameters.Add("FEC_ELABORACION", OracleType.VarChar).Value = producto.FechaElaboracion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.FechaVencimiento.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("FEC_INGRESO", OracleType.VarChar).Value = producto.FechaIngreso.ToString("dd-MM-yyyy");
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
             }
-            this.proveedores.Add(proveedor);
-            return true;
-        }
-
-        public Proveedor BuscarProveedor(string iDProv){
-            foreach (Proveedor a in proveedores)
+            catch (Exception)
             {
-                if(a.IDProv == iDProv)
-                {
-                    return a;
-                }
-            }
-            return null;
-        }
-
-        public bool EliminarProveedor(string iDProv)
-        {
-            Proveedor prov = this.BuscarProveedor(iDProv);
-            if (prov == null)
-            {
+                conexion.Close();
                 return false;
             }
-            this.proveedores.Remove(prov);
-            return true;
+        }
+        public List<Producto> ListaProducto()
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM PRODUCTO", conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<Producto> listProducto = new List<Producto>();
+                while (ODR.Read())
+                {
+                    Producto prod = new Producto();
+                    prod.IdProducto = ODR["ID_PRODUCTO"].ToString();
+                    prod.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
+                    prod.PrecioVenta = int.Parse(ODR["PRECIO_VENTA"].ToString());
+                    prod.IdTipoProducto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
+                    prod.Cantidad = int.Parse(ODR["CANTIDAD"].ToString());
+                    prod.FechaElaboracion = DateTime.Parse(ODR["FEC_ELABORACION"].ToString());
+                    prod.FechaVencimiento = DateTime.Parse(ODR["FEC_VENCIMIENTO"].ToString());
+                    prod.FechaIngreso = DateTime.Parse(ODR["FEC_INGRESO"].ToString());
+
+                    listProducto.Add(prod);
+                }
+                conexion.Close();
+                return listProducto;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return null;
+            }
         }
 
-        public List<Producto> productos = new List<Producto>();
-        public bool GuardarProducto(Producto producto)
-        {
-            foreach(Producto a in productos)
-            {
-                if(a.Codigo == producto.Codigo)
-                {
-                    return false;
-                }
-            }
-            this.productos.Add(producto);
-            return true;
-        }
-        public Producto BuscarProducto(string codigo)
-        {
-            foreach (Producto a in productos)
-            {
-                if (a.Codigo == codigo)
-                {
-                    return a;
-                }
-            }
-            return null;
-        }
-
-        public bool EliminarProducto(string codigo)
-        {
-            Producto prod = this.BuscarProducto(codigo);
-            if (prod == null)
-            {
-                return false;
-            }
-            this.productos.Remove(prod);
-            return true;
-        }
 
         public bool CrearOrdenCompra(OrdenCompra ordenCompra)
         {
@@ -107,6 +93,8 @@ namespace YuyitosLibrary
                 return false;
             }
         }
+
+
 
         public List<OrdenCompra> ListaOrdenCompra()
         {
