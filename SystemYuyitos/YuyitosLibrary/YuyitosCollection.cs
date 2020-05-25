@@ -10,7 +10,7 @@ namespace YuyitosLibrary
 {
     public class YuyitosCollection
     {
-        OracleConnection conexion = new OracleConnection("DATA SOURCE=XE;PASSWORD=YUYITOS;USER ID=YUYITOS;");
+        OracleConnection conexion = new OracleConnection("DATA SOURCE=ORCL;PASSWORD=YUYITOS;USER ID=YUYITOS;");
 
         public bool IngresarProducto(Producto producto)
         {
@@ -124,7 +124,7 @@ namespace YuyitosLibrary
             try
             {
                 conexion.Open();
-                OracleCommand OC = new OracleCommand("INSERTARORDEN", conexion);
+                OracleCommand OC = new OracleCommand("INSERTAR_ORDEN", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
                 OC.Parameters.Add("ID_ORDEN", OracleType.VarChar).Value = ordenCompra.Id_orden_pedido;
                 OC.Parameters.Add("FECHA_ORDEN", OracleType.VarChar).Value = ordenCompra.Fecha_orden.ToString("dd-MM-yyyy");
@@ -142,8 +142,6 @@ namespace YuyitosLibrary
                 return false;
             }
         }
-
-
 
         public List<OrdenCompra> ListaOrdenCompra()
         {

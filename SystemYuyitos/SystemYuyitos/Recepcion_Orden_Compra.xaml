@@ -12,7 +12,6 @@
     
     <Grid Background="DarkGray">
         <Label x:Name="label_Copy3" Content="N° Orden Compra:" HorizontalAlignment="Left" Margin="76,90,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
-        <Button x:Name="button3" Content="Visualizar orden" HorizontalAlignment="Left" Margin="319,92,0,0" VerticalAlignment="Top" Width="111" Height="26"/>
         <Button x:Name="button" Content="Confirmar Recepcion" HorizontalAlignment="Left" Margin="99,476,0,0" VerticalAlignment="Top" Width="168"/>
         <Button x:Name="button1" Content="DENEGAR RECEPCION" HorizontalAlignment="Left" Margin="294,476,0,0" VerticalAlignment="Top" Width="177"/>
         <DatePicker HorizontalAlignment="Left" Margin="164,361,0,0" VerticalAlignment="Top"/>
@@ -37,12 +36,14 @@
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Valor   "/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="button3_Copy" Content="Listar Ordenes" HorizontalAlignment="Left" Margin="435,92,0,0" VerticalAlignment="Top" Width="111" Height="26"/>
+        <Button x:Name="button3_Copy" Content="Listar Ordenes" HorizontalAlignment="Left" Margin="323,92,0,0" VerticalAlignment="Top" Width="111" Height="26"/>
         <Button x:Name="btnVolver1" 
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
             ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,822,20">
             <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
+        <Label x:Name="label_Copy" Content="Rut Administrador:" HorizontalAlignment="Left" Margin="76,57,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
+        <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Height="23" Margin="189,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Controls:MetroWindow>

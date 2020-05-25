@@ -83,6 +83,7 @@ namespace SystemYuyitos
                     if (YC.CrearOrdenCompra(ordenCompra))
                     {
                         MessageBox.Show("La orden ha sido ingresada exitosamente", "ORDEN AGREGADA");
+                        this.cargarGrilla();
                         return;
                     }
                     else

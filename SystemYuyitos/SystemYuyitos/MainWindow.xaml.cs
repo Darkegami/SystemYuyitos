@@ -31,8 +31,8 @@ namespace SystemYuyitos
 
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+
+
             if (txtUsuario.Text != string.Empty)
             {
                 if (pbContrasenia.Password != string.Empty)
@@ -48,7 +48,7 @@ namespace SystemYuyitos
                         }
                         else
                         {
-                            MessageBox.Show( "Contraseña Incorrecta", "¡Error!"); 
+                            MessageBox.Show("Contraseña Incorrecta", "¡Error!");
                         }
 
                     }
@@ -69,5 +69,6 @@ namespace SystemYuyitos
                 MessageBox.Show("Debe ingresar Usuario", "¡Atención!");
             }
         }
+
     }
 }
