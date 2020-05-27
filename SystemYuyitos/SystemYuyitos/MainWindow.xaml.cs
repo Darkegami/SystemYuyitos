@@ -70,5 +70,12 @@ namespace SystemYuyitos
             }
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            OracleConnection conexion = new OracleConnection("DATA SOURCE=ORCL;PASSWORD=YUYITOS;USER ID=YUYITOS;");
+            conexion.Open();
+            MessageBox.Show("Conectado");
+            conexion.Close();
+        }
     }
 }

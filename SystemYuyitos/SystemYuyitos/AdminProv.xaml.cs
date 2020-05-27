@@ -55,7 +55,7 @@ namespace SystemYuyitos
                     prov.IDProv = 1;
                     prov.NombreProv = txtNombreProv.Text;
                     prov.Telefono = 1;
-                    prov.Sucursal = txtSucursal.Text;
+                    prov.Id_comuna = cbComuna.SelectedIndex;
                     prov.Direccion = txtDireccionProv.Text;
 
                     cargarGrilla();

@@ -14,6 +14,7 @@ namespace YuyitosLibrary
         private int _valor_final;
         private string _rut_administrador;
         private int _id_estado_orden;
+        private string _estado_orden;
 
         public DateTime Fecha_orden
         {
@@ -90,6 +91,19 @@ namespace YuyitosLibrary
             set
             {
                 _id_orden_pedido = value;
+            }
+        }
+
+        public string Estado_orden
+        {
+            get
+            {
+                return _estado_orden;
+            }
+
+            set
+            {
+                _estado_orden = value;
             }
         }
     }

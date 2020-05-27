@@ -11,26 +11,16 @@ namespace YuyitosLibrary
         private int _iDProv;
         private string _nombreProv;
         private int _telefono;
-        private string _sucursal;
         private string _direccion;
-
-
-    
-
-
+        private int _id_comuna;
+        private string _comuna;
+        private string _region;
+            
         public string Direccion
         {
             get { return _direccion; }
             set { _direccion = value; }
         }
-
-
-        public string Sucursal
-        {
-            get { return _sucursal; }
-            set { _sucursal = value; }
-        }
-
 
         public int Telefono
         {
@@ -50,5 +40,43 @@ namespace YuyitosLibrary
             set { _iDProv = value; }
         }
 
+        public int Id_comuna
+        {
+            get
+            {
+                return _id_comuna;
+            }
+
+            set
+            {
+                _id_comuna = value;
+            }
+        }
+
+        public string Comuna
+        {
+            get
+            {
+                return _comuna;
+            }
+
+            set
+            {
+                _comuna = value;
+            }
+        }
+
+        public string Region
+        {
+            get
+            {
+                return _region;
+            }
+
+            set
+            {
+                _region = value;
+            }
+        }
     }
 }

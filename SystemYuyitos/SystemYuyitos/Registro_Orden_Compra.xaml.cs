@@ -28,6 +28,11 @@ namespace SystemYuyitos
         {
             InitializeComponent();
             this.cargarGrilla();
+            cboProveedor.ItemsSource= null;
+            cboProveedor.ItemsSource = YC.ListaProveedor();
+
+            cboFamilia.ItemsSource = null;
+            cboFamilia.ItemsSource = YC.ListaFamilia();
         }
 
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
@@ -98,6 +103,38 @@ namespace SystemYuyitos
             {
 
                 MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                return;
+            }
+        }
+
+        private void cboProveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cboProducto.ItemsSource = null;
+            try
+            {
+                int id_proveedor = (int)cboProveedor.SelectedValue;
+                int id_familia = (int)cboFamilia.SelectedValue;
+                cboProducto.ItemsSource = YC.ObtenerProductoFiltrado(id_proveedor, id_familia);
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+        }
+
+        private void cboFamilia_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cboProducto.ItemsSource = null;
+            try
+            {
+                int id_proveedor = (int)cboProveedor.SelectedValue;
+                int id_familia = (int)cboFamilia.SelectedValue;
+                cboProducto.ItemsSource = YC.ObtenerProductoFiltrado(id_proveedor, id_familia);
+            }
+            catch (Exception)
+            {
+
                 return;
             }
         }

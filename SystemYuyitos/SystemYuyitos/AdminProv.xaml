@@ -19,19 +19,18 @@
         <Label Content="ID Proveedor:" HorizontalAlignment="Left" Margin="39,156,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="41,197,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="39,241,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
-        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="41,330,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="41,364,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <TextBox x:Name="txtIdProveedor" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese ID Proveedor" Height="36" Margin="137,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14" />
         <TextBox x:Name="txtNombreProv" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Nombre" Height="36" Margin="137,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14"/>
         <TextBox x:Name="txtTelefonoProv" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Teléfono" Height="36" Margin="137,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14"/>
-        <TextBox x:Name="txtDireccionProv" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Dirección" Height="105" Margin="137,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14"/>
+        <TextBox x:Name="txtDireccionProv" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Dirección" Height="70" Margin="137,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14"/>
         <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="566,451,0,0" VerticalAlignment="Top" Width="91"  BorderBrush="{x:Null}" Background="Black" Foreground="White" FontSize="14" Click="BtnAgregar_Click"/>
         <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="675,451,0,0" VerticalAlignment="Top" Width="90" BorderBrush="{x:Null}" Background="Black" Foreground="White" FontSize="14" Click="BtnModificar_Click"/>
         <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="786,451,0,0" VerticalAlignment="Top" Width="92"  BorderBrush="{x:Null}" Background="Black" Foreground="White" FontSize="14" Click="BtnEliminar_Click"/>
         <TextBox x:Name="txtIdProveBuscar" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingresar ID Proveedor" Height="36" Margin="429,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" FontSize="14" />
         <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="688,172,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
         <Label Content="Administración Proveedor" HorizontalAlignment="Left" Margin="39,97,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="262" Height="42"/>
-        <Label Content="Sucursal:" HorizontalAlignment="Left" Margin="41,280,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
-        <TextBox x:Name="txtSucursal" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Sucursal" Height="36" Margin="137,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontSize="14"/>
+        <Label Content="Comuna:" HorizontalAlignment="Left" Margin="41,319,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <Label Content="ID Proveedor" HorizontalAlignment="Left" Margin="429,140,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -49,16 +48,20 @@
             <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
         <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="299,451,0,0" VerticalAlignment="Top" Width="82" Height="33" Background="Black" BorderBrush="Black" FontSize="14" RenderTransformOrigin="0.244,0.455" Click="BtnLimpiar_Click"/>
-        <DataGrid x:Name="dgProveedoor" HorizontalAlignment="Left" Height="213" Margin="429,222,0,0" VerticalAlignment="Top" Width="449">
+        <DataGrid x:Name="dgProveedoor" HorizontalAlignment="Left" Height="213" Margin="429,222,0,0" VerticalAlignment="Top" Width="449" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding IDProv}" ClipboardContentBinding="{x:Null}" Header="ID Proveedor"/>
                 <DataGridTextColumn Binding="{Binding NombreProv}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
                 <DataGridTextColumn Binding="{Binding Telefono}" ClipboardContentBinding="{x:Null}" Header="Telefono"/>
-                <DataGridTextColumn Binding="{Binding Sucursal}" ClipboardContentBinding="{x:Null}" Header="Sucursal"/>
+                <DataGridTextColumn Binding="{Binding Region}" ClipboardContentBinding="{x:Null}" Header="Region"/>
+                <DataGridTextColumn Binding="{Binding Comuna}" ClipboardContentBinding="{x:Null}" Header="Comuna"/>
                 <DataGridTextColumn Binding="{Binding Direccion}" ClipboardContentBinding="{x:Null}" Header="Direccion"/>
 
             </DataGrid.Columns>
         </DataGrid>
+        <ComboBox x:Name="cbComuna" HorizontalAlignment="Left" Margin="137,319,0,0" VerticalAlignment="Top" Width="244" Height="34"/>
+        <Label Content="Región:" HorizontalAlignment="Left" Margin="49,280,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <ComboBox x:Name="cbComuna_Copy" HorizontalAlignment="Left" Margin="137,280,0,0" VerticalAlignment="Top" Width="244" Height="34"/>
 
 
     </Grid>
