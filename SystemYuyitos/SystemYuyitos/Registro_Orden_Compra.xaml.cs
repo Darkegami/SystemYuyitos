@@ -27,7 +27,7 @@ namespace SystemYuyitos
         public Registro_Orden_Compra()
         {
             InitializeComponent();
-            this.cargarGrilla();
+            this.cargarGrillaOrden();
             cboProveedor.ItemsSource= null;
             cboProveedor.ItemsSource = YC.ListaProveedor();
 
@@ -42,18 +42,65 @@ namespace SystemYuyitos
             this.Close();
         }
 
-        private void cargarGrilla()
+        private void cargarGrillaOrden()
         {
             dgGrillaOrden.ItemsSource = null;
             dgGrillaOrden.ItemsSource = YC.ListaOrdenCompra();
         }
 
+        private void cargarGrillaProducto(string id_orden)
+        {
+            dgGrillaProducto.ItemsSource = null;
+            dgGrillaProducto.ItemsSource = YC.ListaDetalleOrden(id_orden);
+        }
 
         private void btnIngresarProducto_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                
+                if (true)
+                {
+                    if (txtCantidad.Text==""||txtIdOrden.Text==""||cboFamilia.SelectedIndex < 0 || cboProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0)
+                    {
+                        MessageBox.Show("No puede dejar campos sin rellenar", "ERROR");
+                        return;
+                    }
+                    else
+                    {
+                        if (YC.LaOrdenEsValida(txtIdOrden.Text))
+                        {
+                            if (YC.ComprobarProductoEnLaOrden(txtIdOrden.Text,cboProducto.SelectedValue.ToString()))
+                            {
+                                MessageBox.Show("Ya fue ingresado este producto en esta orden","ERROR");
+                                return;
+                            }
+                            else
+                            {
+                                DetalleOrdenCompra detalleOrden = new DetalleOrdenCompra();
+                                detalleOrden.Cantidad_pack = int.Parse(txtCantidad.Text);
+                                detalleOrden.Id_orden = txtIdOrden.Text;
+                                detalleOrden.Id_producto = cboProducto.SelectedValue.ToString();
+                                if (YC.CrearDetalleOrden(detalleOrden))
+                                {
+                                    MessageBox.Show("Se ha ingresado un producto al detalle de la orden","PRODUCTO INGRESADO A LA ORDEN");
+                                    this.cargarGrillaOrden();
+                                    this.cargarGrillaProducto(detalleOrden.Id_orden);
+                                    return;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ingrese una orden de compra correcta y que no haya sido recepcionada","ERROR");
+                            return;
+                        }
+                    }
+                }
             }
             catch (Exception)
             {
@@ -88,12 +135,13 @@ namespace SystemYuyitos
                     if (YC.CrearOrdenCompra(ordenCompra))
                     {
                         MessageBox.Show("La orden ha sido ingresada exitosamente", "ORDEN AGREGADA");
-                        this.cargarGrilla();
+                        this.cargarGrillaOrden();
                         return;
                     }
                     else
                     {
                         MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                        return;
                     }
 
                 }
@@ -102,8 +150,7 @@ namespace SystemYuyitos
             catch (Exception error)
             {
 
-                MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
-                return;
+                throw;
             }
         }
 
@@ -136,6 +183,115 @@ namespace SystemYuyitos
             {
 
                 return;
+            }
+        }
+
+        private void txtIdOrden_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.cargarGrillaProducto(txtIdOrden.Text);
+        }
+
+        private void dgGrillaOrden_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                OrdenCompra ordenCompra = (OrdenCompra)dgGrillaOrden.SelectedItem;
+                txtIdOrden.Text = ordenCompra.Id_orden_pedido;
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+            
+        }
+
+        private void btnEliminarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (txtIdOrden.Text == "" || cboFamilia.SelectedIndex < 0 || cboProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0)
+                {
+                    MessageBox.Show("No puede dejar campos sin rellenar", "ERROR");
+                    return;
+                }
+                else
+                {
+                    if (YC.EliminarDetalleOrden(txtIdOrden.Text,cboProducto.SelectedValue.ToString()))
+                    {
+                        MessageBox.Show("Se ha eliminado un producto del detalle de la orden","PRODUCTO ELIMINADO DE LA ORDEN");
+                        this.cargarGrillaOrden();
+                        this.cargarGrillaProducto(txtIdOrden.Text);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha encontrado esta orden en la BD","ERROR");
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void dgGrillaProducto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                DetalleOrdenCompra detalleOrden= (DetalleOrdenCompra)dgGrillaProducto.SelectedItem;
+                cboProveedor.SelectedValue = detalleOrden.Id_proveedor;
+                cboFamilia.SelectedValue = detalleOrden.Id_familia;
+                cboProducto.ItemsSource = YC.ObtenerProductoFiltrado(detalleOrden.Id_proveedor, detalleOrden.Id_familia);
+                cboProducto.SelectedValue = detalleOrden.Id_producto;
+                txtCantidad.Text = detalleOrden.Cantidad_pack.ToString();
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+        }
+
+        private void btnEliminarOrden_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (txtIdOrden.Text=="")
+                {
+                    MessageBox.Show("Rellene el campo del numero de orden");
+                    return;
+                }
+                else
+                {
+                    if (YC.LaOrdenEsValida(txtIdOrden.Text))
+                    {
+                        if (YC.EliminarOrden(txtIdOrden.Text))
+                        {
+                            MessageBox.Show("Se ha eliminado la orden correctamente","ORDEN ELIMINADA");
+                            this.cargarGrillaOrden();
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("La orden que intenta eliminar tiene registros en otra tabla", "ERROR");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ingrese una orden de compra correcta y que no haya sido recepcionada", "ERROR");
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

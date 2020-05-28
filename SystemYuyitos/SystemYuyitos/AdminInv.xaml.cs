@@ -55,12 +55,12 @@ namespace SystemYuyitos
                     }
                     Producto prod = new Producto();
 
-                    prod.IdProducto = txtCodigo.Text;
+                    prod.Id_producto = txtCodigo.Text;
                     prod.NombreProd = txtNombreProd.Text;
-                    prod.PrecioVenta = 1;
-                    prod.IdTipoProducto = 1;
+                    prod.Precio_venta = 1;
+                    prod.Id_tipo_producto = 1;
                     prod.Cantidad = 1;
-                    prod.FechaIngreso = DateTime.Today;
+                    prod.Fecha_ingreso = DateTime.Today;
 
                     if (YC.IngresarProducto(prod))
                     {

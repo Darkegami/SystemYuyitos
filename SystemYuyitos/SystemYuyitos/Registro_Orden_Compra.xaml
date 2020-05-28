@@ -17,26 +17,27 @@
         <Label x:Name="label" Content="Proveedor:" HorizontalAlignment="Left" Margin="534,105,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="68"/>
         <Label x:Name="label_Copy" Content="Producto:" HorizontalAlignment="Left" Margin="534,167,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="60"/>
         <ComboBox x:Name="cboProveedor" DisplayMemberPath="NombreProv" SelectedValuePath="IDProv" HorizontalAlignment="Left" Margin="602,105,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="cboProveedor_SelectionChanged"/>
-        <DataGrid x:Name="dgGrillaProducto" HorizontalAlignment="Left" Margin="528,235,0,0" VerticalAlignment="Top" Height="188" Width="356">
+        <DataGrid x:Name="dgGrillaProducto" HorizontalAlignment="Left" Margin="528,235,0,0" VerticalAlignment="Top" Height="188" Width="356" AutoGenerateColumns="False" SelectionChanged="dgGrillaProducto_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Producto"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidadxpack"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Valor"/>
+                <DataGridTextColumn Binding="{Binding Id_orden}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
+                <DataGridTextColumn Binding="{Binding Proveedor}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
+                <DataGridTextColumn Binding="{Binding Producto}" ClipboardContentBinding="{x:Null}" Header="Producto"/>
+                <DataGridTextColumn Binding="{Binding Cantidad_pack}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                <DataGridTextColumn Binding="{Binding Precio_compra_total}" ClipboardContentBinding="{x:Null}" Header="Precio Compra"/>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="cboProducto" DisplayMemberPath="NombreProd" HorizontalAlignment="Left" Margin="602,171,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <ComboBox x:Name="cboProducto" DisplayMemberPath="NombreProd" SelectedValuePath="Id_producto" HorizontalAlignment="Left" Margin="602,171,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
         <Label x:Name="label_Copy1" Content="Cantidad:" HorizontalAlignment="Left" Margin="746,169,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="60"/>
         <TextBox x:Name="txtCantidad" HorizontalAlignment="Left" Height="26" Margin="814,171,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="42"/>
         <Button x:Name="btnIngresarProducto" Content="Ingresar Producto" HorizontalAlignment="Left" Margin="630,205,0,0" VerticalAlignment="Top" Width="126" Height="24" RenderTransformOrigin="0.509,0.448" Click="btnIngresarProducto_Click"/>
-        <Button x:Name="btnEliminarProducto" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="760,205,0,0" VerticalAlignment="Top" Width="124" Height="24" RenderTransformOrigin="0.489,0.49"/>
+        <Button x:Name="btnEliminarProducto" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="760,205,0,0" VerticalAlignment="Top" Width="124" Height="24" RenderTransformOrigin="0.5,0.5" Click="btnEliminarProducto_Click"/>
         <Button x:Name="btnCrearOrden" Content="Crear Orden" HorizontalAlignment="Left" Margin="282,179,0,0" VerticalAlignment="Top" Width="92" Height="26" Click="btnCrearOrden_Click"/>
-        <Button x:Name="button5" Content="Eliminar ORDEN" HorizontalAlignment="Left" Margin="530,428,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.185,-0.046" Height="26"/>
-        <Button x:Name="button6" Content="Ver INVENTARIO" HorizontalAlignment="Left" Margin="774,428,0,0" VerticalAlignment="Top" Width="110" Height="26"/>
+        <Button x:Name="btnEliminarOrden" Content="Eliminar ORDEN" HorizontalAlignment="Left" Margin="528,428,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.185,-0.046" Height="26" Click="btnEliminarOrden_Click"/>
+        <Button x:Name="btnVerInventario" Content="Ver INVENTARIO" HorizontalAlignment="Left" Margin="774,428,0,0" VerticalAlignment="Top" Width="110" Height="26"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="66" Margin="741,12,0,0" VerticalAlignment="Top" Width="114" Source="Imagenes/almacen.png"/>
         <Label x:Name="label_Copy4" Content="Familia:" HorizontalAlignment="Left" Margin="534,137,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="66"/>
         <ComboBox x:Name="cboFamilia" DisplayMemberPath="Nombre_familia" SelectedValuePath="Id_familia" HorizontalAlignment="Left" Margin="602,137,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="cboFamilia_SelectionChanged"/>
-        <DataGrid x:Name="dgGrillaOrden" HorizontalAlignment="Left" Margin="30,235,0,0" VerticalAlignment="Top" Height="188" Width="456" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgGrillaOrden" HorizontalAlignment="Left" Margin="30,235,0,0" VerticalAlignment="Top" Height="188" Width="456" AutoGenerateColumns="False" SelectionChanged="dgGrillaOrden_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id_orden_pedido}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
                 <DataGridTextColumn Binding="{Binding Fecha_orden,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
@@ -53,7 +54,7 @@
             <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
         <Label x:Name="label1" Content="N°Orden:" HorizontalAlignment="Left" Margin="534,73,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="602,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtIdOrden" HorizontalAlignment="Left" Height="23" Margin="602,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtIdOrden_TextChanged"/>
         <DatePicker x:Name="dpFechaEntrega" HorizontalAlignment="Left" Margin="132,179,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label2" Content="Fecha Entrega:" HorizontalAlignment="Left" Margin="45,179,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label3" Content="Rut Admin:" HorizontalAlignment="Left" Margin="64,147,0,0" VerticalAlignment="Top"/>

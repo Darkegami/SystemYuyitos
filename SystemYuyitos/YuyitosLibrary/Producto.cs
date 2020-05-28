@@ -17,51 +17,108 @@ namespace YuyitosLibrary
         private DateTime _fecha_vencimiento;
         private DateTime _fecha_ingreso;
 
-        public DateTime FechaIngreso
+        public string Id_producto
         {
-            get { return _fecha_ingreso; }
-            set { _fecha_ingreso = value; }
-        }
+            get
+            {
+                return _id_producto;
+            }
 
-        public DateTime FechaElaboracion
-        {
-            get { return _fecha_elaboracion; }
-            set { _fecha_elaboracion = value; }
-        }
-
-        public DateTime FechaVencimiento
-        {
-            get { return _fecha_vencimiento; }
-            set { _fecha_vencimiento = value; }
-        }
-        public int Cantidad
-        {
-            get { return _cantidad; }
-            set { _cantidad = value; }
-        }
-
-        public int PrecioVenta
-        {
-            get { return _precio_venta; }
-            set { _precio_venta = value; }
-        }
-
-        public int IdTipoProducto
-        {
-            get { return _id_tipo_producto; }
-            set { _id_tipo_producto = value; }
-        }
-
-        public string IdProducto
-        {
-            get { return _id_producto; }
-            set { _id_producto = value; }
+            set
+            {
+                _id_producto = value;
+            }
         }
 
         public string NombreProd
         {
-            get { return _nombreProd; }
-            set { _nombreProd = value; }
+            get
+            {
+                return _nombreProd;
+            }
+
+            set
+            {
+                _nombreProd = value;
+            }
+        }
+
+        public int Precio_venta
+        {
+            get
+            {
+                return _precio_venta;
+            }
+
+            set
+            {
+                _precio_venta = value;
+            }
+        }
+
+        public int Id_tipo_producto
+        {
+            get
+            {
+                return _id_tipo_producto;
+            }
+
+            set
+            {
+                _id_tipo_producto = value;
+            }
+        }
+
+        public int Cantidad
+        {
+            get
+            {
+                return _cantidad;
+            }
+
+            set
+            {
+                _cantidad = value;
+            }
+        }
+
+        public DateTime Fecha_elaboracion
+        {
+            get
+            {
+                return _fecha_elaboracion;
+            }
+
+            set
+            {
+                _fecha_elaboracion = value;
+            }
+        }
+
+        public DateTime Fecha_vencimiento
+        {
+            get
+            {
+                return _fecha_vencimiento;
+            }
+
+            set
+            {
+                _fecha_vencimiento = value;
+            }
+        }
+
+        public DateTime Fecha_ingreso
+        {
+            get
+            {
+                return _fecha_ingreso;
+            }
+
+            set
+            {
+                _fecha_ingreso = value;
+            }
         }
     }
 }

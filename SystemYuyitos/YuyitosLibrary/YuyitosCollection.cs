@@ -11,7 +11,9 @@ namespace YuyitosLibrary
     public class YuyitosCollection
     {
         OracleConnection conexion = new OracleConnection("DATA SOURCE=ORCL;PASSWORD=YUYITOS;USER ID=YUYITOS;");
-
+        /**
+         * Metodo para ingresar un producto a la BD
+         **/
         public bool IngresarProducto(Producto producto)
         {
             try
@@ -19,12 +21,12 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("INSERTARPRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.IdProducto;
+                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
                 OC.Parameters.Add("NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
-                OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.PrecioVenta;
-                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.IdTipoProducto;
+                OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
+                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Id_tipo_producto;
                 OC.Parameters.Add("CANTIDAD", OracleType.Number).Value = producto.Cantidad;
-                OC.Parameters.Add("FEC_INGRESO", OracleType.VarChar).Value = producto.FechaIngreso.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("FEC_INGRESO", OracleType.VarChar).Value = producto.Fecha_ingreso.ToString("dd-MM-yyyy");
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -35,6 +37,9 @@ namespace YuyitosLibrary
                 return false;
             }
         }
+        /**
+         * Metodo para listar todos los productos de la BD
+         **/
         public List<Producto> ListaProducto()
         {
             try
@@ -46,12 +51,12 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                     Producto prod = new Producto();
-                    prod.IdProducto = ODR["ID_PRODUCTO"].ToString();
+                    prod.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     prod.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
-                    prod.PrecioVenta = int.Parse(ODR["PRECIO_VENTA"].ToString());
-                    prod.IdTipoProducto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
+                    prod.Precio_venta = int.Parse(ODR["PRECIO_VENTA"].ToString());
+                    prod.Id_tipo_producto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
                     prod.Cantidad = int.Parse(ODR["CANTIDAD"].ToString());
-                    prod.FechaIngreso = DateTime.Parse(ODR["FEC_INGRESO"].ToString());
+                    prod.Fecha_ingreso = DateTime.Parse(ODR["FEC_INGRESO"].ToString());
 
                     listProducto.Add(prod);
                 }
@@ -64,7 +69,9 @@ namespace YuyitosLibrary
                 return null;
             }
         }
-
+        /**
+         * Metodo para ingresar un proveedor a la BD
+         **/
         public bool IngresarProveedor(Proveedor proveedor)
         {
             try
@@ -87,7 +94,9 @@ namespace YuyitosLibrary
                 return false;
             }
         }
-
+        /**
+         * Metodo para listar a todos los proveedores de la BD
+         **/
         public List<Proveedor> ListaProveedor()
         {
             try
@@ -117,8 +126,79 @@ namespace YuyitosLibrary
                 return null;
             }
         }
+        /**
+         * Metodo que valida la existencia de una orden de compra en estado "NO ENTREGADA"
+         **/
+        public bool LaOrdenEsValida(string id_orden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM ORDEN_PEDIDO WHERE ID_ORDEN_PEDIDO="+id_orden+" AND ID_ESTADO_ORDEN=1",conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<OrdenCompra> listOrden = new List<OrdenCompra>();
+                while (ODR.Read())
+                {
+                    OrdenCompra orden = new OrdenCompra();
+                    orden.Id_orden_pedido = ODR["ID_ORDEN_PEDIDO"].ToString();
+                    listOrden.Add(orden);
+                }
+                if (listOrden.Count()>0)
+                {
+                    conexion.Close();
+                    return true;
+                }
+                else
+                {
+                    conexion.Close();
+                    return false;
+                }
+                
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que comprueba si es que ya se ingreso el producto en la orden con anterioridad
+         **/
+        public bool ComprobarProductoEnLaOrden(string id_orden,string id_producto)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM DETALLE_ORDEN_PEDIDO WHERE ID_ORDEN_PEDIDO=" + id_orden + " AND ID_PRODUCTO="+id_producto, conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<DetalleOrdenCompra> listDetalleOrden = new List<DetalleOrdenCompra>();
+                while (ODR.Read())
+                {
+                    DetalleOrdenCompra detalleOrden = new DetalleOrdenCompra();
+                    detalleOrden.Id_orden = ODR["ID_ORDEN_PEDIDO"].ToString();
+                    listDetalleOrden.Add(detalleOrden);
+                }
+                if (listDetalleOrden.Count() > 0)
+                {
+                    conexion.Close();
+                    return true;
+                }
+                else
+                {
+                    conexion.Close();
+                    return false;
+                }
 
-
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que crea una orden de compra en la BD
+         **/
         public bool CrearOrdenCompra(OrdenCompra ordenCompra)
         {
             try
@@ -142,7 +222,9 @@ namespace YuyitosLibrary
                 return false;
             }
         }
-
+        /**
+         * Metodo para listar a todas las ordenes de compra de la BD
+         **/
         public List<OrdenCompra> ListaOrdenCompra()
         {
             try
@@ -172,7 +254,9 @@ namespace YuyitosLibrary
                 return null;
             }
         }
-
+        /**
+         * Metodo para listar los datos de la familia del producto de la BD
+         **/
         public List<Familia> ListaFamilia()
         {
             try
@@ -197,7 +281,9 @@ namespace YuyitosLibrary
                 return null;
             }
         }
-
+        /**
+         * Metodo que obtiene la lista de los productos filtrados por proveedor y familia
+         **/
         public List<Producto> ObtenerProductoFiltrado(int id_proveedor, int id_familia)
         {
             try
@@ -209,7 +295,7 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                     Producto producto = new Producto();
-                    producto.IdProducto = ODR["ID_PRODUCTO"].ToString();
+                    producto.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     producto.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
 
                     listProducto.Add(producto);
@@ -220,7 +306,110 @@ namespace YuyitosLibrary
             catch (Exception)
             {
 
-                throw;
+                conexion.Close();
+                return null;
+            }
+        }
+        /**
+         * Metodo que lista los datos del detalle de una orden de compra
+         **/
+        public List<DetalleOrdenCompra> ListaDetalleOrden(string id_orden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM DETALLE_ORDEN_PEDIDO DOP "+
+                    "INNER JOIN PRODUCTO P ON P.ID_PRODUCTO=DOP.ID_PRODUCTO "+
+                    "INNER JOIN PROVEEDOR PR ON P.ID_PROVEEDOR = PR.ID_PROVEEDOR WHERE DOP.ID_ORDEN_PEDIDO="+id_orden, conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<DetalleOrdenCompra> listDetalleOrden = new List<DetalleOrdenCompra>();
+                while (ODR.Read())
+                {
+                    DetalleOrdenCompra detalleOrden = new DetalleOrdenCompra();
+                    detalleOrden.Cantidad_pack = int.Parse(ODR["CANTIDAD"].ToString());
+                    detalleOrden.Id_orden = ODR["ID_ORDEN_PEDIDO"].ToString();
+                    detalleOrden.Producto = ODR["NOMBRE_PRODUCTO"].ToString();
+                    detalleOrden.Precio_compra_total = int.Parse(ODR["PRECIO_COMPRA_TOTAL"].ToString());
+                    detalleOrden.Proveedor = ODR["NOMBRE_PROV"].ToString();
+                    detalleOrden.Id_familia = int.Parse(ODR["ID_FAMILIA_PRODUCTO"].ToString());
+                    detalleOrden.Id_proveedor = int.Parse(ODR["ID_PROVEEDOR"].ToString());
+                    detalleOrden.Id_producto = ODR["ID_PRODUCTO"].ToString();
+                    listDetalleOrden.Add(detalleOrden);
+                }
+
+                conexion.Close();
+                return listDetalleOrden;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return null;
+            }
+        }
+        /**
+         * Metodo para ingresar el detalle de una orden
+         **/
+         public bool CrearDetalleOrden(DetalleOrdenCompra detalleOrden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("INSERTAR_DETALLE_ORDEN",conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("CANTIDAD",OracleType.Number).Value =detalleOrden.Cantidad_pack;
+                OC.Parameters.Add("ID_ORDEN", OracleType.VarChar).Value=detalleOrden.Id_orden;
+                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = detalleOrden.Id_producto;
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo para eliminar un producto del detalle de una orden
+         **/
+        public bool EliminarDetalleOrden(string id_orden,string id_producto)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("ELIMINAR_DETALLE_ORDEN",conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("V_ID_ORDEN",OracleType.VarChar).Value = id_orden;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.VarChar).Value = id_producto;
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo para eliminar una orden
+         **/
+        public bool EliminarOrden(string id_orden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("ELIMINAR_ORDEN", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("V_ID_ORDEN", OracleType.VarChar).Value = id_orden;
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
             }
         }
     }
