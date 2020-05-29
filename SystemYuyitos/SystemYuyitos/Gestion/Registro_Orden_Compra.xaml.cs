@@ -24,6 +24,8 @@ namespace SystemYuyitos
     public partial class Registro_Orden_Compra : MetroWindow
     {
         private YuyitosCollection YC = new YuyitosCollection();
+        public static Registro_Orden_Compra ventanaRegistroOrden;
+
         public Registro_Orden_Compra()
         {
             InitializeComponent();
@@ -35,10 +37,19 @@ namespace SystemYuyitos
             cboFamilia.ItemsSource = YC.ListaFamilia();
         }
 
+        public static Registro_Orden_Compra getInstance()
+        {
+            if (ventanaRegistroOrden == null)
+            {
+                ventanaRegistroOrden = new Registro_Orden_Compra();
+            }
+
+            return ventanaRegistroOrden;
+        }
+
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
+            Menu.getInstance().Show();
             this.Close();
         }
 
@@ -60,14 +71,14 @@ namespace SystemYuyitos
             {
                 if (true)
                 {
-                    if (txtCantidad.Text==""||txtIdOrden.Text==""||cboFamilia.SelectedIndex < 0 || cboProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0)
+                    if (txtCantidad.Text.Trim()==""||txtIdOrden.Text.Trim()==""||cboFamilia.SelectedIndex < 0 || cboProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0)
                     {
                         MessageBox.Show("No puede dejar campos sin rellenar", "ERROR");
                         return;
                     }
                     else
                     {
-                        if (YC.LaOrdenEsValida(txtIdOrden.Text))
+                        if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text))
                         {
                             if (YC.ComprobarProductoEnLaOrden(txtIdOrden.Text,cboProducto.SelectedValue.ToString()))
                             {
@@ -113,7 +124,7 @@ namespace SystemYuyitos
         {
             try
             {
-                if (dpFechaEntrega.SelectedDate == null || txtRutAdmin.Text =="")
+                if (dpFechaEntrega.SelectedDate == null || txtRutAdmin.Text.Trim() =="")
                 {
                     MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
                     return;
@@ -122,13 +133,13 @@ namespace SystemYuyitos
                 {
                     if (dpFechaEntrega.SelectedDate.Value < DateTime.Now.AddDays(-1))
                     {
-                        MessageBox.Show("La fecha de entrega no puede ser antes de la fecha de hoy", "ERROR FECHA RETIRO");
+                        MessageBox.Show("La fecha de entrega no puede ser antes de la fecha de hoy", "ERROR FECHA ENTREGA");
                         return;
                     }
                     OrdenCompra ordenCompra = new OrdenCompra();
                     ordenCompra.Rut_administrador = txtRutAdmin.Text;
                     ordenCompra.Id_orden_pedido = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
-                    ordenCompra.Fecha_orden = DateTime.Today; 
+                    ordenCompra.Fecha_orden = DateTime.Today;
                     ordenCompra.Fecha_entrega = dpFechaEntrega.SelectedDate.Value;
                     ordenCompra.Valor_final = 1;
                     ordenCompra.Id_estado_orden = 1;
@@ -210,7 +221,7 @@ namespace SystemYuyitos
         {
             try
             {
-                if (txtIdOrden.Text == "" || cboFamilia.SelectedIndex < 0 || cboProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0)
+                if (txtIdOrden.Text.Trim() == "" || cboFamilia.SelectedIndex < 0 || cboProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0)
                 {
                     MessageBox.Show("No puede dejar campos sin rellenar", "ERROR");
                     return;
@@ -260,14 +271,14 @@ namespace SystemYuyitos
         {
             try
             {
-                if (txtIdOrden.Text=="")
+                if (txtIdOrden.Text.Trim()=="")
                 {
                     MessageBox.Show("Rellene el campo del numero de orden");
                     return;
                 }
                 else
                 {
-                    if (YC.LaOrdenEsValida(txtIdOrden.Text))
+                    if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text))
                     {
                         if (YC.EliminarOrden(txtIdOrden.Text))
                         {

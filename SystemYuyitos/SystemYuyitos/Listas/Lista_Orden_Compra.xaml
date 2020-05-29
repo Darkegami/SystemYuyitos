@@ -1,0 +1,36 @@
+﻿<Controls:MetroWindow x:Class="SystemYuyitos.Lista_Orden_Compra"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemYuyitos"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        Title="Lista_Orden_Compra" Height="596" Width="934.668">
+    <Grid Background="DarkGray" Margin="0,0,0,-1">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="66" Margin="741,12,0,0" VerticalAlignment="Top" Width="114" Source="/SystemYuyitos;component/Imagenes/almacen.png"/>
+        <DataGrid x:Name="dgGrillaOrden" HorizontalAlignment="Left" Margin="171,118,0,0" VerticalAlignment="Top" Height="330" Width="573" AutoGenerateColumns="False" SelectionChanged="dgGrillaOrden_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id_orden_pedido}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
+                <DataGridTextColumn Binding="{Binding Fecha_orden,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
+                <DataGridTextColumn Binding="{Binding Fecha_entrega,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Entrega"/>
+                <DataGridTextColumn Binding="{Binding Valor_final}" ClipboardContentBinding="{x:Null}" Header="Valor Total"/>
+                <DataGridTextColumn Binding="{Binding Estado_orden}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                <DataGridTextColumn Binding="{Binding Rut_administrador}" ClipboardContentBinding="{x:Null}" Header="Rut Admin"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnVolver1" 
+            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+            BorderBrush="Transparent"
+            ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,822,20">
+            <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
+        </Button>
+    </Grid>
+</Controls:MetroWindow>
+

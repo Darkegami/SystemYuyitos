@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace YuyitosLibrary
 {
-    class RecepcionCompra
+    public class RecepcionCompra
     {
         private string _id_recepcion_compra;
-        private DateTime _fecha;
+        private DateTime _fecha_recepcion;
         private string _comentarios;
-        private EstadoRecepcion _estado_recepcion;
-        private int _id_estado_recepcion;
-        private int _id_orden_compra;
+        private string _id_orden_compra;
         private string _rut_administrador;
+        private int _id_estado_recepcion;
+        private string _estado_recepcion;
 
         public string Id_recepcion_compra
         {
@@ -29,16 +29,16 @@ namespace YuyitosLibrary
             }
         }
 
-        public DateTime Fecha
+        public DateTime Fecha_recepcion
         {
             get
             {
-                return _fecha;
+                return _fecha_recepcion;
             }
 
             set
             {
-                _fecha = value;
+                _fecha_recepcion = value;
             }
         }
 
@@ -55,16 +55,16 @@ namespace YuyitosLibrary
             }
         }
 
-        internal EstadoRecepcion Estado_recepcion
+        public string Rut_administrador
         {
             get
             {
-                return _estado_recepcion;
+                return _rut_administrador;
             }
 
             set
             {
-                _estado_recepcion = value;
+                _rut_administrador = value;
             }
         }
 
@@ -81,7 +81,20 @@ namespace YuyitosLibrary
             }
         }
 
-        public int Id_orden_compra
+        public string Estado_recepcion
+        {
+            get
+            {
+                return _estado_recepcion;
+            }
+
+            set
+            {
+                _estado_recepcion = value;
+            }
+        }
+
+        public string Id_orden_compra
         {
             get
             {
@@ -91,19 +104,6 @@ namespace YuyitosLibrary
             set
             {
                 _id_orden_compra = value;
-            }
-        }
-
-        public string Rut_administrador
-        {
-            get
-            {
-                return _rut_administrador;
-            }
-
-            set
-            {
-                _rut_administrador = value;
             }
         }
     }

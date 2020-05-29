@@ -129,7 +129,7 @@ namespace YuyitosLibrary
         /**
          * Metodo que valida la existencia de una orden de compra en estado "NO ENTREGADA"
          **/
-        public bool LaOrdenEsValida(string id_orden)
+        public bool LaOrdenNoFueEntregada(string id_orden)
         {
             try
             {
@@ -402,6 +402,128 @@ namespace YuyitosLibrary
                 OracleCommand OC = new OracleCommand("ELIMINAR_ORDEN", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
                 OC.Parameters.Add("V_ID_ORDEN", OracleType.VarChar).Value = id_orden;
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que valida la existencia de una orden de compra en estado "ENTREGADA"
+         **/
+        public bool LaOrdenFueEntregada(string id_orden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM ORDEN_PEDIDO WHERE ID_ORDEN_PEDIDO=" + id_orden + " AND ID_ESTADO_ORDEN=2", conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<OrdenCompra> listOrden = new List<OrdenCompra>();
+                while (ODR.Read())
+                {
+                    OrdenCompra orden = new OrdenCompra();
+                    orden.Id_orden_pedido = ODR["ID_ORDEN_PEDIDO"].ToString();
+                    listOrden.Add(orden);
+                }
+                if (listOrden.Count() > 0)
+                {
+                    conexion.Close();
+                    return true;
+                }
+                else
+                {
+                    conexion.Close();
+                    return false;
+                }
+
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que valida la existencia de una recepcion de una orden en estado "DENEGADA"
+         **/
+        public bool LaRecepcionFueDenegada(string id_orden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM RECEPCION_PEDIDO WHERE ID_ESTADO_RECEPCION=2 AND ID_ORDEN_PEDIDO="+id_orden, conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<RecepcionCompra> listRecepcion = new List<RecepcionCompra>();
+                while (ODR.Read())
+                {
+                    RecepcionCompra recepcion = new RecepcionCompra();
+                    recepcion.Id_recepcion_compra = ODR["ID_RECEPCION"].ToString();
+                    listRecepcion.Add(recepcion);
+                }
+                if (listRecepcion.Count() > 0)
+                {
+                    conexion.Close();
+                    return true;
+                }
+                else
+                {
+                    conexion.Close();
+                    return false;
+                }
+
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que confirma la recepcion de una orden
+         **/
+        public bool ConfirmarRecepcion(RecepcionCompra recepcionCompra)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("CONFIRMAR_RECEPCION",conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("V_COMENTARIOS", OracleType.VarChar).Value = recepcionCompra.Comentarios;
+                OC.Parameters.Add("V_FECHA_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Fecha_recepcion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("V_ID_ESTADO", OracleType.Number).Value = recepcionCompra.Id_estado_recepcion;
+                OC.Parameters.Add("V_ID_ORDEN", OracleType.VarChar).Value = recepcionCompra.Id_orden_compra;
+                OC.Parameters.Add("V_ID_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Id_recepcion_compra;
+                OC.Parameters.Add("V_RUT_ADMIN", OracleType.VarChar).Value = recepcionCompra.Rut_administrador;
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que denega la recepcion de una orden
+         **/
+        public bool denegarRecepcion(RecepcionCompra recepcionCompra)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("DENEGAR_RECEPCION", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("V_COMENTARIOS", OracleType.VarChar).Value = recepcionCompra.Comentarios;
+                OC.Parameters.Add("V_FECHA_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Fecha_recepcion;
+                OC.Parameters.Add("V_ID_ESTADO", OracleType.Number).Value = recepcionCompra.Id_estado_recepcion;
+                OC.Parameters.Add("V_ID_ORDEN", OracleType.VarChar).Value = recepcionCompra.Id_orden_compra;
+                OC.Parameters.Add("V_ID_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Id_recepcion_compra;
+                OC.Parameters.Add("V_RUT_ADMIN", OracleType.VarChar).Value = recepcionCompra.Rut_administrador;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;

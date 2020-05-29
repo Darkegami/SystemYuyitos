@@ -18,7 +18,7 @@
             <Controls:Tile.Effect>
                 <DropShadowEffect/>
             </Controls:Tile.Effect>
-            <Image Source="Imagenes/almacen.png" Height="104" Width="143"></Image>
+            <Image Source="/SystemYuyitos;component/Imagenes/almacen.png" Height="104" Width="143"></Image>
         </Controls:Tile>
         <Label Content="Nombre Producto:" HorizontalAlignment="Left" Margin="58,179,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14"/>
         <Label Content="Precio Venta:" HorizontalAlignment="Left" Margin="58,224,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14"/>
@@ -60,7 +60,7 @@
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
             ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,827,20" Grid.ColumnSpan="2">
-            <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
+            <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
         <Button x:Name="btnLimpiar" Content="Limpiar" Grid.Column="1" HorizontalAlignment="Left" Margin="218,401,0,0" VerticalAlignment="Top" Width="80" Height="31" Background="Black" BorderBrush="Black" FontSize="14" Click="BtnLimpiar_Click"/>
         <DatePicker x:Name="dpFecha_ingreso" Grid.Column="1" HorizontalAlignment="Left" Margin="99,349,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.724,0.385" Width="199" Height="41" FontSize="14"/>

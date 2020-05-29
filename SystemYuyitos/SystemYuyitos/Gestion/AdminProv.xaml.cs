@@ -15,104 +15,109 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls.Dialogs;
 using YuyitosLibrary;
-using System.Data.OracleClient;
-
 namespace SystemYuyitos
 {
     /// <summary>
-    /// Lógica de interacción para AdminInv.xaml
+    /// Lógica de interacción para Proveedor.xaml
     /// </summary>
-    public partial class AdminInv : MetroWindow
+    public partial class AdminProv : MetroWindow
     {
-
         private YuyitosCollection YC = new YuyitosCollection();
-        public AdminInv()
+        public static AdminProv ventanaProveedor;
+
+        public AdminProv()
         {
             InitializeComponent();
             this.cargarGrilla();
+            
+        }
+
+        public static AdminProv getInstance()
+        {
+            if (ventanaProveedor == null)
+            {
+                ventanaProveedor = new AdminProv();
+            }
+
+            return ventanaProveedor;
         }
 
         private void cargarGrilla()
         {
-            dgProducto.ItemsSource = null;
-            dgProducto.ItemsSource = YC.ListaProducto();
+            dgProveedoor.ItemsSource = null;
+            dgProveedoor.ItemsSource = YC.ListaProveedor();
+
+
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void BtnAgregar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (dpFecha_ingreso.SelectedDate == null || txtCodigo.Text == "")
+                if (txtIdProveedor.Text == " ")
                 {
                     MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
                     return;
                 }
                 else
                 {
-                    if (dpFecha_ingreso.SelectedDate.Value < DateTime.Now.AddDays(-1))
-                    {
-                        MessageBox.Show("La fecha de Ingreso no puede ser antes de la fecha de hoy", "ERROR FECHA RETIRO");
-                        return;
-                    }
-                    Producto prod = new Producto();
 
-                    prod.Id_producto = txtCodigo.Text;
-                    prod.NombreProd = txtNombreProd.Text;
-                    prod.Precio_venta = 1;
-                    prod.Id_tipo_producto = 1;
-                    prod.Cantidad = 1;
-                    prod.Fecha_ingreso = DateTime.Today;
+                    Proveedor prov = new Proveedor();
 
-                    if (YC.IngresarProducto(prod))
+                    prov.IDProv = 1;
+                    prov.NombreProv = txtNombreProv.Text;
+                    prov.Telefono = 1;
+                    prov.Id_comuna = cbComuna.SelectedIndex;
+                    prov.Direccion = txtDireccionProv.Text;
+
+                    cargarGrilla();
+                    if (YC.IngresarProveedor(prov))
                     {
-                        MessageBox.Show("El Producto ha sido ingresado exitosamente", "PRODUCTO AGREGADO");
+                        MessageBox.Show("El Proveedor ha sido ingresado exitosamente", "PROVEEDOR AGREGADO");
                         return;
                     }
                     else
                     {
                         MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
                     }
-                    cargarGrilla();
-
+                    
                 }
 
-            }
-            catch (Exception error)
-            {
-
+             }catch (Exception error){
                 MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
                 return;
             }
-        }
-    
+          
+         }
 
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
            
-        }
 
-        private void BtnModificar_Click(object sender, RoutedEventArgs e)
-        {
-           
+
         }
 
         private void BtnEliminar_Click(object sender, RoutedEventArgs e)
         {
-     
+         
+        }
+
+        private void BtnModificar_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
+            Menu.getInstance().Show();
             this.Close();
         }
 
         private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
         {
-           
-            
 
         }
     }
+    
 }

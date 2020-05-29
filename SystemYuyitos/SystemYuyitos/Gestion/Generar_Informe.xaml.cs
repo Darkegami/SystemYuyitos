@@ -24,17 +24,16 @@ namespace SystemYuyitos
     public partial class Generar_Informe : MetroWindow
     {
 
-        public static Generar_Informe ventana_Informes;
-        public static Menu menu;
+        public static Generar_Informe ventanaInformes;
+
         public static Generar_Informe getInstance()
         {
-            if (ventana_Informes == null)
+            if (ventanaInformes == null)
             {
-                ventana_Informes = new Generar_Informe();
+                ventanaInformes = new Generar_Informe();
             }
-            return ventana_Informes;
 
-           
+            return ventanaInformes;
         }
 
         public Generar_Informe()
@@ -44,17 +43,10 @@ namespace SystemYuyitos
 
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
+            Menu.getInstance().Show();
             this.Close();  
 
         }
-
-      
-   
-        
-
-
 
     }
 }

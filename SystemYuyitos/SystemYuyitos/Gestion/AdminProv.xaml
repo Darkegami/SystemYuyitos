@@ -14,7 +14,7 @@
             <Controls:Tile.Effect>
                 <DropShadowEffect/>
             </Controls:Tile.Effect>
-            <Image Source="Imagenes/almacen.png" Height="104" Width="143"></Image>
+            <Image Source="/SystemYuyitos;component/Imagenes/almacen.png" Height="104" Width="143"></Image>
         </Controls:Tile>
         <Label Content="ID Proveedor:" HorizontalAlignment="Left" Margin="39,156,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="41,197,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
@@ -45,7 +45,7 @@
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
             ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,822,20">
-            <Image Source="Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
+            <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
         <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="299,451,0,0" VerticalAlignment="Top" Width="82" Height="33" Background="Black" BorderBrush="Black" FontSize="14" RenderTransformOrigin="0.244,0.455" Click="BtnLimpiar_Click"/>
         <DataGrid x:Name="dgProveedoor" HorizontalAlignment="Left" Height="213" Margin="429,222,0,0" VerticalAlignment="Top" Width="449" AutoGenerateColumns="False">

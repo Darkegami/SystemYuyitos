@@ -22,44 +22,50 @@ namespace SystemYuyitos
     /// </summary>
     public partial class Menu : MetroWindow
     {
+        public static Menu ventanaMenu;
         public Menu()
         {
             InitializeComponent();
         }
+        public static Menu getInstance()
+        {
+            if (ventanaMenu == null)
+            {
+                ventanaMenu = new Menu();
+            }
+
+            return ventanaMenu;
+        }
+
         private void btnInventario(object sender, RoutedEventArgs e)
         {
-            AdminInv inv = new AdminInv();
-            inv.Show();
+            AdminInv.getInstance().Show();
             this.Close();
         }
 
         private void btnProveedor(object sender, RoutedEventArgs e)
         {
-            AdminProv prov = new AdminProv();
-            prov.Show();
+            AdminProv.getInstance().Show();
             this.Close();
         }
 
         private void btnInformes(object sender, RoutedEventArgs e)
         {
-            Generar_Informe ventanaInforme = new Generar_Informe();
-            ventanaInforme.Show();
+            Generar_Informe.getInstance().Show();
             this.Close();
 
         }
 
         private void btnOrden(object sender, RoutedEventArgs e)
         {
-            Registro_Orden_Compra ventanaOrden = new Registro_Orden_Compra();
-            ventanaOrden.Show();
+            Registro_Orden_Compra.getInstance().Show();
             this.Close();
 
         }
 
         private void btnRecepcion(object sender, RoutedEventArgs e)
         {
-            Recepcion_Orden_Compra ventanaRecepcion = new Recepcion_Orden_Compra();
-            ventanaRecepcion.Show();
+            Recepcion_Orden_Compra.getInstance().Show();
             this.Close();
 
         }

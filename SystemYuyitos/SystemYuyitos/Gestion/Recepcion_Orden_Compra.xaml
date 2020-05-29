@@ -1,0 +1,50 @@
+﻿<Controls:MetroWindow x:Class="SystemYuyitos.Recepcion_Orden_Compra"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemYuyitos"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        Title="Recepcion_Orden_Compra" Height="596" Width="934.668">
+
+    <Grid Background="DarkGray">
+        <Label x:Name="label_Copy3" Content="N° Orden Compra:" HorizontalAlignment="Left" Margin="47,74,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
+        <Button x:Name="btnConfirmarRecepcion" Content="Confirmar Recepcion" HorizontalAlignment="Left" Margin="99,476,0,0" VerticalAlignment="Top" Width="168" Click="btnConfirmarRecepcion_Click"/>
+        <Button x:Name="btnDenegarRecepcion" Content="DENEGAR RECEPCION" HorizontalAlignment="Left" Margin="294,476,0,0" VerticalAlignment="Top" Width="177"/>
+        <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="164,361,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="Fecha Recepcion:" HorizontalAlignment="Left" Margin="58,360,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Comentarios:" HorizontalAlignment="Left" Margin="79,391,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtComentarios" HorizontalAlignment="Left" Height="62" Margin="164,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="306"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="65" Margin="736,10,0,0" VerticalAlignment="Top" Width="115" Source="/SystemYuyitos;component/Imagenes/almacen.png"/>
+        <TextBox x:Name="txtIdOrden" HorizontalAlignment="Left" Height="23" Margin="160,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtIdOrden_TextChanged"/>
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="519,126,0,0" VerticalAlignment="Top" Height="190" Width="379">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="N° RECEPCION"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="N° ORDEN"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="ESTADO"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="     COMENTARIO     "/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnListarOrdenes" Content="Listar Ordenes" HorizontalAlignment="Left" Margin="294,76,0,0" VerticalAlignment="Top" Width="111" Height="26" Click="btnListarOrdenes_Click"/>
+        <Button x:Name="btnVolver1" 
+            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+            BorderBrush="Transparent"
+            ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,822,20">
+            <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
+        </Button>
+        <Label x:Name="label_Copy" Content="Rut Administrador:" HorizontalAlignment="Left" Margin="51,330,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
+        <TextBox x:Name="txtRutAdmin" HorizontalAlignment="Left" Height="23" Margin="164,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <DataGrid x:Name="dgGrillaProducto" HorizontalAlignment="Left" Margin="36,128,0,0" VerticalAlignment="Top" Height="188" Width="452" AutoGenerateColumns="False" SelectionChanged="dgGrillaProducto_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id_orden}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
+                <DataGridTextColumn Binding="{Binding Proveedor}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
+                <DataGridTextColumn Binding="{Binding Producto}" ClipboardContentBinding="{x:Null}" Header="Producto"/>
+                <DataGridTextColumn Binding="{Binding Cantidad_pack}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                <DataGridTextColumn Binding="{Binding Precio_compra_total}" ClipboardContentBinding="{x:Null}" Header="Precio Compra"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Controls:MetroWindow>
