@@ -12,9 +12,9 @@ namespace YuyitosLibrary
         private string _nombreProv;
         private int _telefono;
         private string _direccion;
-        private int _id_comuna;
-        private string _comuna;
-        private string _region;
+        private Comuna _comuna;
+        private Region _region;
+
             
         public string Direccion
         {
@@ -40,20 +40,7 @@ namespace YuyitosLibrary
             set { _iDProv = value; }
         }
 
-        public int Id_comuna
-        {
-            get
-            {
-                return _id_comuna;
-            }
-
-            set
-            {
-                _id_comuna = value;
-            }
-        }
-
-        public string Comuna
+        public Comuna Comuna
         {
             get
             {
@@ -66,7 +53,7 @@ namespace YuyitosLibrary
             }
         }
 
-        public string Region
+        public Region Region
         {
             get
             {

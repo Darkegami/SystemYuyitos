@@ -13,19 +13,21 @@
     <Grid Background="DarkGray">
         <Label x:Name="label_Copy3" Content="N° Orden Compra:" HorizontalAlignment="Left" Margin="47,74,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
         <Button x:Name="btnConfirmarRecepcion" Content="Confirmar Recepcion" HorizontalAlignment="Left" Margin="99,476,0,0" VerticalAlignment="Top" Width="168" Click="btnConfirmarRecepcion_Click"/>
-        <Button x:Name="btnDenegarRecepcion" Content="DENEGAR RECEPCION" HorizontalAlignment="Left" Margin="294,476,0,0" VerticalAlignment="Top" Width="177"/>
+        <Button x:Name="btnDenegarRecepcion" Content="DENEGAR RECEPCION" HorizontalAlignment="Left" Margin="294,476,0,0" VerticalAlignment="Top" Width="177" Click="btnDenegarRecepcion_Click"/>
         <DatePicker x:Name="dpFechaRecepcion" HorizontalAlignment="Left" Margin="164,361,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="Fecha Recepcion:" HorizontalAlignment="Left" Margin="58,360,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="Comentarios:" HorizontalAlignment="Left" Margin="79,391,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtComentarios" HorizontalAlignment="Left" Height="62" Margin="164,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="306"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="65" Margin="736,10,0,0" VerticalAlignment="Top" Width="115" Source="/SystemYuyitos;component/Imagenes/almacen.png"/>
         <TextBox x:Name="txtIdOrden" HorizontalAlignment="Left" Height="23" Margin="160,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtIdOrden_TextChanged"/>
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="519,126,0,0" VerticalAlignment="Top" Height="190" Width="379">
+        <DataGrid x:Name="dgGrillaRecepcion" HorizontalAlignment="Left" Margin="519,126,0,0" VerticalAlignment="Top" Height="190" Width="379" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="N° RECEPCION"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="N° ORDEN"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="ESTADO"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="     COMENTARIO     "/>
+                <DataGridTextColumn Binding="{Binding Id_recepcion_compra}" ClipboardContentBinding="{x:Null}" Header="N°RECEPCION"/>
+                <DataGridTextColumn Binding="{Binding Id_orden_compra}" ClipboardContentBinding="{x:Null}" Header="N°ORDEN"/>
+                <DataGridTextColumn Binding="{Binding Estado_recepcion,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="ESTADO"/>
+                <DataGridTextColumn Binding="{Binding Fecha_recepcion}" ClipboardContentBinding="{x:Null}" Header="FECHA RECEPCION"/>
+                <DataGridTextColumn Binding="{Binding Comentarios}" ClipboardContentBinding="{x:Null}" Header="COMENTARIO"/>
+                <DataGridTextColumn Binding="{Binding Rut_administrador}" ClipboardContentBinding="{x:Null}" Header="RUT ADMIN"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnListarOrdenes" Content="Listar Ordenes" HorizontalAlignment="Left" Margin="294,76,0,0" VerticalAlignment="Top" Width="111" Height="26" Click="btnListarOrdenes_Click"/>

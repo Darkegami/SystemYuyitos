@@ -11,11 +11,14 @@ namespace YuyitosLibrary
         private string _id_producto;
         private string _nombreProd;
         private int _precio_venta;
-        private int _id_tipo_producto;
-        private int _cantidad;
+        private int _precio_compra;
+        private int _stock;
         private DateTime _fecha_elaboracion;
         private DateTime _fecha_vencimiento;
         private DateTime _fecha_ingreso;
+        private Familia _familia;
+        private Proveedor _proveedor;
+        private TipoProducto _tipo_producto;
 
         public string Id_producto
         {
@@ -56,32 +59,6 @@ namespace YuyitosLibrary
             }
         }
 
-        public int Id_tipo_producto
-        {
-            get
-            {
-                return _id_tipo_producto;
-            }
-
-            set
-            {
-                _id_tipo_producto = value;
-            }
-        }
-
-        public int Cantidad
-        {
-            get
-            {
-                return _cantidad;
-            }
-
-            set
-            {
-                _cantidad = value;
-            }
-        }
-
         public DateTime Fecha_elaboracion
         {
             get
@@ -118,6 +95,71 @@ namespace YuyitosLibrary
             set
             {
                 _fecha_ingreso = value;
+            }
+        }
+
+        public int Precio_compra
+        {
+            get
+            {
+                return _precio_compra;
+            }
+
+            set
+            {
+                _precio_compra = value;
+            }
+        }
+
+        public Familia Familia
+        {
+            get
+            {
+                return _familia;
+            }
+
+            set
+            {
+                _familia = value;
+            }
+        }
+
+        public Proveedor Proveedor
+        {
+            get
+            {
+                return _proveedor;
+            }
+
+            set
+            {
+                _proveedor = value;
+            }
+        }
+
+        public TipoProducto Tipo_producto
+        {
+            get
+            {
+                return _tipo_producto;
+            }
+
+            set
+            {
+                _tipo_producto = value;
+            }
+        }
+
+        public int Stock
+        {
+            get
+            {
+                return _stock;
+            }
+
+            set
+            {
+                _stock = value;
             }
         }
     }

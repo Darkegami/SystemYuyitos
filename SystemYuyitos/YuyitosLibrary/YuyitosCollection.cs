@@ -24,8 +24,7 @@ namespace YuyitosLibrary
                 OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
                 OC.Parameters.Add("NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
                 OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
-                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Id_tipo_producto;
-                OC.Parameters.Add("CANTIDAD", OracleType.Number).Value = producto.Cantidad;
+                OC.Parameters.Add("CANTIDAD", OracleType.Number).Value = producto.Stock;
                 OC.Parameters.Add("FEC_INGRESO", OracleType.VarChar).Value = producto.Fecha_ingreso.ToString("dd-MM-yyyy");
                 OC.ExecuteNonQuery();
                 conexion.Close();
@@ -45,7 +44,10 @@ namespace YuyitosLibrary
             try
             {
                 conexion.Open();
-                OracleCommand OC = new OracleCommand("SELECT * FROM PRODUCTO", conexion);
+                OracleCommand OC = new OracleCommand("SELECT * FROM PRODUCTO PROD "+
+                                                     "INNER JOIN FAMILIA_PRODUCTO FA ON FA.ID_FAMILIA_PRODUCTO = PROD.ID_FAMILIA_PRODUCTO "+
+                                                     "INNER JOIN PROVEEDOR PROV ON PROV.ID_PROVEEDOR = PROD.ID_PROVEEDOR "+
+                                                     "INNER JOIN TIPO_PRODUCTO TP ON TP.ID_TIPO_PRODUCTO = PROD.ID_TIPO_PRODUCTO", conexion);
                 OracleDataReader ODR = OC.ExecuteReader();
                 List<Producto> listProducto = new List<Producto>();
                 while (ODR.Read())
@@ -54,9 +56,22 @@ namespace YuyitosLibrary
                     prod.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     prod.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
                     prod.Precio_venta = int.Parse(ODR["PRECIO_VENTA"].ToString());
-                    prod.Id_tipo_producto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
-                    prod.Cantidad = int.Parse(ODR["CANTIDAD"].ToString());
-                    prod.Fecha_ingreso = DateTime.Parse(ODR["FEC_INGRESO"].ToString());
+                    prod.Precio_compra = int.Parse(ODR["PRECIO_COMPRA"].ToString());
+                    prod.Stock = int.Parse(ODR["CANTIDAD"].ToString());
+                    prod.Fecha_elaboracion = DateTime.Parse(ODR["FECHA_ELABORACION"].ToString());
+                    prod.Fecha_elaboracion = DateTime.Parse(ODR["FECHA_VENCIMIENTO"].ToString());
+                    Familia fam = new Familia();
+                    fam.Id_familia = int.Parse(ODR["ID_FAMILIA_PRODUCTO"].ToString());
+                    fam.Nombre_familia = ODR["NOMBRE_FAMILIA"].ToString();
+                    prod.Familia = fam;
+                    Proveedor prov = new Proveedor();
+                    prov.IDProv = int.Parse(ODR["ID_PROVEEDOR"].ToString());
+                    prov.NombreProv = ODR["NOMBREPROV"].ToString();
+                    prod.Proveedor = prov;
+                    TipoProducto tp = new TipoProducto();
+                    tp.Id_tipo_producto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
+                    tp.Nombre_tipo_prod = ODR["NOMBRE_TIPO_PROD"].ToString();
+                    prod.Tipo_producto = tp;
 
                     listProducto.Add(prod);
                 }
@@ -111,8 +126,14 @@ namespace YuyitosLibrary
                     prov.IDProv = int.Parse(ODR["ID_PROVEEDOR"].ToString());
                     prov.NombreProv = ODR["NOMBRE_PROV"].ToString();
                     prov.Telefono = int.Parse(ODR["TELEFONO"].ToString());
-                    prov.Region = ODR["NOMBRE_REGION"].ToString();
-                    prov.Comuna = ODR["NOMBRE_COMUNA"].ToString();
+                    Region reg = new Region();
+                    reg.Id_region = int.Parse(ODR["ID_REGION"].ToString());
+                    reg.Nombre_region = ODR["NOMBRE_REGION"].ToString();
+                    prov.Region = reg;
+                    Comuna com = new Comuna();
+                    com.Id_comuna = int.Parse(ODR["ID_COMUNA"].ToString());
+                    com.Nombre_comuna = ODR["NOMBRE_COMUNA"].ToString();
+                    prov.Comuna =com;
                     prov.Direccion = ODR["DIRECCION"].ToString();
 
                     listProveedor.Add(prov);
@@ -448,41 +469,6 @@ namespace YuyitosLibrary
             }
         }
         /**
-         * Metodo que valida la existencia de una recepcion de una orden en estado "DENEGADA"
-         **/
-        public bool LaRecepcionFueDenegada(string id_orden)
-        {
-            try
-            {
-                conexion.Open();
-                OracleCommand OC = new OracleCommand("SELECT * FROM RECEPCION_PEDIDO WHERE ID_ESTADO_RECEPCION=2 AND ID_ORDEN_PEDIDO="+id_orden, conexion);
-                OracleDataReader ODR = OC.ExecuteReader();
-                List<RecepcionCompra> listRecepcion = new List<RecepcionCompra>();
-                while (ODR.Read())
-                {
-                    RecepcionCompra recepcion = new RecepcionCompra();
-                    recepcion.Id_recepcion_compra = ODR["ID_RECEPCION"].ToString();
-                    listRecepcion.Add(recepcion);
-                }
-                if (listRecepcion.Count() > 0)
-                {
-                    conexion.Close();
-                    return true;
-                }
-                else
-                {
-                    conexion.Close();
-                    return false;
-                }
-
-            }
-            catch (Exception)
-            {
-                conexion.Close();
-                return false;
-            }
-        }
-        /**
          * Metodo que confirma la recepcion de una orden
          **/
         public bool ConfirmarRecepcion(RecepcionCompra recepcionCompra)
@@ -511,7 +497,7 @@ namespace YuyitosLibrary
         /**
          * Metodo que denega la recepcion de una orden
          **/
-        public bool denegarRecepcion(RecepcionCompra recepcionCompra)
+        public bool DenegarRecepcion(RecepcionCompra recepcionCompra)
         {
             try
             {
@@ -519,7 +505,7 @@ namespace YuyitosLibrary
                 OracleCommand OC = new OracleCommand("DENEGAR_RECEPCION", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
                 OC.Parameters.Add("V_COMENTARIOS", OracleType.VarChar).Value = recepcionCompra.Comentarios;
-                OC.Parameters.Add("V_FECHA_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Fecha_recepcion;
+                OC.Parameters.Add("V_FECHA_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Fecha_recepcion.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("V_ID_ESTADO", OracleType.Number).Value = recepcionCompra.Id_estado_recepcion;
                 OC.Parameters.Add("V_ID_ORDEN", OracleType.VarChar).Value = recepcionCompra.Id_orden_compra;
                 OC.Parameters.Add("V_ID_RECEPCION", OracleType.VarChar).Value = recepcionCompra.Id_recepcion_compra;
@@ -532,6 +518,202 @@ namespace YuyitosLibrary
             {
                 conexion.Close();
                 return false;
+            }
+        }
+        /**
+         * Metodo que comprueba si existen productos en el detalle de la orden
+         **/
+        public bool ComprobarExistenciaDetalleOrden(string id_orden)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM DETALLE_ORDEN_PEDIDO WHERE ID_ORDEN_PEDIDO=" + id_orden, conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<DetalleOrdenCompra> listDetalleOrden = new List<DetalleOrdenCompra>();
+                while (ODR.Read())
+                {
+                    DetalleOrdenCompra detalleOrden = new DetalleOrdenCompra();
+                    detalleOrden.Id_orden = ODR["ID_ORDEN_PEDIDO"].ToString();
+                    listDetalleOrden.Add(detalleOrden);
+                }
+                if (listDetalleOrden.Count() > 0)
+                {
+                    conexion.Close();
+                    return true;
+                }
+                else
+                {
+                    conexion.Close();
+                    return false;
+                }
+
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que comprueba la existencia de un administrador
+         **/
+        public bool ComprobarExistenciaAdministrador(string rut_admin)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM ADMINISTRADOR WHERE RUT_ADMINISTRADOR=" + rut_admin, conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<Administrador> listAdministrador = new List<Administrador>();
+                while (ODR.Read())
+                {
+                    Administrador admin = new Administrador();
+                    admin.Rut_administrador = ODR["RUT_ADMINISTRADOR"].ToString();
+                    listAdministrador.Add(admin);
+                }
+                if (listAdministrador.Count() > 0)
+                {
+                    conexion.Close();
+                    return true;
+                }
+                else
+                {
+                    conexion.Close();
+                    return false;
+                }
+
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+        /**
+         * Metodo que lista todas las recepciones
+         **/
+         public List<RecepcionCompra> ListaRecepcionCompra()
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM RECEPCION_PEDIDO RP"
+                    +" INNER JOIN ESTADO_RECEPCION ER ON ER.ID_ESTADO_RECEPCION=RP.ID_ESTADO_RECEPCION",conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<RecepcionCompra> listRecepcion = new List<RecepcionCompra>();
+                while (ODR.Read())
+                {
+                    RecepcionCompra recepcion = new RecepcionCompra();
+                    recepcion.Comentarios = ODR["COMENTARIO"].ToString();
+                    recepcion.Estado_recepcion = ODR["NOMBRE_ESTADO"].ToString();
+                    recepcion.Fecha_recepcion = DateTime.Parse(ODR["FECHA_RECEPCION"].ToString());
+                    recepcion.Id_recepcion_compra = ODR["ID_RECEPCION"].ToString();
+                    recepcion.Id_orden_compra = ODR["ID_ORDEN_PEDIDO"].ToString();
+                    recepcion.Rut_administrador = ODR["RUT_ADMINISTRADOR"].ToString();
+                    listRecepcion.Add(recepcion);
+                }
+                conexion.Close();
+                return listRecepcion;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return null;
+            }
+        }
+        /**
+         * Metodo que lista todas las regiones
+         **/
+         public List<Region> ListaRegion()
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM REGION",conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<Region> listRegion = new List<Region>();
+                while (ODR.Read())
+                {
+                    Region region = new Region();
+                    region.Id_region = int.Parse(ODR["ID_REGION"].ToString());
+                    region.Nombre_region = ODR["NOMBRE_REGION"].ToString();
+                    listRegion.Add(region);
+                }
+                conexion.Close();
+                return listRegion;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return null;
+            }
+        }
+        /**
+         * Metodo que lista las comunas segun su region
+         **/
+        public List<Comuna> ListaComuna(int id_region)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM COMUNA WHERE ID_REGION="+id_region, conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<Comuna> listComuna = new List<Comuna>();
+                while (ODR.Read())
+                {
+                    Comuna comuna = new Comuna();
+                    comuna.Id_comuna = int.Parse(ODR["ID_COMUNA"].ToString());
+                    comuna.Nombre_comuna = ODR["NOMBRE_COMUNA"].ToString();
+                    listComuna.Add(comuna);
+                }
+                conexion.Close();
+                return listComuna;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return null;
+            }
+        }
+        /**
+         * Metodo que busca a un proveedor
+         **/
+         public Proveedor BuscarProveedor(int id_proveedor)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT * FROM PROVEEDOR P "
+                    +"INNER JOIN COMUNA C ON C.ID_COMUNA = P.ID_COMUNA WHERE ID_PROVEEDOR=" + id_proveedor,conexion);
+                OracleDataReader ODR = OC.ExecuteReader();
+                Proveedor proveedor = null;
+                while (ODR.Read())
+                {
+                    proveedor = new Proveedor();
+                    Comuna com = new Comuna();
+                    com.Id_comuna = int.Parse(ODR["ID_COMUNA"].ToString());
+                    proveedor.Comuna = com;
+                    Region reg = new Region();
+                    reg.Id_region = int.Parse(ODR["ID_REGION"].ToString());
+                    proveedor.Region = reg;
+                    proveedor.Direccion = ODR["DIRECCION"].ToString();
+                    proveedor.IDProv = int.Parse(ODR["ID_PROVEEDOR"].ToString());
+                    proveedor.NombreProv = ODR["NOMBRE_PROV"].ToString();
+                    proveedor.Telefono = int.Parse(ODR["TELEFONO"].ToString());
+                    if (proveedor.IDProv == id_proveedor)
+                    {
+                        conexion.Close();
+                        return proveedor;
+                    }
+                }
+                conexion.Close();
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

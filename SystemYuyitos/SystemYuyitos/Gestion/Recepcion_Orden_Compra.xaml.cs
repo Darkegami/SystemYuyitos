@@ -30,6 +30,13 @@ namespace SystemYuyitos
         public Recepcion_Orden_Compra()
         {
             InitializeComponent();
+            this.cargarGrillaRecepcion();
+        }
+
+        public void cargarGrillaRecepcion()
+        {
+            dgGrillaRecepcion.ItemsSource = null;
+            dgGrillaRecepcion.ItemsSource = YC.ListaRecepcionCompra();
         }
 
         public static Recepcion_Orden_Compra getInstance()
@@ -66,8 +73,7 @@ namespace SystemYuyitos
 
         private void btnListarOrdenes_Click(object sender, RoutedEventArgs e)
         {
-            Lista_Orden_Compra listaOrdenCompra = new Lista_Orden_Compra();
-            listaOrdenCompra.Show();
+            Lista_Orden_Compra.getInstance().Show();
         }
 
         private void txtIdOrden_TextChanged(object sender, TextChangedEventArgs e)
@@ -102,23 +108,41 @@ namespace SystemYuyitos
                         {
                             if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text))
                             {
-                                RecepcionCompra recepcion = new RecepcionCompra();
-                                recepcion.Comentarios = txtComentarios.Text;
-                                recepcion.Fecha_recepcion = dpFechaRecepcion.SelectedDate.Value;
-                                recepcion.Id_recepcion_compra = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
-                                recepcion.Id_estado_recepcion = 1;
-                                recepcion.Id_orden_compra = txtIdOrden.Text;
-                                recepcion.Rut_administrador = txtRutAdmin.Text;
-                                if (YC.ConfirmarRecepcion(recepcion))
+                                if (YC.ComprobarExistenciaDetalleOrden(txtIdOrden.Text))
                                 {
-                                    MessageBox.Show("La orden de compra fue recepcionada correctamente", "ORDEN RECEPCIONADA");
-                                    return;
+                                    if (YC.ComprobarExistenciaAdministrador(txtRutAdmin.Text))
+                                    {
+                                        RecepcionCompra recepcion = new RecepcionCompra();
+                                        recepcion.Comentarios = txtComentarios.Text;
+                                        recepcion.Fecha_recepcion = dpFechaRecepcion.SelectedDate.Value;
+                                        recepcion.Id_recepcion_compra = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
+                                        recepcion.Id_estado_recepcion = 1;
+                                        recepcion.Id_orden_compra = txtIdOrden.Text;
+                                        recepcion.Rut_administrador = txtRutAdmin.Text;
+                                        if (YC.ConfirmarRecepcion(recepcion))
+                                        {
+                                            MessageBox.Show("La recepcion de la orden de compra fue confirmada correctamente", "RECEPCION CONFIRMADA");
+                                            this.cargarGrillaRecepcion();
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("El rut de administrador no coincide con ninguno de nuestros registros", "ERROR");
+                                        return;
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                                    MessageBox.Show("La orden ingresada no contiene productos en su detalle","ERROR");
                                     return;
                                 }
+                               
                             }
                             else
                             {
@@ -137,5 +161,87 @@ namespace SystemYuyitos
             }
             
         }
+
+        private void btnDenegarRecepcion_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (txtIdOrden.Text.Trim() == "" || txtComentarios.Text.Trim() == "" || txtRutAdmin.Text.Trim() == "" || dpFechaRecepcion.SelectedDate == null)
+                {
+                    MessageBox.Show("No puede dejar campos sin rellenar", "ERROR");
+                    return;
+                }
+                else
+                {
+                    if (dpFechaRecepcion.SelectedDate.Value < DateTime.Now.AddDays(-1))
+                    {
+                        MessageBox.Show("La fecha de recepcion no puede ser antes de la fecha de hoy", "ERROR FECHA RECEPCION");
+                        return;
+                    }
+                    else
+                    {
+                        if (YC.LaOrdenFueEntregada(txtIdOrden.Text.Trim()))
+                        {
+                            MessageBox.Show("Ingrese una orden que no haya sido entregada", "ERROR");
+                            return;
+                        }
+                        else
+                        {
+                            if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text.Trim()))
+                            {
+                                if (YC.ComprobarExistenciaDetalleOrden(txtIdOrden.Text.Trim()))
+                                {
+                                    if (YC.ComprobarExistenciaAdministrador(txtRutAdmin.Text.Trim()))
+                                    {
+                                        RecepcionCompra recepcion = new RecepcionCompra();
+                                        recepcion.Comentarios = txtComentarios.Text;
+                                        recepcion.Fecha_recepcion = dpFechaRecepcion.SelectedDate.Value;
+                                        recepcion.Id_recepcion_compra = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
+                                        recepcion.Id_estado_recepcion = 2;
+                                        recepcion.Id_orden_compra = txtIdOrden.Text;
+                                        recepcion.Rut_administrador = txtRutAdmin.Text;
+                                        if (YC.DenegarRecepcion(recepcion))
+                                        {
+                                            MessageBox.Show("La recepcion de la orden de compra fue denegada correctamente", "RECEPCION DENEGADA");
+                                            this.cargarGrillaRecepcion();
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("El rut de administrador no coincide con ninguno de nuestros registros","ERROR");
+                                        return;
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    MessageBox.Show("La orden ingresada no contiene productos en su detalle", "ERROR");
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ingrese una orden de compra que ya este creada", "ERROR");
+                                return;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }

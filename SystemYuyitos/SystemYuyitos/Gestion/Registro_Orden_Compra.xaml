@@ -33,7 +33,7 @@
         <Button x:Name="btnEliminarProducto" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="760,205,0,0" VerticalAlignment="Top" Width="124" Height="24" RenderTransformOrigin="0.5,0.5" Click="btnEliminarProducto_Click"/>
         <Button x:Name="btnCrearOrden" Content="Crear Orden" HorizontalAlignment="Left" Margin="282,179,0,0" VerticalAlignment="Top" Width="92" Height="26" Click="btnCrearOrden_Click"/>
         <Button x:Name="btnEliminarOrden" Content="Eliminar ORDEN" HorizontalAlignment="Left" Margin="528,428,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.185,-0.046" Height="26" Click="btnEliminarOrden_Click"/>
-        <Button x:Name="btnVerInventario" Content="Ver INVENTARIO" HorizontalAlignment="Left" Margin="774,428,0,0" VerticalAlignment="Top" Width="110" Height="26"/>
+        <Button x:Name="btnVerInventario" Content="Ver INVENTARIO" HorizontalAlignment="Left" Margin="774,428,0,0" VerticalAlignment="Top" Width="110" Height="26" Click="btnVerInventario_Click"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="66" Margin="741,12,0,0" VerticalAlignment="Top" Width="114" Source="/SystemYuyitos;component/Imagenes/almacen.png"/>
         <Label x:Name="label_Copy4" Content="Familia:" HorizontalAlignment="Left" Margin="534,137,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" Height="26" Width="66"/>
         <ComboBox x:Name="cboFamilia" DisplayMemberPath="Nombre_familia" SelectedValuePath="Id_familia" HorizontalAlignment="Left" Margin="602,137,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="cboFamilia_SelectionChanged"/>

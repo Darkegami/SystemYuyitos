@@ -69,8 +69,6 @@ namespace SystemYuyitos
                     prod.Id_producto = txtCodigo.Text;
                     prod.NombreProd = txtNombreProd.Text;
                     prod.Precio_venta = 1;
-                    prod.Id_tipo_producto = 1;
-                    prod.Cantidad = 1;
                     prod.Fecha_ingreso = DateTime.Today;
 
                     if (YC.IngresarProducto(prod))

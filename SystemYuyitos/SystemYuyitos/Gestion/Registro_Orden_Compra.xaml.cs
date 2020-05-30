@@ -78,9 +78,9 @@ namespace SystemYuyitos
                     }
                     else
                     {
-                        if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text))
+                        if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text.Trim()))
                         {
-                            if (YC.ComprobarProductoEnLaOrden(txtIdOrden.Text,cboProducto.SelectedValue.ToString()))
+                            if (YC.ComprobarProductoEnLaOrden(txtIdOrden.Text.Trim(),cboProducto.SelectedValue.ToString()))
                             {
                                 MessageBox.Show("Ya fue ingresado este producto en esta orden","ERROR");
                                 return;
@@ -99,7 +99,7 @@ namespace SystemYuyitos
                                     return;
                                 }
                                 else
-                                {
+                                { 
                                     MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
                                     return;
                                 }
@@ -136,23 +136,34 @@ namespace SystemYuyitos
                         MessageBox.Show("La fecha de entrega no puede ser antes de la fecha de hoy", "ERROR FECHA ENTREGA");
                         return;
                     }
-                    OrdenCompra ordenCompra = new OrdenCompra();
-                    ordenCompra.Rut_administrador = txtRutAdmin.Text;
-                    ordenCompra.Id_orden_pedido = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
-                    ordenCompra.Fecha_orden = DateTime.Today;
-                    ordenCompra.Fecha_entrega = dpFechaEntrega.SelectedDate.Value;
-                    ordenCompra.Valor_final = 1;
-                    ordenCompra.Id_estado_orden = 1;
-                    if (YC.CrearOrdenCompra(ordenCompra))
-                    {
-                        MessageBox.Show("La orden ha sido ingresada exitosamente", "ORDEN AGREGADA");
-                        this.cargarGrillaOrden();
-                        return;
-                    }
                     else
                     {
-                        MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
-                        return;
+                        if (YC.ComprobarExistenciaAdministrador(txtRutAdmin.Text.Trim()))
+                        {
+                            OrdenCompra ordenCompra = new OrdenCompra();
+                            ordenCompra.Rut_administrador = txtRutAdmin.Text;
+                            ordenCompra.Id_orden_pedido = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
+                            ordenCompra.Fecha_orden = DateTime.Today;
+                            ordenCompra.Fecha_entrega = dpFechaEntrega.SelectedDate.Value;
+                            ordenCompra.Valor_final = 1;
+                            ordenCompra.Id_estado_orden = 1;
+                            if (YC.CrearOrdenCompra(ordenCompra))
+                            {
+                                MessageBox.Show("La orden ha sido ingresada exitosamente", "ORDEN AGREGADA");
+                                this.cargarGrillaOrden();
+                                return;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El rut de administrador no coincide con ninguno de nuestros registros", "ERROR");
+                            return;
+                        }
                     }
 
                 }
@@ -228,7 +239,7 @@ namespace SystemYuyitos
                 }
                 else
                 {
-                    if (YC.EliminarDetalleOrden(txtIdOrden.Text,cboProducto.SelectedValue.ToString()))
+                    if (YC.EliminarDetalleOrden(txtIdOrden.Text.Trim(),cboProducto.SelectedValue.ToString()))
                     {
                         MessageBox.Show("Se ha eliminado un producto del detalle de la orden","PRODUCTO ELIMINADO DE LA ORDEN");
                         this.cargarGrillaOrden();
@@ -304,6 +315,11 @@ namespace SystemYuyitos
 
                 throw;
             }
+        }
+
+        private void btnVerInventario_Click(object sender, RoutedEventArgs e)
+        {
+            Lista_Orden_Compra.getInstance().Show();
         }
     }
 }

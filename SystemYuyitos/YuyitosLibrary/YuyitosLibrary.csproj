@@ -46,14 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrador.cs" />
+    <Compile Include="Comuna.cs" />
     <Compile Include="DetalleOrdenCompra.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="OrdenCompra.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs" />
-    <Compile Include="Prueba.cs" />
     <Compile Include="RecepcionCompra.cs" />
+    <Compile Include="Region.cs" />
+    <Compile Include="TipoProducto.cs" />
     <Compile Include="YuyitosCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

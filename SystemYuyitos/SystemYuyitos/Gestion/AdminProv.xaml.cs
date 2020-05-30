@@ -29,7 +29,8 @@ namespace SystemYuyitos
         {
             InitializeComponent();
             this.cargarGrilla();
-            
+            cboRegion.ItemsSource = null;
+            cboRegion.ItemsSource = YC.ListaRegion();
         }
 
         public static AdminProv getInstance()
@@ -54,7 +55,7 @@ namespace SystemYuyitos
         {
             try
             {
-                if (txtIdProveedor.Text == " ")
+                if (txtIdProveBuscar.Text == " ")
                 {
                     MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
                     return;
@@ -67,7 +68,7 @@ namespace SystemYuyitos
                     prov.IDProv = 1;
                     prov.NombreProv = txtNombreProv.Text;
                     prov.Telefono = 1;
-                    prov.Id_comuna = cbComuna.SelectedIndex;
+                    prov.Comuna.Id_comuna = cboComuna.SelectedIndex;
                     prov.Direccion = txtDireccionProv.Text;
 
                     cargarGrilla();
@@ -93,7 +94,38 @@ namespace SystemYuyitos
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-           
+            try
+            {
+                if (txtIdProveBuscar.Text.Trim()=="")
+                {
+                    MessageBox.Show("No puede dejar campos sin rellenar", "ERROR");
+                    return;
+                }
+                else
+                {
+                    Proveedor proveedor = YC.BuscarProveedor(int.Parse(txtIdProveBuscar.Text));
+                    if (proveedor==null)
+                    {
+                        MessageBox.Show("La id de proveedor ingresada no se encuentra en la BD","ERROR");
+                        return;
+                    }
+                    else
+                    {
+                        txtDireccionProv.Text = proveedor.Direccion;
+                        txtNombreProv.Text = proveedor.NombreProv;
+                        txtTelefonoProv.Text = proveedor.Telefono.ToString();
+                        cboRegion.SelectedValue = proveedor.Region.Id_region;
+                        cboComuna.ItemsSource = YC.ListaComuna(proveedor.Region.Id_region);
+                        cboComuna.SelectedValue = proveedor.Comuna.Id_comuna;
+                        
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
 
         }
@@ -116,7 +148,43 @@ namespace SystemYuyitos
 
         private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+
+        private void cboRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                cboComuna.ItemsSource = null;
+                cboComuna.ItemsSource = YC.ListaComuna((int)cboRegion.SelectedValue);
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+
+        }
+
+        private void dgProveedoor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Proveedor proveedor = (Proveedor)dgProveedoor.SelectedItem;
+                txtDireccionProv.Text = proveedor.Direccion;
+                txtNombreProv.Text = proveedor.NombreProv;
+                txtTelefonoProv.Text = proveedor.Telefono.ToString();
+                cboRegion.SelectedValue = proveedor.Region.Id_region;
+                cboComuna.ItemsSource = YC.ListaComuna(proveedor.Region.Id_region);
+                cboComuna.SelectedValue = proveedor.Comuna.Id_comuna;
+                txtIdProveBuscar.Text = proveedor.IDProv.ToString();
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
         }
     }
     
