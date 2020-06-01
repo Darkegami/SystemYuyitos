@@ -60,9 +60,14 @@ namespace SystemYuyitos
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
             Registro_Orden_Compra.getInstance().Show();
+            ventanaInventario = null;
             this.Close();
         }
 
-
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Registro_Orden_Compra.getInstance().Show();
+            ventanaInventario = null;
+        }
     }
 }

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        Title="Administrar Inventario" Background="DarkGray" Height="596" Width="934.668">
+        Title="Administrar Inventario" Background="DarkGray" Height="596" Width="934.668" Closing="MetroWindow_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="63*"/>
@@ -46,12 +46,16 @@
         <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="600,151,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
         <DataGrid x:Name="dgProducto" Grid.Column="1" HorizontalAlignment="Left" Height="225" Margin="339,207,0,0" VerticalAlignment="Top" Width="482" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding IdProducto}" ClipboardContentBinding="{x:Null}" Header="Código"/>
+                <DataGridTextColumn Binding="{Binding Id_producto}" ClipboardContentBinding="{x:Null}" Header="ID"/>
                 <DataGridTextColumn Binding="{Binding NombreProd}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
-                <DataGridTextColumn Binding="{Binding PrecioVenta}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                <DataGridTextColumn Binding="{Binding Categoria}" ClipboardContentBinding="{x:Null}" Header="Categoria"/>
-                <DataGridTextColumn Binding="{Binding Cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
-                <DataGridTextColumn Binding="{Binding FechaIngreso}" ClipboardContentBinding="{x:Null}" Header="Fecha Ingreso"/>
+                <DataGridTextColumn Binding="{Binding Precio_venta}" ClipboardContentBinding="{x:Null}" Header="Precio Venta"/>
+                <DataGridTextColumn Binding="{Binding Precio_compra}" ClipboardContentBinding="{x:Null}" Header="Precio Compra"/>
+                <DataGridTextColumn Binding="{Binding Stock}" ClipboardContentBinding="{x:Null}" Header="Stock"/>
+                <DataGridTextColumn Binding="{Binding Proveedor.NombreProv}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
+                <DataGridTextColumn Binding="{Binding Familia.Nombre_familia}" ClipboardContentBinding="{x:Null}" Header="Familia"/>
+                <DataGridTextColumn Binding="{Binding Tipo_producto.Nombre_tipo_prod}" ClipboardContentBinding="{x:Null}" Header="Tipo Producto"/>
+                <DataGridTextColumn Binding="{Binding Fecha_elaboracion,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Elaboracion"/>
+                <DataGridTextColumn Binding="{Binding Fecha_vencimiento,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Vencimiento"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="txtBuscarProd" Grid.Column="1" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Código" Height="36" Margin="339,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" FontSize="14"/>

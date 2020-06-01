@@ -49,6 +49,8 @@
     <Compile Include="Administrador.cs" />
     <Compile Include="Comuna.cs" />
     <Compile Include="DetalleOrdenCompra.cs" />
+    <Compile Include="EstadoOrden.cs" />
+    <Compile Include="EstadoRecepcion.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="OrdenCompra.cs" />
     <Compile Include="Producto.cs" />

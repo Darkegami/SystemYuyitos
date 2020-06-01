@@ -14,7 +14,7 @@ namespace YuyitosLibrary
         private int _valor_final;
         private string _rut_administrador;
         private int _id_estado_orden;
-        private string _estado_orden;
+        private EstadoOrden _estado_orden;
 
         public DateTime Fecha_orden
         {
@@ -94,7 +94,7 @@ namespace YuyitosLibrary
             }
         }
 
-        public string Estado_orden
+        public EstadoOrden Estado_orden
         {
             get
             {

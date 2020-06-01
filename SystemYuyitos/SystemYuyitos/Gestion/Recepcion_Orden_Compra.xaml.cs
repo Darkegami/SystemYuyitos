@@ -58,6 +58,7 @@ namespace SystemYuyitos
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
             Menu.getInstance().Show();
+            ventanaRecepcionOrden = null;
             this.Close();
         }
 
@@ -242,6 +243,10 @@ namespace SystemYuyitos
             }
         }
 
-
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Menu.getInstance().Show();
+            ventanaRecepcionOrden = null;
+        }
     }
 }

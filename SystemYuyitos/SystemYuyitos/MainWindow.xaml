@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
      
-        Title="Login" Background="DarkGray" Height="510.864"  Width="426.215">
+        Title="Login" Background="DarkGray" Height="510.864"  Width="426.215" Closing="MetroWindow_Closing">
     <Grid>
         <TextBox x:Name="txtUsuario" HorizontalAlignment="Left"  Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Usuario" Height="32" Margin="117,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" RenderTransformOrigin="0.503,0.436" Background="Black" BorderBrush="White" FontSize="14">
 

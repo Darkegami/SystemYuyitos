@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        Title="Lista_Orden_Compra" Height="596" Width="934.668">
+        Title="Lista_Orden_Compra" Height="596" Width="934.668" Closing="MetroWindow_Closing">
     <Grid Background="DarkGray" Margin="0,0,0,-1">
         <Grid.RowDefinitions>
             <RowDefinition/>

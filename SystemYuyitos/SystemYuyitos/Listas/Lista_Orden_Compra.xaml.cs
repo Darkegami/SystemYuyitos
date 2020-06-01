@@ -46,6 +46,7 @@ namespace SystemYuyitos
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
             Recepcion_Orden_Compra.getInstance().Show();
+            ventanaListaOrden = null;
             this.Close();
         }
 
@@ -70,6 +71,12 @@ namespace SystemYuyitos
 
                 return;
             }
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Recepcion_Orden_Compra.getInstance().Show();
+            ventanaListaOrden = null;
         }
     }
 }

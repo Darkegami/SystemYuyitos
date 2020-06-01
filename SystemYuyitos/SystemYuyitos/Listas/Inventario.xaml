@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        Title="Inventario" Background="DarkGray" Height="596" Width="934.668">
+        Title="Inventario" Background="DarkGray" Height="596" Width="934.668" Closing="MetroWindow_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="63*"/>
@@ -20,8 +20,7 @@
             </Controls:Tile.Effect>
             <Image Source="/SystemYuyitos;component/Imagenes/almacen.png" Height="104" Width="143"></Image>
         </Controls:Tile>
-        <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="309,132,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
-        <DataGrid x:Name="dgProducto" HorizontalAlignment="Left" Height="296" Margin="36,173,0,0" VerticalAlignment="Top" Width="845" IsReadOnly="True" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dgProducto" HorizontalAlignment="Left" Height="332" Margin="36,137,0,0" VerticalAlignment="Top" Width="845" IsReadOnly="True" Grid.ColumnSpan="2" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id_producto}" ClipboardContentBinding="{x:Null}" Header="ID"/>
                 <DataGridTextColumn Binding="{Binding NombreProd}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
@@ -31,17 +30,16 @@
                 <DataGridTextColumn Binding="{Binding Proveedor.NombreProv}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
                 <DataGridTextColumn Binding="{Binding Familia.Nombre_familia}" ClipboardContentBinding="{x:Null}" Header="Familia"/>
                 <DataGridTextColumn Binding="{Binding Tipo_producto.Nombre_tipo_prod}" ClipboardContentBinding="{x:Null}" Header="Tipo Producto"/>
-                <DataGridTextColumn Binding="{Binding Fecha_elaboracion}" ClipboardContentBinding="{x:Null}" Header="Fecha Elaboracion"/>
-                <DataGridTextColumn Binding="{Binding Fecha_vencimiento}" ClipboardContentBinding="{x:Null}" Header="Fecha Vencimiento"/>
+                <DataGridTextColumn Binding="{Binding Fecha_elaboracion,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Elaboracion"/>
+                <DataGridTextColumn Binding="{Binding Fecha_vencimiento,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Vencimiento"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtBuscarProd" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Código" Height="36" Margin="48,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" FontSize="14" Grid.Column="1"/>
-        <Label Content="Código Producto" HorizontalAlignment="Left" Margin="48,98,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.Column="1"/>
         <Button x:Name="btnVolver1" 
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
             ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,827,20" Grid.ColumnSpan="2">
             <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
+        <Label Content="Inventario Productos" HorizontalAlignment="Left" Margin="36,61,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="222" Grid.ColumnSpan="2"/>
     </Grid>
 </Controls:MetroWindow>

@@ -50,6 +50,7 @@ namespace SystemYuyitos
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
         {
             Menu.getInstance().Show();
+            ventanaRegistroOrden = null;
             this.Close();
         }
 
@@ -145,7 +146,7 @@ namespace SystemYuyitos
                             ordenCompra.Id_orden_pedido = string.Format("{0:yyyyMMddHHmm}", DateTime.Now);
                             ordenCompra.Fecha_orden = DateTime.Today;
                             ordenCompra.Fecha_entrega = dpFechaEntrega.SelectedDate.Value;
-                            ordenCompra.Valor_final = 1;
+                            ordenCompra.Valor_final = 0;
                             ordenCompra.Id_estado_orden = 1;
                             if (YC.CrearOrdenCompra(ordenCompra))
                             {
@@ -319,7 +320,13 @@ namespace SystemYuyitos
 
         private void btnVerInventario_Click(object sender, RoutedEventArgs e)
         {
-            Lista_Orden_Compra.getInstance().Show();
+            Inventario.getInstance().Show();
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Menu.getInstance().Show();
+            ventanaRegistroOrden = null;
         }
     }
 }

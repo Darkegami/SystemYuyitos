@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"  
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Generar_Informe" Height="596" Width="934.668">
+        Title="Generar_Informe" Height="596" Width="934.668" Closing="MetroWindow_Closing">
     <Grid Background="DarkGray">
         
          <Label x:Name="label" Content="Tipo de informe:" HorizontalAlignment="Left" Margin="185,60,0,0" VerticalAlignment="Top" FontSize="14"/>

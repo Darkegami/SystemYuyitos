@@ -15,7 +15,6 @@ namespace YuyitosLibrary
         private int _stock;
         private DateTime _fecha_elaboracion;
         private DateTime _fecha_vencimiento;
-        private DateTime _fecha_ingreso;
         private Familia _familia;
         private Proveedor _proveedor;
         private TipoProducto _tipo_producto;
@@ -82,19 +81,6 @@ namespace YuyitosLibrary
             set
             {
                 _fecha_vencimiento = value;
-            }
-        }
-
-        public DateTime Fecha_ingreso
-        {
-            get
-            {
-                return _fecha_ingreso;
-            }
-
-            set
-            {
-                _fecha_ingreso = value;
             }
         }
 

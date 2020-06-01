@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        Title="Recepcion_Orden_Compra" Height="596" Width="934.668">
+        Title="Recepcion_Orden_Compra" Height="596" Width="934.668" Closing="MetroWindow_Closing">
 
     <Grid Background="DarkGray">
         <Label x:Name="label_Copy3" Content="N° Orden Compra:" HorizontalAlignment="Left" Margin="47,74,0,0" VerticalAlignment="Top" OpacityMask="Black" Foreground="White" RenderTransformOrigin="0.8,0.498" Height="26" Width="108"/>
@@ -24,8 +24,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id_recepcion_compra}" ClipboardContentBinding="{x:Null}" Header="N°RECEPCION"/>
                 <DataGridTextColumn Binding="{Binding Id_orden_compra}" ClipboardContentBinding="{x:Null}" Header="N°ORDEN"/>
-                <DataGridTextColumn Binding="{Binding Estado_recepcion,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="ESTADO"/>
-                <DataGridTextColumn Binding="{Binding Fecha_recepcion}" ClipboardContentBinding="{x:Null}" Header="FECHA RECEPCION"/>
+                <DataGridTextColumn Binding="{Binding Estado_recepcion}" ClipboardContentBinding="{x:Null}" Header="ESTADO"/>
+                <DataGridTextColumn Binding="{Binding Fecha_recepcion,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="FECHA RECEPCION"/>
                 <DataGridTextColumn Binding="{Binding Comentarios}" ClipboardContentBinding="{x:Null}" Header="COMENTARIO"/>
                 <DataGridTextColumn Binding="{Binding Rut_administrador}" ClipboardContentBinding="{x:Null}" Header="RUT ADMIN"/>
             </DataGrid.Columns>
@@ -48,5 +48,6 @@
                 <DataGridTextColumn Binding="{Binding Precio_compra_total}" ClipboardContentBinding="{x:Null}" Header="Precio Compra"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Recepcionar Ordenes de Compra" HorizontalAlignment="Left" Margin="36,27,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="312" Height="42"/>
     </Grid>
 </Controls:MetroWindow>

@@ -40,18 +40,21 @@ namespace SystemYuyitos
         private void btnInventario(object sender, RoutedEventArgs e)
         {
             AdminInv.getInstance().Show();
+            ventanaMenu = null;
             this.Close();
         }
 
         private void btnProveedor(object sender, RoutedEventArgs e)
         {
             AdminProv.getInstance().Show();
+            ventanaMenu = null;
             this.Close();
         }
 
         private void btnInformes(object sender, RoutedEventArgs e)
         {
             Generar_Informe.getInstance().Show();
+            ventanaMenu = null;
             this.Close();
 
         }
@@ -59,6 +62,7 @@ namespace SystemYuyitos
         private void btnOrden(object sender, RoutedEventArgs e)
         {
             Registro_Orden_Compra.getInstance().Show();
+            ventanaMenu = null;
             this.Close();
 
         }
@@ -66,9 +70,11 @@ namespace SystemYuyitos
         private void btnRecepcion(object sender, RoutedEventArgs e)
         {
             Recepcion_Orden_Compra.getInstance().Show();
+            ventanaMenu = null;
             this.Close();
 
         }
+
     }
 }
 

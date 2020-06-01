@@ -24,9 +24,20 @@ namespace SystemYuyitos
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public static MainWindow ventanaLogin;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public static MainWindow getInstance()
+        {
+            if (ventanaLogin == null)
+            {
+                ventanaLogin = new MainWindow();
+            }
+
+            return ventanaLogin;
         }
 
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
@@ -76,6 +87,11 @@ namespace SystemYuyitos
             conexion.Open();
             MessageBox.Show("Conectado");
             conexion.Close();
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ventanaLogin = null;
         }
     }
 }
