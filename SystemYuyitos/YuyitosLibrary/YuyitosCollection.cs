@@ -19,13 +19,19 @@ namespace YuyitosLibrary
             try
             {
                 conexion.Open();
-                OracleCommand OC = new OracleCommand("INSERTARPRODUCTO", conexion);
+                OracleCommand OC = new OracleCommand("INSERTAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
+                OC.Parameters.Add("ID_PRODUCTO", OracleType.Number).Value = producto.Id_producto;
                 OC.Parameters.Add("NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
+                OC.Parameters.Add("FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
-                OC.Parameters.Add("CANTIDAD", OracleType.Number).Value = producto.Stock;
-                OC.Parameters.Add("FEC_INGRESO", OracleType.VarChar).Value = producto.Fecha_elaboracion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("PRECIO_COMPRA", OracleType.Number).Value = producto.Precio_compra;
+                OC.Parameters.Add("STOCK", OracleType.Number).Value = producto.Stock;
+                OC.Parameters.Add("ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Familia;
+                OC.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = producto.Proveedor;
+                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Tipo_producto;
+
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -36,6 +42,108 @@ namespace YuyitosLibrary
                 return false;
             }
         }
+
+         /**
+         * Metodo para Eliminar los productos de la BD
+         **/
+        public bool EliminarProducto(int id_producto)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("ELIMINAR_PRODUCTO", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.Number).Value = id_producto;
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+
+        /**
+        * Metodo para Modificar los productos de la BD
+        **/
+        public Producto BuscarProducto(int id_producto)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("BUSCAR_PRODUCTO", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("CURSOR_T", OracleType.Cursor).Direction = ParameterDirection.Output;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.Number).Value = id_producto;
+                OracleDataReader ODR = OC.ExecuteReader();
+                Producto producto = null;
+                while (ODR.Read())
+                {
+                  
+                    producto.Id_producto = int.Parse(ODR["ID_PRODUCTO"].ToString());
+                    producto.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
+                    producto.Fecha_elaboracion = DateTime.Parse(ODR["FECHA_ELABORACION"].ToString());
+                    producto.Fecha_vencimiento = DateTime.Parse(ODR["FEC_VENCIMIENTO"].ToString());
+                    producto.Precio_venta = int.Parse(ODR["PRECIO_VENTA"].ToString());
+                    producto.Precio_compra = int.Parse(ODR["PRECIO_COMPRA"].ToString());
+                    producto.Stock = int.Parse(ODR["STOCK"].ToString());
+                    producto = new Producto();
+                    Familia fam = new Familia();
+                    fam.Id_familia = int.Parse(ODR["ID_FAMILIA_PRODUCTO"].ToString());
+                    producto.Familia = fam;
+                    Proveedor prov = new Proveedor();
+                    prov.IDProv = int.Parse(ODR["ID_PROVEEDOR"].ToString());
+                    producto.Proveedor = prov;
+                    TipoProducto tp = new TipoProducto();
+                    tp.Id_tipo_producto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
+                    producto.Tipo_producto = tp;
+
+                    if (producto.Id_producto == id_producto)
+                    {
+                        conexion.Close();
+                        return producto;
+                    }
+                }
+                conexion.Close();
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool ModificarProducto(Producto producto)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("MODIFICAR_PRODUCTO", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.Number).Value = producto.Id_producto;
+                OC.Parameters.Add("V_NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
+                OC.Parameters.Add("V_FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion;
+                OC.Parameters.Add("V_FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento;
+                OC.Parameters.Add("V_PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
+                OC.Parameters.Add("V_PRECIO_COMPRA", OracleType.Number).Value = producto.Precio_compra;
+                OC.Parameters.Add("V_STOCK", OracleType.Number).Value = producto.Precio_venta;
+                OC.Parameters.Add("V_ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Familia;
+                OC.Parameters.Add("V_ID_PROVEEDOR", OracleType.Number).Value = producto.Proveedor;
+                OC.Parameters.Add("V_ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Tipo_producto;
+
+                OC.ExecuteNonQuery();
+                conexion.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return false;
+            }
+        }
+
         /**
          * Metodo para listar todos los productos de la BD
          **/
@@ -52,13 +160,13 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                     Producto prod = new Producto();
-                    prod.Id_producto = ODR["ID_PRODUCTO"].ToString();
+                    prod.Id_producto = int.Parse(ODR["ID_PRODUCTO"].ToString());
                     prod.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
                     prod.Precio_venta = int.Parse(ODR["PRECIO_VENTA"].ToString());
                     prod.Precio_compra = int.Parse(ODR["PRECIO_COMPRA"].ToString());
-                    prod.Stock = int.Parse(ODR["STOCK"].ToString());
                     prod.Fecha_elaboracion = DateTime.Parse(ODR["FECHA_ELABORACION"].ToString());
                     prod.Fecha_vencimiento = DateTime.Parse(ODR["FEC_VENCIMIENTO"].ToString());
+                    prod.Stock = int.Parse(ODR["STOCK"].ToString());
                     Familia fam = new Familia();
                     fam.Id_familia = int.Parse(ODR["ID_FAMILIA_PRODUCTO"].ToString());
                     fam.Nombre_familia = ODR["NOMBRE_FAMILIA"].ToString();
@@ -380,7 +488,7 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                     Producto producto = new Producto();
-                    producto.Id_producto = ODR["ID_PRODUCTO"].ToString();
+                    producto.Id_producto = int.Parse(ODR["ID_PRODUCTO"].ToString());
                     producto.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
 
                     listProducto.Add(producto);
@@ -796,6 +904,32 @@ namespace YuyitosLibrary
             {
 
                 throw;
+            }
+        }
+        public List<TipoProducto> ListaTipoProducto()
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("LISTAR_TIPO_PRODUCTO", conexion);
+                OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("CURSOR_T", OracleType.Cursor).Direction = ParameterDirection.Output;
+                OracleDataReader ODR = OC.ExecuteReader();
+                List<TipoProducto> listTipoProducto = new List<TipoProducto>();
+                while (ODR.Read())
+                {
+                    TipoProducto tipoProducto = new TipoProducto();
+                    tipoProducto.Id_tipo_producto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
+                    tipoProducto.Nombre_tipo_prod = ODR["NOMBRE_TIPO_PROD"].ToString();
+                    listTipoProducto.Add(tipoProducto);
+                }
+                conexion.Close();
+                return listTipoProducto;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return null;
             }
         }
     }

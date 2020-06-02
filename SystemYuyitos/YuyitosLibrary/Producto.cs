@@ -8,7 +8,7 @@ namespace YuyitosLibrary
 {
     public class Producto
     {
-        private string _id_producto;
+        private int _id_producto;
         private string _nombreProd;
         private int _precio_venta;
         private int _precio_compra;
@@ -18,8 +18,52 @@ namespace YuyitosLibrary
         private Familia _familia;
         private Proveedor _proveedor;
         private TipoProducto _tipo_producto;
+        private int _id_familia;
+        private int _id_proveedor;
+        private int _id_tipo_prod;
 
-        public string Id_producto
+
+        public int Id_Familia
+        {
+            get
+            {
+                return _id_familia;
+            }
+
+            set
+            {
+                _id_familia = value;
+            }
+        }
+
+        public int Id_Proveedor
+        {
+            get
+            {
+                return _id_proveedor;
+            }
+
+            set
+            {
+                _id_proveedor = value;
+            }
+        }
+        public int Id_TipoProd
+        {
+            get
+            {
+                return _id_tipo_prod;
+            }
+
+            set
+            {
+                _id_tipo_prod= value;
+            }
+        }
+
+
+
+        public int Id_producto
         {
             get
             {

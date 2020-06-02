@@ -31,6 +31,10 @@ namespace SystemYuyitos
         {
             InitializeComponent();
             this.cargarGrilla();
+            cboFamiliaProducto.ItemsSource = YC.ListaFamilia();
+            cboProveedor.ItemsSource = YC.ListaProveedor();
+            cboTipoProducto.ItemsSource = YC.ListaTipoProducto();
+           
         }
 
         public static AdminInv getInstance()
@@ -52,61 +56,193 @@ namespace SystemYuyitos
         {
             try
             {
-                if (dpFecha_ingreso.SelectedDate == null || txtCodigo.Text == "")
+                if (txtCodigo.Text == "" || txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
+                   || cboFamiliaProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0 || cboTipoProducto.SelectedIndex < 0)
                 {
-                    MessageBox.Show("Ingrese la informacion correctamente", "ERROR");
+                    MessageBox.Show("No puede dejar campos sin llenar", "ERROR");
                     return;
                 }
                 else
                 {
-                    if (dpFecha_ingreso.SelectedDate.Value < DateTime.Now.AddDays(-1))
-                    {
-                        MessageBox.Show("La fecha de Ingreso no puede ser antes de la fecha de hoy", "ERROR FECHA RETIRO");
-                        return;
-                    }
-                    Producto prod = new Producto();
+                    Producto producto = new Producto();
+                    producto.Id_producto = int.Parse(txtCodigo.Text);
+                    producto.NombreProd = txtNombreProd.Text;
+                    producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
+                    producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
+                    producto.Precio_venta = int.Parse(txtPrecioVenta.Text);
+                    producto.Precio_compra = int.Parse(txtPrecioCompra.Text);
+                    producto.Stock = int.Parse(txtStock.Text);
+                    producto.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
+                    producto.Id_Proveedor = (int)cboProveedor.SelectedValue;
+                    producto.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
 
-                    prod.Id_producto = txtCodigo.Text;
-                    prod.NombreProd = txtNombreProd.Text;
-                    prod.Precio_venta = 1;
-
-                    if (YC.IngresarProducto(prod))
+                    if (YC.IngresarProducto(producto))
                     {
-                        MessageBox.Show("El Producto ha sido ingresado exitosamente", "PRODUCTO AGREGADO");
+                        MessageBox.Show("Se ha ingresado el producto exitosamente", "PRODUCTO INGRESADO");
+                        this.cargarGrilla();
                         return;
                     }
                     else
                     {
-                        MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
+                        MessageBox.Show("Ha ocurrido un error, contacte a un técnico a la brevedad", "ERROR");
+                        return;
                     }
-                    cargarGrilla();
-
                 }
-
             }
             catch (Exception error)
             {
-
-                MessageBox.Show("Ha ocurrido un error, contacte a un tecnico a la brevedad", "ERROR");
-                return;
+                throw;
             }
         }
     
 
-
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-           
+            try
+            {
+                if(txtBuscarProd.Text== "")
+                {
+                    MessageBox.Show("Ingrese el código del Producto antes de buscar", "ERROR");
+                    return;
+                }
+                else
+                {
+                    int v_id_producto = 0;
+                    try
+                    {
+                        v_id_producto = int.Parse(txtBuscarProd.Text);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Ingrese solo números en el campo de código Producto", "ERROR");
+                        return;
+                    }
+                    Producto producto = YC.BuscarProducto(v_id_producto);
+                    if (producto == null)
+                    {
+                        MessageBox.Show("El código del producto ingresado no se encuentra en la BD", "ERROR");
+                        return;
+                    }
+                    else
+                    {
+                        txtCodigo.Text = producto.Id_producto.ToString();
+                        txtNombreProd.Text = producto.NombreProd;
+                        dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
+                        dpFechaVencimiento.SelectedDate = producto.Fecha_vencimiento;
+                        txtPrecioVenta.Text = producto.Precio_venta.ToString();
+                        txtPrecioCompra.Text = producto.Precio_compra.ToString();
+                        txtStock.Text = producto.Stock.ToString();
+                        cboFamiliaProducto.SelectedValue = producto.Familia.Id_familia;
+                        cboProveedor.SelectedValue = producto.Proveedor.IDProv;
+                        cboTipoProducto.SelectedValue = producto.Tipo_producto.Id_tipo_producto;
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void BtnModificar_Click(object sender, RoutedEventArgs e)
         {
-           
+            try
+            {
+                if(txtCodigo.Text == "")
+                {
+                    MessageBox.Show("Ingrese el código del Producto antes de modificar", "ERROR");
+                    return;
+                }
+                if (txtCodigo.Text == "" || txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
+                   || cboFamiliaProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0 || cboTipoProducto.SelectedIndex < 0)
+                {
+                    MessageBox.Show("No puede dejar campos sin llenar", "ERROR");
+                    return;
+                }
+                else
+                {
+                    Producto producto = new Producto();
+                    try
+                    {
+                        producto.Id_producto = int.Parse(txtCodigo.Text);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Ingrese solo números en el campo de código Producto", "ERROR");
+                        return;
+                    }
+                    producto.Id_producto = int.Parse(txtCodigo.Text);
+                    producto.NombreProd = txtNombreProd.Text;
+                    producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
+                    producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
+                    producto.Precio_venta = int.Parse(txtPrecioVenta.Text);
+                    producto.Precio_compra = int.Parse(txtPrecioCompra.Text);
+                    producto.Stock = int.Parse(txtStock.Text);
+                    producto.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
+                    producto.Id_Proveedor = (int)cboProveedor.SelectedValue;
+                    producto.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
+
+                    if (YC.ModificarProducto(producto))
+                    {
+                        MessageBox.Show("Se ha modificado el Producto exitosamente", "PRODUCTO MODIFICADO");
+                        this.cargarGrilla();
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error, contacte a un técnico a la brevedad", "ERROR");
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+          
         }
 
         private void BtnEliminar_Click(object sender, RoutedEventArgs e)
         {
-     
+            try
+            {
+                if (txtBuscarProd.Text == "")
+                {
+                    MessageBox.Show("Ingrese el código del producto antes de eliminar", "ERROR");
+                    return;
+                }
+                else
+                {
+                    int v_id_producto = 0;
+                    try
+                    {
+                        v_id_producto = int.Parse(txtBuscarProd.Text);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Ingrese solo números en el campo del código del producto", "ERROR");
+                        return;
+                    }
+                    if (YC.EliminarProducto(v_id_producto))
+                    {
+                        MessageBox.Show("Se ha eliminado el Producto exitosamente", "PRODUCTO ELIMINADO");
+                        this.cargarGrilla();
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Producto que intenta eliminar no existe o tiene registros en otra tabla", "ERROR");
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
         }
 
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
@@ -127,6 +263,31 @@ namespace SystemYuyitos
         {
             Menu.getInstance().Show();
             ventanaInventario = null;
+        }
+
+        private void DgProducto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Producto producto = (Producto)dgProducto.SelectedItem;
+                txtCodigo.Text = producto.Id_producto.ToString();
+                txtNombreProd.Text = producto.NombreProd;
+                dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
+                dpFechaVencimiento.SelectedDate = producto.Fecha_vencimiento;
+                txtPrecioVenta.Text = producto.Precio_venta.ToString();
+                txtPrecioCompra.Text = producto.Precio_compra.ToString();
+                txtStock.Text = producto.Stock.ToString();
+                cboFamiliaProducto.SelectedValue = producto.Familia.Id_familia;
+                cboProveedor.SelectedValue = producto.Proveedor.IDProv;
+                cboTipoProducto.SelectedValue = producto.Tipo_producto.Id_tipo_producto;
+
+            }
+            catch (Exception)
+            {
+                return;
+            }
+             
+            
         }
     }
 }
