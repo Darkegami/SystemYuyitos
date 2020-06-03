@@ -30,7 +30,7 @@
         <Label Content="Precio Venta:" HorizontalAlignment="Left" Margin="60,285,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtStock" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Stock" Height="35" Margin="101,359,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.528,2.099" Grid.Column="1" FontSize="14" />
         <TextBox x:Name="txtPrecioCompra" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Precio Compra" Height="35" Margin="101,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.528,2.099" Grid.Column="1" FontSize="14" />
-        <Label Content="Fecha Vecnimiento:" HorizontalAlignment="Left" Margin="61,245,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Fecha Vencimiento:" HorizontalAlignment="Left" Margin="61,245,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -78,6 +78,5 @@
         <ComboBox x:Name="cboProveedor" DisplayMemberPath="NombreProv" SelectedValuePath="IDProv" Grid.Column="1" HorizontalAlignment="Left" Margin="112,402,0,0" VerticalAlignment="Top" Width="186"/>
         <ComboBox x:Name="cboTipoProducto" Grid.Column="1" DisplayMemberPath="Nombre_tipo_prod" SelectedValuePath="Id_tipo_producto" HorizontalAlignment="Left" Margin="112,433,0,0" VerticalAlignment="Top" Width="186"/>
         <ComboBox x:Name="cboFamiliaProducto" Grid.Column="1" DisplayMemberPath="Nombre_familia" SelectedValuePath="Id_familia" HorizontalAlignment="Left" Margin="112,461,0,0" VerticalAlignment="Top" Width="186"/>
-        <Button x:Name="button" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="701,152,0,0" VerticalAlignment="Top" Width="74" Click="button_Click_1"/>
     </Grid>
 </Controls:MetroWindow>

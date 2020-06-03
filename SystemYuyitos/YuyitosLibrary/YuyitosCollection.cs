@@ -21,7 +21,7 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("INSERTAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("ID_PRODUCTO", OracleType.Number).Value = producto.Id_producto;
+                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
                 OC.Parameters.Add("NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
                 OC.Parameters.Add("FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento.ToString("dd-MM-yyyy");
@@ -46,14 +46,14 @@ namespace YuyitosLibrary
          /**
          * Metodo para Eliminar los productos de la BD
          **/
-        public bool EliminarProducto(int id_producto)
+        public bool EliminarProducto(string id_producto)
         {
             try
             {
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("ELIMINAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.Number).Value = id_producto;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.VarChar).Value = id_producto;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -76,7 +76,7 @@ namespace YuyitosLibrary
                 OracleCommand OC = new OracleCommand("BUSCAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
                 OC.Parameters.Add("CURSOR_T", OracleType.Cursor).Direction = ParameterDirection.Output;
-                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.Number).Value = id_producto;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.VarChar).Value = id_producto;
                 OracleDataReader ODR = OC.ExecuteReader();
                 Producto producto = null;
                 while (ODR.Read())
@@ -122,7 +122,7 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("MODIFICAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.Number).Value = producto.Id_producto;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
                 OC.Parameters.Add("V_NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
                 OC.Parameters.Add("V_FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion;
                 OC.Parameters.Add("V_FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento;

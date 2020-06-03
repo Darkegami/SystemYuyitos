@@ -114,9 +114,10 @@ namespace SystemYuyitos
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Ingrese solo números en el campo de código Producto", "ERROR");
+                        MessageBox.Show("Ingrese solo números en el campo del código del producto", "ERROR");
                         return;
                     }
+
                     Producto producto = YC.BuscarProducto(v_id_producto);
                     if (producto == null)
                     {
@@ -149,12 +150,12 @@ namespace SystemYuyitos
         {
             try
             {
-                if(txtCodigo.Text == "")
+                if(txtBuscarProd.Text == "")
                 {
                     MessageBox.Show("Ingrese el código del Producto antes de modificar", "ERROR");
                     return;
                 }
-                if (txtCodigo.Text == "" || txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
+                if (txtBuscarProd.Text == "" || txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
                    || cboFamiliaProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0 || cboTipoProducto.SelectedIndex < 0)
                 {
                     MessageBox.Show("No puede dejar campos sin llenar", "ERROR");
@@ -163,16 +164,12 @@ namespace SystemYuyitos
                 else
                 {
                     Producto producto = new Producto();
-                    try
-                    {
-                        producto.Id_producto = txtCodigo.Text;
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Ingrese solo números en el campo de código Producto", "ERROR");
-                        return;
-                    }
-                    producto.Id_producto = txtCodigo.Text;
+                    string v_id_producto;
+                    v_id_producto = txtBuscarProd.Text;
+                    
+                   
+                   
+                   
                     producto.NombreProd = txtNombreProd.Text;
                     producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
                     producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
@@ -214,10 +211,10 @@ namespace SystemYuyitos
                 }
                 else
                 {
-                    int v_id_producto = 0;
+                    string v_id_producto;
                     try
                     {
-                        v_id_producto = int.Parse(txtBuscarProd.Text);
+                        v_id_producto = txtBuscarProd.Text;
                     }
                     catch (Exception)
                     {
