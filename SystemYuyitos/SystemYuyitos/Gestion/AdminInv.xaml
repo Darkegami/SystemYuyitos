@@ -44,7 +44,7 @@
         <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="505,499,0,0" VerticalAlignment="Top" Width="88"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="Button_Click"/>
         <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="729,499,0,0" VerticalAlignment="Top" Width="92"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="BtnEliminar_Click"/>
         <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="600,151,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
-        <DataGrid x:Name="dgProducto" Grid.Column="1" HorizontalAlignment="Left" Height="287" Margin="339,199,0,0" VerticalAlignment="Top" Width="482" IsReadOnly="True" SelectionChanged="DgProducto_SelectionChanged">
+        <DataGrid x:Name="dgProducto" Grid.Column="1" HorizontalAlignment="Left" Height="287" Margin="339,199,0,0" VerticalAlignment="Top" Width="482" IsReadOnly="True" SelectionChanged="DgProducto_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id_producto}" ClipboardContentBinding="{x:Null}" Header="ID"/>
                 <DataGridTextColumn Binding="{Binding NombreProd}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
@@ -75,8 +75,9 @@
         <DatePicker x:Name="dpFechaElaboracion" Grid.Column="1" HorizontalAlignment="Left" Margin="103,199,0,0" VerticalAlignment="Top" Height="35" RenderTransformOrigin="-0.676,-1.4" Width="199" FontSize="14"/>
         <DatePicker x:Name="dpFechaVencimiento" Grid.Column="1" HorizontalAlignment="Left" Margin="101,239,0,0" VerticalAlignment="Top" Height="35" Width="201"/>
         <Label Content="Id Familia Producto:" HorizontalAlignment="Left" Margin="60,461,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14"/>
-        <ComboBox x:Name="cboProveedor" Grid.Column="1" HorizontalAlignment="Left" Margin="112,402,0,0" VerticalAlignment="Top" Width="186"/>
-        <ComboBox x:Name="cboTipoProducto" Grid.Column="1" HorizontalAlignment="Left" Margin="112,433,0,0" VerticalAlignment="Top" Width="186"/>
-        <ComboBox x:Name="cboFamiliaProducto" Grid.Column="1" HorizontalAlignment="Left" Margin="112,461,0,0" VerticalAlignment="Top" Width="186"/>
+        <ComboBox x:Name="cboProveedor" DisplayMemberPath="NombreProv" SelectedValuePath="IDProv" Grid.Column="1" HorizontalAlignment="Left" Margin="112,402,0,0" VerticalAlignment="Top" Width="186"/>
+        <ComboBox x:Name="cboTipoProducto" Grid.Column="1" DisplayMemberPath="Nombre_tipo_prod" SelectedValuePath="Id_tipo_producto" HorizontalAlignment="Left" Margin="112,433,0,0" VerticalAlignment="Top" Width="186"/>
+        <ComboBox x:Name="cboFamiliaProducto" Grid.Column="1" DisplayMemberPath="Nombre_familia" SelectedValuePath="Id_familia" HorizontalAlignment="Left" Margin="112,461,0,0" VerticalAlignment="Top" Width="186"/>
+        <Button x:Name="button" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="701,152,0,0" VerticalAlignment="Top" Width="74" Click="button_Click_1"/>
     </Grid>
 </Controls:MetroWindow>

@@ -65,7 +65,7 @@ namespace SystemYuyitos
                 else
                 {
                     Producto producto = new Producto();
-                    producto.Id_producto = int.Parse(txtCodigo.Text);
+                    producto.Id_producto = txtCodigo.Text;
                     producto.NombreProd = txtNombreProd.Text;
                     producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
                     producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
@@ -107,10 +107,10 @@ namespace SystemYuyitos
                 }
                 else
                 {
-                    int v_id_producto = 0;
+                    string v_id_producto;
                     try
                     {
-                        v_id_producto = int.Parse(txtBuscarProd.Text);
+                        v_id_producto = txtBuscarProd.Text;
                     }
                     catch (Exception)
                     {
@@ -165,14 +165,14 @@ namespace SystemYuyitos
                     Producto producto = new Producto();
                     try
                     {
-                        producto.Id_producto = int.Parse(txtCodigo.Text);
+                        producto.Id_producto = txtCodigo.Text;
                     }
                     catch (Exception)
                     {
                         MessageBox.Show("Ingrese solo números en el campo de código Producto", "ERROR");
                         return;
                     }
-                    producto.Id_producto = int.Parse(txtCodigo.Text);
+                    producto.Id_producto = txtCodigo.Text;
                     producto.NombreProd = txtNombreProd.Text;
                     producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
                     producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
@@ -289,5 +289,6 @@ namespace SystemYuyitos
              
             
         }
+
     }
 }

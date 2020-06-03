@@ -28,9 +28,9 @@ namespace YuyitosLibrary
                 OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
                 OC.Parameters.Add("PRECIO_COMPRA", OracleType.Number).Value = producto.Precio_compra;
                 OC.Parameters.Add("STOCK", OracleType.Number).Value = producto.Stock;
-                OC.Parameters.Add("ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Familia;
-                OC.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = producto.Proveedor;
-                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Tipo_producto;
+                OC.Parameters.Add("ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Id_Familia;
+                OC.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = producto.Id_Proveedor;
+                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Id_TipoProd;
 
                 OC.ExecuteNonQuery();
                 conexion.Close();
@@ -68,7 +68,7 @@ namespace YuyitosLibrary
         /**
         * Metodo para Modificar los productos de la BD
         **/
-        public Producto BuscarProducto(int id_producto)
+        public Producto BuscarProducto(string id_producto)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                   
-                    producto.Id_producto = int.Parse(ODR["ID_PRODUCTO"].ToString());
+                    producto.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     producto.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
                     producto.Fecha_elaboracion = DateTime.Parse(ODR["FECHA_ELABORACION"].ToString());
                     producto.Fecha_vencimiento = DateTime.Parse(ODR["FEC_VENCIMIENTO"].ToString());
@@ -160,7 +160,7 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                     Producto prod = new Producto();
-                    prod.Id_producto = int.Parse(ODR["ID_PRODUCTO"].ToString());
+                    prod.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     prod.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
                     prod.Precio_venta = int.Parse(ODR["PRECIO_VENTA"].ToString());
                     prod.Precio_compra = int.Parse(ODR["PRECIO_COMPRA"].ToString());
@@ -488,7 +488,7 @@ namespace YuyitosLibrary
                 while (ODR.Read())
                 {
                     Producto producto = new Producto();
-                    producto.Id_producto = int.Parse(ODR["ID_PRODUCTO"].ToString());
+                    producto.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     producto.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
 
                     listProducto.Add(producto);
