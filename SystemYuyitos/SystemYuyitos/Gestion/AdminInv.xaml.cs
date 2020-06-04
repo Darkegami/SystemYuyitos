@@ -164,12 +164,7 @@ namespace SystemYuyitos
                 else
                 {
                     Producto producto = new Producto();
-                    string v_id_producto;
-                    v_id_producto = txtBuscarProd.Text;
-                    
-                   
-                   
-                   
+                    producto.Id_producto = txtBuscarProd.Text;
                     producto.NombreProd = txtNombreProd.Text;
                     producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
                     producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
@@ -251,8 +246,17 @@ namespace SystemYuyitos
 
         private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+            txtCodigo.Text = "";
+            txtNombreProd.Text = "";
+            txtPrecioCompra.Text = "";
+            txtPrecioVenta.Text = "";
+            txtStock.Text = "";
+            txtBuscarProd.Text = "";
+            dpFechaElaboracion.SelectedDate = null;
+            dpFechaVencimiento.SelectedDate = null;
+            cboFamiliaProducto.SelectedItem = null;
+            cboProveedor.SelectedItem = null;
+            cboTipoProducto.SelectedItem = null;
 
         }
 
@@ -267,7 +271,7 @@ namespace SystemYuyitos
             try
             {
                 Producto producto = (Producto)dgProducto.SelectedItem;
-                txtCodigo.Text = producto.Id_producto.ToString();
+                txtCodigo.Text = producto.Id_producto;
                 txtNombreProd.Text = producto.NombreProd;
                 dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
                 dpFechaVencimiento.SelectedDate = producto.Fecha_vencimiento;
