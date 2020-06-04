@@ -31,6 +31,7 @@ namespace SystemYuyitos
         {
             InitializeComponent();
             this.cargarGrilla();
+
             cboFamiliaProducto.ItemsSource = YC.ListaFamilia();
             cboProveedor.ItemsSource = YC.ListaProveedor();
             cboTipoProducto.ItemsSource = YC.ListaTipoProducto();
@@ -126,7 +127,7 @@ namespace SystemYuyitos
                     }
                     else
                     {
-                        txtCodigo.Text = producto.Id_producto.ToString();
+                        txtCodigo.Text = producto.Id_producto;
                         txtNombreProd.Text = producto.NombreProd;
                         dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
                         dpFechaVencimiento.SelectedDate = producto.Fecha_vencimiento;
@@ -155,7 +156,7 @@ namespace SystemYuyitos
                     MessageBox.Show("Ingrese el código del Producto antes de modificar", "ERROR");
                     return;
                 }
-                if (txtBuscarProd.Text == "" || txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
+                if (txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
                    || cboFamiliaProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0 || cboTipoProducto.SelectedIndex < 0)
                 {
                     MessageBox.Show("No puede dejar campos sin llenar", "ERROR");
