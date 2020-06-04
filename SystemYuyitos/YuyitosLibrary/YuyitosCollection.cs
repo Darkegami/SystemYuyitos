@@ -11,6 +11,7 @@ namespace YuyitosLibrary
     public class YuyitosCollection
     {
         OracleConnection conexion = new OracleConnection("DATA SOURCE=ORCL;PASSWORD=YUYITOS;USER ID=YUYITOS;");
+      
         /**
          * Metodo para ingresar un producto a la BD
          **/
@@ -81,7 +82,7 @@ namespace YuyitosLibrary
                 Producto producto = null;
                 while (ODR.Read())
                 {
-                  
+                    producto = new Producto();
                     producto.Id_producto = ODR["ID_PRODUCTO"].ToString();
                     producto.NombreProd = ODR["NOMBRE_PRODUCTO"].ToString();
                     producto.Fecha_elaboracion = DateTime.Parse(ODR["FECHA_ELABORACION"].ToString());

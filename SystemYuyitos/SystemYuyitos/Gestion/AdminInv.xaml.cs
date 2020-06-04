@@ -127,7 +127,7 @@ namespace SystemYuyitos
                     }
                     else
                     {
-                        txtCodigo.Text = producto.Id_producto;
+                      
                         txtNombreProd.Text = producto.NombreProd;
                         dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
                         dpFechaVencimiento.SelectedDate = producto.Fecha_vencimiento;
@@ -164,19 +164,19 @@ namespace SystemYuyitos
                 }
                 else
                 {
-                    Producto producto = new Producto();
-                    producto.Id_producto = txtBuscarProd.Text;
-                    producto.NombreProd = txtNombreProd.Text;
-                    producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
-                    producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
-                    producto.Precio_venta = int.Parse(txtPrecioVenta.Text);
-                    producto.Precio_compra = int.Parse(txtPrecioCompra.Text);
-                    producto.Stock = int.Parse(txtStock.Text);
-                    producto.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
-                    producto.Id_Proveedor = (int)cboProveedor.SelectedValue;
-                    producto.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
+                    Producto prod = new Producto();
+                    prod.Id_producto = txtBuscarProd.Text;
+                    prod.NombreProd = txtNombreProd.Text;
+                    prod.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
+                    prod.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
+                    prod.Precio_venta = int.Parse(txtPrecioVenta.Text);
+                    prod.Precio_compra = int.Parse(txtPrecioCompra.Text);
+                    prod.Stock = int.Parse(txtStock.Text);
+                    prod.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
+                    prod.Id_Proveedor = (int)cboProveedor.SelectedValue;
+                    prod.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
 
-                    if (YC.ModificarProducto(producto))
+                    if (YC.ModificarProducto(prod))
                     {
                         MessageBox.Show("Se ha modificado el Producto exitosamente", "PRODUCTO MODIFICADO");
                         this.cargarGrilla();
