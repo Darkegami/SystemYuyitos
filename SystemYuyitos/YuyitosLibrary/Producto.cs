@@ -23,43 +23,7 @@ namespace YuyitosLibrary
         private int _id_tipo_prod;
 
 
-        public int Id_Familia
-        {
-            get
-            {
-                return _id_familia;
-            }
-
-            set
-            {
-                _id_familia = value;
-            }
-        }
-
-        public int Id_Proveedor
-        {
-            get
-            {
-                return _id_proveedor;
-            }
-
-            set
-            {
-                _id_proveedor = value;
-            }
-        }
-        public int Id_TipoProd
-        {
-            get
-            {
-                return _id_tipo_prod;
-            }
-
-            set
-            {
-                _id_tipo_prod= value;
-            }
-        }
+        
 
         public string NombreProd
         {
@@ -190,5 +154,9 @@ namespace YuyitosLibrary
                 _id_producto = value;
             }
         }
+
+        public int Id_familia { get => _id_familia; set => _id_familia = value; }
+        public int Id_proveedor { get => _id_proveedor; set => _id_proveedor = value; }
+        public int Id_tipo_prod { get => _id_tipo_prod; set => _id_tipo_prod = value; }
     }
 }

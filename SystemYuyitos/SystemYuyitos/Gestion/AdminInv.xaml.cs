@@ -30,6 +30,7 @@ namespace SystemYuyitos
         public AdminInv()
         {
             InitializeComponent();
+
             this.cargarGrilla();
 
             cboFamiliaProducto.ItemsSource = YC.ListaFamilia();
@@ -73,9 +74,9 @@ namespace SystemYuyitos
                     producto.Precio_venta = int.Parse(txtPrecioVenta.Text);
                     producto.Precio_compra = int.Parse(txtPrecioCompra.Text);
                     producto.Stock = int.Parse(txtStock.Text);
-                    producto.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
-                    producto.Id_Proveedor = (int)cboProveedor.SelectedValue;
-                    producto.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
+                    producto.Id_familia = (int)cboFamiliaProducto.SelectedValue;
+                    producto.Id_proveedor = (int)cboProveedor.SelectedValue;
+                    producto.Id_tipo_prod = (int)cboTipoProducto.SelectedValue;
 
                     if (YC.IngresarProducto(producto))
                     {
@@ -172,9 +173,9 @@ namespace SystemYuyitos
                     prod.Precio_venta = int.Parse(txtPrecioVenta.Text);
                     prod.Precio_compra = int.Parse(txtPrecioCompra.Text);
                     prod.Stock = int.Parse(txtStock.Text);
-                    prod.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
-                    prod.Id_Proveedor = (int)cboProveedor.SelectedValue;
-                    prod.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
+                    prod.Id_familia = (int)cboFamiliaProducto.SelectedValue;
+                    prod.Id_proveedor = (int)cboProveedor.SelectedValue;
+                    prod.Id_tipo_prod = (int)cboTipoProducto.SelectedValue;
 
                     if (YC.ModificarProducto(prod))
                     {
@@ -272,6 +273,7 @@ namespace SystemYuyitos
             try
             {
                 Producto producto = (Producto)dgProducto.SelectedItem;
+                txtBuscarProd.Text = producto.Id_producto;
                 txtCodigo.Text = producto.Id_producto;
                 txtNombreProd.Text = producto.NombreProd;
                 dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
