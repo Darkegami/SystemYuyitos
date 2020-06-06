@@ -21,45 +21,9 @@ namespace YuyitosLibrary
         private int _id_familia;
         private int _id_proveedor;
         private int _id_tipo_prod;
+        private string _imagen;
+        private string _ruta;
 
-
-        public int Id_Familia
-        {
-            get
-            {
-                return _id_familia;
-            }
-
-            set
-            {
-                _id_familia = value;
-            }
-        }
-
-        public int Id_Proveedor
-        {
-            get
-            {
-                return _id_proveedor;
-            }
-
-            set
-            {
-                _id_proveedor = value;
-            }
-        }
-        public int Id_TipoProd
-        {
-            get
-            {
-                return _id_tipo_prod;
-            }
-
-            set
-            {
-                _id_tipo_prod= value;
-            }
-        }
 
         public string NombreProd
         {
@@ -188,6 +152,71 @@ namespace YuyitosLibrary
             set
             {
                 _id_producto = value;
+            }
+        }
+
+        public int Id_familia
+        {
+            get
+            {
+                return _id_familia;
+            }
+
+            set
+            {
+                _id_familia = value;
+            }
+        }
+
+        public int Id_proveedor
+        {
+            get
+            {
+                return _id_proveedor;
+            }
+
+            set
+            {
+                _id_proveedor = value;
+            }
+        }
+
+        public int Id_tipo_prod
+        {
+            get
+            {
+                return _id_tipo_prod;
+            }
+
+            set
+            {
+                _id_tipo_prod = value;
+            }
+        }
+
+        public string Imagen
+        {
+            get
+            {
+                return _imagen;
+            }
+
+            set
+            {
+                _imagen = value;
+            }
+        }
+
+        public string Ruta
+        {
+            get
+            {
+                return _ruta;
+            }
+
+            set
+            {
+                _ruta = value;
             }
         }
     }

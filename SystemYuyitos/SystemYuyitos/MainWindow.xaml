@@ -20,7 +20,6 @@
         <Label Content="Contraseña" HorizontalAlignment="Left" Margin="117,280,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <Image Source="Imagenes/almacen.png" HorizontalAlignment="Left" Height="219" Margin="58,12,0,0" VerticalAlignment="Top" Width="284"/>
         <Label Content="¿Has olvidado tu contraseña?" HorizontalAlignment="Left" Margin="121,346,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Width="200"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="58,395,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
 
     </Grid>
 </Controls:MetroWindow>

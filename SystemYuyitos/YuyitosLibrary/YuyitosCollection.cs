@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.OracleClient;
 using System.Data;
+using System.IO;
 
 namespace YuyitosLibrary
 {
@@ -19,19 +20,27 @@ namespace YuyitosLibrary
         {
             try
             {
+                /*FileStream stream = new FileStream(@""+producto.Ruta, FileMode.Open, FileAccess.Read);
+                BinaryReader reader = new BinaryReader(stream);**/
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("INSERTAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
                 OC.Parameters.Add("NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
                 OC.Parameters.Add("FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
                 OC.Parameters.Add("PRECIO_COMPRA", OracleType.Number).Value = producto.Precio_compra;
                 OC.Parameters.Add("STOCK", OracleType.Number).Value = producto.Stock;
-                OC.Parameters.Add("ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Id_Familia;
-                OC.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = producto.Id_Proveedor;
-                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Id_TipoProd;
+                OC.Parameters.Add("ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Id_familia;
+                OC.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = producto.Id_proveedor;
+                OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Id_tipo_prod;
+                //OC.Parameters.Add("IMAGEN", OracleType.Blob).Value = System.Text.Encoding.UTF8.GetBytes(producto.Imagen);
+                /**
+                OracleLob lob = new OracleLob(conexion, OracleDbType.Blob);
+                int streamLength = (int)stream.Length;
+
+                OracleParameter param = OC.Parameters.Add("Pictures", OracleType.Blob);
+                param.OracleType = lob;**/
 
                 OC.ExecuteNonQuery();
                 conexion.Close();
@@ -40,10 +49,9 @@ namespace YuyitosLibrary
             catch (Exception)
             {
                 conexion.Close();
-                return false;
+                throw;
             }
         }
-
          /**
          * Metodo para Eliminar los productos de la BD
          **/
@@ -90,7 +98,6 @@ namespace YuyitosLibrary
                     producto.Precio_venta = int.Parse(ODR["PRECIO_VENTA"].ToString());
                     producto.Precio_compra = int.Parse(ODR["PRECIO_COMPRA"].ToString());
                     producto.Stock = int.Parse(ODR["STOCK"].ToString());
-                    producto = new Producto();
                     Familia fam = new Familia();
                     fam.Id_familia = int.Parse(ODR["ID_FAMILIA_PRODUCTO"].ToString());
                     producto.Familia = fam;
@@ -125,14 +132,14 @@ namespace YuyitosLibrary
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
                 OC.Parameters.Add("V_ID_PRODUCTO", OracleType.VarChar).Value = producto.Id_producto;
                 OC.Parameters.Add("V_NOMBRE_PRODUCTO", OracleType.VarChar).Value = producto.NombreProd;
-                OC.Parameters.Add("V_FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion;
-                OC.Parameters.Add("V_FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento;
+                OC.Parameters.Add("V_FECHA_ELABORACION", OracleType.VarChar).Value = producto.Fecha_elaboracion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("V_FEC_VENCIMIENTO", OracleType.VarChar).Value = producto.Fecha_vencimiento.ToString("dd-MM-yyyy");
                 OC.Parameters.Add("V_PRECIO_VENTA", OracleType.Number).Value = producto.Precio_venta;
                 OC.Parameters.Add("V_PRECIO_COMPRA", OracleType.Number).Value = producto.Precio_compra;
-                OC.Parameters.Add("V_STOCK", OracleType.Number).Value = producto.Precio_venta;
-                OC.Parameters.Add("V_ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Familia;
-                OC.Parameters.Add("V_ID_PROVEEDOR", OracleType.Number).Value = producto.Proveedor;
-                OC.Parameters.Add("V_ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Tipo_producto;
+                OC.Parameters.Add("V_STOCK", OracleType.Number).Value = producto.Stock;
+                OC.Parameters.Add("V_ID_FAMILIA_PRODUCTO", OracleType.Number).Value = producto.Id_familia;
+                OC.Parameters.Add("V_ID_PROVEEDOR", OracleType.Number).Value = producto.Id_proveedor;
+                OC.Parameters.Add("V_ID_TIPO_PRODUCTO", OracleType.Number).Value = producto.Id_tipo_prod;
 
                 OC.ExecuteNonQuery();
                 conexion.Close();
@@ -933,5 +940,29 @@ namespace YuyitosLibrary
                 return null;
             }
         }
+        public string VerImagen(string id_producto)
+        {
+            try
+            {
+                conexion.Open();
+                OracleCommand OC = new OracleCommand("SELECT IMAGEN FROM PRODUCTO WHERE ID_PRODUCTO = '"+id_producto+"'",conexion);
+                OC.CommandType = System.Data.CommandType.Text;
+                OracleDataReader ODR = OC.ExecuteReader();
+                string imagen = "";
+                while (ODR.Read())
+                {
+                    imagen = Convert.ToBase64String((byte[])ODR["IMAGEN"]);
+                }
+                conexion.Close();
+                return imagen;
+            }
+            catch (Exception)
+            {
+                conexion.Close();
+                return "";
+                
+            }
+        }
+
     }
 }

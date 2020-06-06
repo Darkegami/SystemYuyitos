@@ -16,6 +16,8 @@ using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls.Dialogs;
 using YuyitosLibrary;
 using System.Data.OracleClient;
+using Microsoft.Win32;
+using System.IO;
 
 namespace SystemYuyitos
 {
@@ -26,6 +28,7 @@ namespace SystemYuyitos
     {
 
         private YuyitosCollection YC = new YuyitosCollection();
+        private OpenFileDialog ofdSeleccionar = new OpenFileDialog();
         public static AdminInv ventanaInventario;
         public AdminInv()
         {
@@ -53,11 +56,11 @@ namespace SystemYuyitos
             dgProducto.ItemsSource = null;
             dgProducto.ItemsSource = YC.ListaProducto();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnAgregar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (txtCodigo.Text == "" || txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
+                if ( txtNombreProd.Text == "" || dpFechaElaboracion.SelectedDate == null || dpFechaVencimiento.SelectedDate == null || txtPrecioVenta.Text == "" || txtPrecioCompra.Text == "" || txtStock.Text == ""
                    || cboFamiliaProducto.SelectedIndex < 0 || cboProveedor.SelectedIndex < 0 || cboTipoProducto.SelectedIndex < 0)
                 {
                     MessageBox.Show("No puede dejar campos sin llenar", "ERROR");
@@ -66,16 +69,26 @@ namespace SystemYuyitos
                 else
                 {
                     Producto producto = new Producto();
-                    producto.Id_producto = txtCodigo.Text;
                     producto.NombreProd = txtNombreProd.Text;
                     producto.Fecha_elaboracion = dpFechaElaboracion.SelectedDate.Value;
                     producto.Fecha_vencimiento = dpFechaVencimiento.SelectedDate.Value;
                     producto.Precio_venta = int.Parse(txtPrecioVenta.Text);
                     producto.Precio_compra = int.Parse(txtPrecioCompra.Text);
                     producto.Stock = int.Parse(txtStock.Text);
-                    producto.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
-                    producto.Id_Proveedor = (int)cboProveedor.SelectedValue;
-                    producto.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
+                    producto.Id_familia = (int)cboFamiliaProducto.SelectedValue;
+                    producto.Id_proveedor = (int)cboProveedor.SelectedValue;
+                    producto.Id_tipo_prod = (int)cboTipoProducto.SelectedValue;
+                    try
+                    {
+                       
+                        string imagePath = @"" + ofdSeleccionar.FileName;
+                        string imgBase64String = GetBase64StringForImage(imagePath);
+                        producto.Imagen = imgBase64String;
+                    }
+                    catch (Exception)
+                    {
+                        producto.Imagen = null;
+                    }
 
                     if (YC.IngresarProducto(producto))
                     {
@@ -137,6 +150,28 @@ namespace SystemYuyitos
                         cboFamiliaProducto.SelectedValue = producto.Familia.Id_familia;
                         cboProveedor.SelectedValue = producto.Proveedor.IDProv;
                         cboTipoProducto.SelectedValue = producto.Tipo_producto.Id_tipo_producto;
+                        string imagen = YC.VerImagen(producto.Id_producto);
+                        if (imagen=="")
+                        {
+                            BitmapImage bi3 = new BitmapImage();
+                            bi3.BeginInit();
+                            bi3.UriSource = new Uri("/SystemYuyitos;component/Imagenes/imgNoDisponible.png", UriKind.Relative);
+                            bi3.EndInit();
+                            pbImagen.Source = bi3;
+                        }
+                        else
+                        {
+
+                            byte[] binaryData = Convert.FromBase64String(imagen);
+
+                            BitmapImage bi = new BitmapImage();
+                            bi.BeginInit();
+                            bi.StreamSource = new MemoryStream(binaryData);
+                            bi.EndInit();
+
+                            pbImagen.Source = bi;
+                        }
+                        
 
                     }
                 }
@@ -172,9 +207,9 @@ namespace SystemYuyitos
                     prod.Precio_venta = int.Parse(txtPrecioVenta.Text);
                     prod.Precio_compra = int.Parse(txtPrecioCompra.Text);
                     prod.Stock = int.Parse(txtStock.Text);
-                    prod.Id_Familia = (int)cboFamiliaProducto.SelectedValue;
-                    prod.Id_Proveedor = (int)cboProveedor.SelectedValue;
-                    prod.Id_TipoProd = (int)cboTipoProducto.SelectedValue;
+                    prod.Id_familia = (int)cboFamiliaProducto.SelectedValue;
+                    prod.Id_proveedor = (int)cboProveedor.SelectedValue;
+                    prod.Id_tipo_prod = (int)cboTipoProducto.SelectedValue;
 
                     if (YC.ModificarProducto(prod))
                     {
@@ -247,7 +282,6 @@ namespace SystemYuyitos
 
         private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
         {
-            txtCodigo.Text = "";
             txtNombreProd.Text = "";
             txtPrecioCompra.Text = "";
             txtPrecioVenta.Text = "";
@@ -258,6 +292,7 @@ namespace SystemYuyitos
             cboFamiliaProducto.SelectedItem = null;
             cboProveedor.SelectedItem = null;
             cboTipoProducto.SelectedItem = null;
+            pbImagen.Source = null;
 
         }
 
@@ -272,16 +307,7 @@ namespace SystemYuyitos
             try
             {
                 Producto producto = (Producto)dgProducto.SelectedItem;
-                txtCodigo.Text = producto.Id_producto;
-                txtNombreProd.Text = producto.NombreProd;
-                dpFechaElaboracion.SelectedDate = producto.Fecha_elaboracion;
-                dpFechaVencimiento.SelectedDate = producto.Fecha_vencimiento;
-                txtPrecioVenta.Text = producto.Precio_venta.ToString();
-                txtPrecioCompra.Text = producto.Precio_compra.ToString();
-                txtStock.Text = producto.Stock.ToString();
-                cboFamiliaProducto.SelectedValue = producto.Familia.Id_familia;
-                cboProveedor.SelectedValue = producto.Proveedor.IDProv;
-                cboTipoProducto.SelectedValue = producto.Tipo_producto.Id_tipo_producto;
+                txtBuscarProd.Text = producto.Id_producto;
 
             }
             catch (Exception)
@@ -290,6 +316,40 @@ namespace SystemYuyitos
             }
              
             
+        }
+
+        private void btnSeleccionar_Click(object sender, RoutedEventArgs e)
+        {
+
+            ofdSeleccionar.Filter = "Imagenes|*.jpg; *.png";
+            ofdSeleccionar.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            ofdSeleccionar.Title = "Seleccionar imagen";
+            if (ofdSeleccionar.ShowDialog().Value==true)
+            {
+                string imagePath = @""+ofdSeleccionar.FileName;
+                string imgBase64String = GetBase64StringForImage(imagePath);
+
+                byte[] binaryData = Convert.FromBase64String(imgBase64String);
+
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.StreamSource = new MemoryStream(binaryData);
+                bi.EndInit();
+
+                pbImagen.Source = bi;
+            }
+            else
+            {
+                pbImagen.Source = null;
+            }
+
+        }
+
+        protected static string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
 
     }

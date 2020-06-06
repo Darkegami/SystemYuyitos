@@ -11,8 +11,8 @@
         Title="Administrar Inventario" Background="DarkGray" Height="596" Width="934.668" Closing="MetroWindow_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="63*"/>
-            <ColumnDefinition Width="628*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="93*"/>
         </Grid.ColumnDefinitions>
         <Controls:Tile Margin="661,-5,21,477" Width="Auto" Height="Auto" Background="{x:Null}" Grid.Column="1">
             <Controls:Tile.Effect>
@@ -20,17 +20,15 @@
             </Controls:Tile.Effect>
             <Image Source="/SystemYuyitos;component/Imagenes/almacen.png" Height="104" Width="143"></Image>
         </Controls:Tile>
-        <Label Content="Nombre Producto:" HorizontalAlignment="Left" Margin="58,166,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14"/>
-        <Label Content="Fecha Elaboración:" HorizontalAlignment="Left" Margin="58,205,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14"/>
-        <TextBox x:Name="txtNombreProd" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Nombre Producto" Height="35" Margin="103,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" Grid.Column="1" FontSize="14" RenderTransformOrigin="0.57,1.115" />
-        <TextBox x:Name="txtPrecioVenta" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Precio Venta" Height="35" Margin="101,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Grid.Column="1" FontSize="14" />
-        <TextBox x:Name="txtCodigo" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Código Producto" Height="36" Margin="103,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" Grid.Column="1" FontSize="14" RenderTransformOrigin="0.488,-0.194" />
-        <Label Content="Código:" HorizontalAlignment="Left" Margin="58,124,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" RenderTransformOrigin="0.552,0.724"/>
-        <Label Content="Inventario Productos" HorizontalAlignment="Left" Margin="58,75,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="222" Grid.ColumnSpan="2"/>
-        <Label Content="Precio Venta:" HorizontalAlignment="Left" Margin="60,285,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtStock" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Stock" Height="35" Margin="101,359,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.528,2.099" Grid.Column="1" FontSize="14" />
-        <TextBox x:Name="txtPrecioCompra" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Precio Compra" Height="35" Margin="101,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.528,2.099" Grid.Column="1" FontSize="14" />
-        <Label Content="Fecha Vencimiento:" HorizontalAlignment="Left" Margin="61,245,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Nombre Producto:" HorizontalAlignment="Left" Margin="50,81,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="125"/>
+        <Label Content="Fecha Elaboración:" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="125"/>
+        <TextBox x:Name="txtNombreProd" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Nombre Producto" Height="35" Margin="104,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" Grid.Column="1" FontSize="14" RenderTransformOrigin="0.57,1.115" />
+        <TextBox x:Name="txtPrecioVenta" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Precio Venta" Height="35" Margin="104,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Grid.Column="1" FontSize="14" />
+        <Label Content="Inventario Productos" HorizontalAlignment="Left" Margin="59,25,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="222" Grid.ColumnSpan="2" Height="37"/>
+        <Label Content="Precio Venta:" HorizontalAlignment="Left" Margin="52,200,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.ColumnSpan="2" Height="29" Width="90"/>
+        <TextBox x:Name="txtStock" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Stock" Height="35" Margin="104,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.528,2.099" Grid.Column="1" FontSize="14" />
+        <TextBox x:Name="txtPrecioCompra" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Precio Compra" Height="35" Margin="104,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.528,2.099" Grid.Column="1" FontSize="14" />
+        <Label Content="Fecha Vencimiento:" HorizontalAlignment="Left" Margin="53,160,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" FontSize="14" RenderTransformOrigin="0.5,0.5" Height="29" Width="129">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -41,8 +39,8 @@
             </Label.RenderTransform>
         </Label>
         <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="620,499,0,0" VerticalAlignment="Top" Width="92" BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" Height="33" FontSize="14" Click="BtnModificar_Click"/>
-        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="505,499,0,0" VerticalAlignment="Top" Width="88"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="Button_Click"/>
-        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="729,499,0,0" VerticalAlignment="Top" Width="92"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="BtnEliminar_Click"/>
+        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="505,499,0,0" VerticalAlignment="Top" Width="88"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="BtnAgregar_Click" Height="33"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="729,499,0,0" VerticalAlignment="Top" Width="92"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Click="BtnEliminar_Click" Height="33"/>
         <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="600,151,0,0" VerticalAlignment="Top" Width="75"  BorderBrush="{x:Null}" Background="Black" Foreground="White" Grid.Column="1" FontSize="14" Height="36" Click="BtnBuscar_Click"/>
         <DataGrid x:Name="dgProducto" Grid.Column="1" HorizontalAlignment="Left" Height="287" Margin="339,199,0,0" VerticalAlignment="Top" Width="482" IsReadOnly="True" SelectionChanged="DgProducto_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -60,23 +58,26 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="txtBuscarProd" Grid.Column="1" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ingrese Código" Height="36" Margin="339,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" FontSize="14"/>
-        <Label Content="Código Producto" HorizontalAlignment="Left" Margin="339,117,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.Column="1"/>
+        <Label Content="Código Producto" HorizontalAlignment="Left" Margin="339,117,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Grid.Column="1" Height="29" Width="115"/>
         <Button x:Name="btnVolver1" 
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
-            ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,827,20" Grid.ColumnSpan="2">
+            ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,488,827,22" Grid.ColumnSpan="2">
             <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
-        <Button x:Name="btnLimpiar" Content="Limpiar" Grid.Column="1" HorizontalAlignment="Left" Margin="218,501,0,0" VerticalAlignment="Top" Width="80" Height="31" Background="Black" BorderBrush="Black" FontSize="14" Click="BtnLimpiar_Click"/>
-        <Label Content="Precio Compra:" HorizontalAlignment="Left" Margin="60,325,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14"/>
-        <Label Content="Id Proveedor:" HorizontalAlignment="Left" Margin="60,399,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14"/>
-        <Label Content="Stock:" HorizontalAlignment="Left" Margin="60,365,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14"/>
-        <Label Content="Id Tipo Producto:" HorizontalAlignment="Left" Margin="60,428,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14"/>
-        <DatePicker x:Name="dpFechaElaboracion" Grid.Column="1" HorizontalAlignment="Left" Margin="103,199,0,0" VerticalAlignment="Top" Height="35" RenderTransformOrigin="-0.676,-1.4" Width="199" FontSize="14"/>
-        <DatePicker x:Name="dpFechaVencimiento" Grid.Column="1" HorizontalAlignment="Left" Margin="101,239,0,0" VerticalAlignment="Top" Height="35" Width="201"/>
-        <Label Content="Id Familia Producto:" HorizontalAlignment="Left" Margin="60,461,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14"/>
-        <ComboBox x:Name="cboProveedor" DisplayMemberPath="NombreProv" SelectedValuePath="IDProv" Grid.Column="1" HorizontalAlignment="Left" Margin="112,402,0,0" VerticalAlignment="Top" Width="186" Controls:TextBoxHelper.Watermark="Seleccione un Proveedor"/>
-        <ComboBox x:Name="cboTipoProducto" Grid.Column="1" DisplayMemberPath="Nombre_tipo_prod" SelectedValuePath="Id_tipo_producto" HorizontalAlignment="Left" Margin="112,433,0,0" VerticalAlignment="Top" Width="186" Controls:TextBoxHelper.Watermark="Seleccione un Tipo Producto"/>
-        <ComboBox x:Name="cboFamiliaProducto" Grid.Column="1" DisplayMemberPath="Nombre_familia" SelectedValuePath="Id_familia" HorizontalAlignment="Left" Margin="112,461,0,0" VerticalAlignment="Top" Width="186" Controls:TextBoxHelper.Watermark="Seleccione una Familia"/>
+        <Button x:Name="btnLimpiar" Content="Limpiar" Grid.Column="1" HorizontalAlignment="Left" Margin="254,499,0,0" VerticalAlignment="Top" Width="80" Height="31" Background="Black" BorderBrush="Black" FontSize="14" Click="BtnLimpiar_Click"/>
+        <Label Content="Precio Compra:" HorizontalAlignment="Left" Margin="52,240,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="104"/>
+        <Label Content="Id Proveedor:" HorizontalAlignment="Left" Margin="52,314,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="92"/>
+        <Label Content="Stock:" HorizontalAlignment="Left" Margin="52,280,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="46"/>
+        <Label Content="Id Tipo Producto:" HorizontalAlignment="Left" Margin="52,343,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="116"/>
+        <DatePicker x:Name="dpFechaElaboracion" Grid.Column="1" HorizontalAlignment="Left" Margin="104,114,0,0" VerticalAlignment="Top" Height="35" RenderTransformOrigin="-0.676,-1.4" Width="199" FontSize="14"/>
+        <DatePicker x:Name="dpFechaVencimiento" Grid.Column="1" HorizontalAlignment="Left" Margin="104,154,0,0" VerticalAlignment="Top" Height="35" Width="201"/>
+        <Label Content="Id Familia Producto:" HorizontalAlignment="Left" Margin="52,376,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="132"/>
+        <ComboBox x:Name="cboProveedor" DisplayMemberPath="NombreProv" SelectedValuePath="IDProv" Grid.Column="1" HorizontalAlignment="Left" Margin="104,317,0,0" VerticalAlignment="Top" Width="199" Controls:TextBoxHelper.Watermark="Seleccione un Proveedor" Height="26"/>
+        <ComboBox x:Name="cboTipoProducto" Grid.Column="1" DisplayMemberPath="Nombre_tipo_prod" SelectedValuePath="Id_tipo_producto" HorizontalAlignment="Left" Margin="104,348,0,0" VerticalAlignment="Top" Width="199" Controls:TextBoxHelper.Watermark="Seleccione un Tipo Producto" Height="26"/>
+        <ComboBox x:Name="cboFamiliaProducto" Grid.Column="1" DisplayMemberPath="Nombre_familia" SelectedValuePath="Id_familia" HorizontalAlignment="Left" Margin="104,379,0,0" VerticalAlignment="Top" Width="199" Controls:TextBoxHelper.Watermark="Seleccione una Familia" Height="26" Background="#FF252525"/>
+        <Image x:Name="pbImagen" Grid.Column="1" HorizontalAlignment="Left" Height="76" Margin="222,410,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.48"/>
+        <Label Content="Imagen(Opcional):" HorizontalAlignment="Left" Margin="52,410,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="132"/>
+        <Button x:Name="btnSeleccionar" Content="SELECCIONAR" Grid.Column="1" HorizontalAlignment="Left" Margin="104,410,0,0" VerticalAlignment="Top" Width="109" Height="31" Background="Black" BorderBrush="Black" FontSize="14" Click="btnSeleccionar_Click"/>
     </Grid>
 </Controls:MetroWindow>
