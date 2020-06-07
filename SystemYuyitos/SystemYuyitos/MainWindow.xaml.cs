@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls.Dialogs;
-using System.Data.OracleClient;
+using Oracle.ManagedDataAccess.Client;
 
 namespace SystemYuyitos
 {
@@ -81,17 +81,11 @@ namespace SystemYuyitos
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            OracleConnection conexion = new OracleConnection("DATA SOURCE=ORCL;PASSWORD=YUYITOS;USER ID=YUYITOS;");
-            conexion.Open();
-            MessageBox.Show("Conectado");
-            conexion.Close();
-        }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ventanaLogin = null;
         }
+
     }
 }
