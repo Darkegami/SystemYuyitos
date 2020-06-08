@@ -21,8 +21,7 @@ namespace YuyitosLibrary
         private int _id_familia;
         private int _id_proveedor;
         private int _id_tipo_prod;
-        private string _imagen;
-        private string _ruta;
+        private byte[] _imagen;
 
 
         public string NombreProd
@@ -194,7 +193,7 @@ namespace YuyitosLibrary
             }
         }
 
-        public string Imagen
+        public byte[] Imagen
         {
             get
             {
@@ -204,19 +203,6 @@ namespace YuyitosLibrary
             set
             {
                 _imagen = value;
-            }
-        }
-
-        public string Ruta
-        {
-            get
-            {
-                return _ruta;
-            }
-
-            set
-            {
-                _ruta = value;
             }
         }
     }

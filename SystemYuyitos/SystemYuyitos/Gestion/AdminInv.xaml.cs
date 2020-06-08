@@ -38,7 +38,11 @@ namespace SystemYuyitos
             cboFamiliaProducto.ItemsSource = YC.ListaFamilia();
             cboProveedor.ItemsSource = YC.ListaProveedor();
             cboTipoProducto.ItemsSource = YC.ListaTipoProducto();
-           
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri("/SystemYuyitos;component/Imagenes/imgNoDisponible.png", UriKind.Relative);
+            bi3.EndInit();
+            pbImagen.Source = bi3;
         }
 
         public static AdminInv getInstance()
@@ -80,20 +84,23 @@ namespace SystemYuyitos
                     producto.Id_tipo_prod = (int)cboTipoProducto.SelectedValue;
                     try
                     {
-                       
-                        string imagePath = @"" + ofdSeleccionar.FileName;
-                        string imgBase64String = GetBase64StringForImage(imagePath);
-                        producto.Imagen = imgBase64String;
+                        producto.Imagen = obtenerByteImagen();
+                        
                     }
                     catch (Exception)
                     {
-                        producto.Imagen = null;
+                        BitmapImage bi3 = new BitmapImage();
+                        bi3.BeginInit();
+                        bi3.UriSource = new Uri("/SystemYuyitos;component/Imagenes/imgNoDisponible.png", UriKind.Relative);
+                        bi3.EndInit();
+                        pbImagen.Source = bi3;
                     }
 
                     if (YC.IngresarProducto(producto))
                     {
                         MessageBox.Show("Se ha ingresado el producto exitosamente", "PRODUCTO INGRESADO");
                         this.cargarGrilla();
+                        this.limpiar();
                         return;
                     }
                     else
@@ -150,8 +157,15 @@ namespace SystemYuyitos
                         cboFamiliaProducto.SelectedValue = producto.Familia.Id_familia;
                         cboProveedor.SelectedValue = producto.Proveedor.IDProv;
                         cboTipoProducto.SelectedValue = producto.Tipo_producto.Id_tipo_producto;
-                        string imagen = YC.VerImagen(producto.Id_producto);
-                        if (imagen=="")
+                        try
+                        {
+                            BitmapImage bi = new BitmapImage();
+                            bi.BeginInit();
+                            bi.StreamSource = new MemoryStream(producto.Imagen);
+                            bi.EndInit();
+                            pbImagen.Source = bi;
+                        }
+                        catch (Exception)
                         {
                             BitmapImage bi3 = new BitmapImage();
                             bi3.BeginInit();
@@ -159,19 +173,6 @@ namespace SystemYuyitos
                             bi3.EndInit();
                             pbImagen.Source = bi3;
                         }
-                        else
-                        {
-
-                            byte[] binaryData = Convert.FromBase64String(imagen);
-
-                            BitmapImage bi = new BitmapImage();
-                            bi.BeginInit();
-                            bi.StreamSource = new MemoryStream(binaryData);
-                            bi.EndInit();
-
-                            pbImagen.Source = bi;
-                        }
-                        
 
                     }
                 }
@@ -210,11 +211,23 @@ namespace SystemYuyitos
                     prod.Id_familia = (int)cboFamiliaProducto.SelectedValue;
                     prod.Id_proveedor = (int)cboProveedor.SelectedValue;
                     prod.Id_tipo_prod = (int)cboTipoProducto.SelectedValue;
-
+                    try
+                    {
+                        prod.Imagen = obtenerByteImagen();
+                    }
+                    catch (Exception)
+                    {
+                        BitmapImage bi3 = new BitmapImage();
+                        bi3.BeginInit();
+                        bi3.UriSource = new Uri("/SystemYuyitos;component/Imagenes/imgNoDisponible.png", UriKind.Relative);
+                        bi3.EndInit();
+                        pbImagen.Source = bi3;
+                    }
                     if (YC.ModificarProducto(prod))
                     {
                         MessageBox.Show("Se ha modificado el Producto exitosamente", "PRODUCTO MODIFICADO");
                         this.cargarGrilla();
+                        this.limpiar();
                         return;
                     }
                     else
@@ -256,6 +269,7 @@ namespace SystemYuyitos
                     {
                         MessageBox.Show("Se ha eliminado el Producto exitosamente", "PRODUCTO ELIMINADO");
                         this.cargarGrilla();
+                        this.limpiar();
                         return;
                     }
                     else
@@ -280,7 +294,7 @@ namespace SystemYuyitos
             this.Close();
         }
 
-        private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
+        public void limpiar()
         {
             txtNombreProd.Text = "";
             txtPrecioCompra.Text = "";
@@ -292,7 +306,16 @@ namespace SystemYuyitos
             cboFamiliaProducto.SelectedItem = null;
             cboProveedor.SelectedItem = null;
             cboTipoProducto.SelectedItem = null;
-            pbImagen.Source = null;
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri("/SystemYuyitos;component/Imagenes/imgNoDisponible.png", UriKind.Relative);
+            bi3.EndInit();
+            pbImagen.Source = bi3;
+        }
+
+        private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            limpiar();
 
         }
 
@@ -327,9 +350,8 @@ namespace SystemYuyitos
             if (ofdSeleccionar.ShowDialog().Value==true)
             {
                 string imagePath = @""+ofdSeleccionar.FileName;
-                string imgBase64String = GetBase64StringForImage(imagePath);
 
-                byte[] binaryData = Convert.FromBase64String(imgBase64String);
+                byte[] binaryData = obtenerByteRuta(imagePath);
 
                 BitmapImage bi = new BitmapImage();
                 bi.BeginInit();
@@ -340,16 +362,34 @@ namespace SystemYuyitos
             }
             else
             {
-                pbImagen.Source = null;
+                BitmapImage bi3 = new BitmapImage();
+                bi3.BeginInit();
+                bi3.UriSource = new Uri("/SystemYuyitos;component/Imagenes/imgNoDisponible.png", UriKind.Relative);
+                bi3.EndInit();
+                pbImagen.Source = bi3;
             }
 
         }
 
-        protected static string GetBase64StringForImage(string imgPath)
+        protected static byte[] obtenerByteRuta(string imgPath)
         {
             byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
-            string base64String = Convert.ToBase64String(imageBytes);
-            return base64String;
+            return imageBytes;
+        }
+
+        public byte[] obtenerByteImagen()
+        {
+            byte[] arr;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bmp = pbImagen.Source as BitmapImage;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bmp));
+                encoder.Save(ms);
+                arr = ms.ToArray();
+            }
+            return arr;
+
         }
 
     }

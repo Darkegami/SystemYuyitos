@@ -70,7 +70,7 @@
         <Label Content="Id Proveedor:" HorizontalAlignment="Left" Margin="52,314,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="92"/>
         <Label Content="Stock:" HorizontalAlignment="Left" Margin="52,280,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="46"/>
         <Label Content="Id Tipo Producto:" HorizontalAlignment="Left" Margin="52,343,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="116"/>
-        <DatePicker x:Name="dpFechaElaboracion" Grid.Column="1" HorizontalAlignment="Left" Margin="104,114,0,0" VerticalAlignment="Top" Height="35" RenderTransformOrigin="-0.676,-1.4" Width="199" FontSize="14"/>
+        <DatePicker x:Name="dpFechaElaboracion" Grid.Column="1" HorizontalAlignment="Left" Margin="104,114,0,0" VerticalAlignment="Top" Height="35" Width="201"/>
         <DatePicker x:Name="dpFechaVencimiento" Grid.Column="1" HorizontalAlignment="Left" Margin="104,154,0,0" VerticalAlignment="Top" Height="35" Width="201"/>
         <Label Content="Id Familia Producto:" HorizontalAlignment="Left" Margin="52,376,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="14" Height="29" Width="132"/>
         <ComboBox x:Name="cboProveedor" DisplayMemberPath="NombreProv" SelectedValuePath="IDProv" Grid.Column="1" HorizontalAlignment="Left" Margin="104,317,0,0" VerticalAlignment="Top" Width="199" Controls:TextBoxHelper.Watermark="Seleccione un Proveedor" Height="26"/>

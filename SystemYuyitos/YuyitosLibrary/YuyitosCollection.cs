@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
-using System.IO;
 
 namespace YuyitosLibrary
 {
@@ -20,8 +19,6 @@ namespace YuyitosLibrary
         {
             try
             {
-                /*FileStream stream = new FileStream(@""+producto.Ruta, FileMode.Open, FileAccess.Read);
-                BinaryReader reader = new BinaryReader(stream);**/
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("INSERTAR_PRODUCTO", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
@@ -34,13 +31,7 @@ namespace YuyitosLibrary
                 OC.Parameters.Add("ID_FAMILIA_PRODUCTO", OracleDbType.Int64).Value = producto.Id_familia;
                 OC.Parameters.Add("ID_PROVEEDOR", OracleDbType.Int64).Value = producto.Id_proveedor;
                 OC.Parameters.Add("ID_TIPO_PRODUCTO", OracleDbType.Int64).Value = producto.Id_tipo_prod;
-                //OC.Parameters.Add("IMAGEN", OracleType.Blob).Value = System.Text.Encoding.UTF8.GetBytes(producto.Imagen);
-                /**
-                OracleLob lob = new OracleLob(conexion, OracleDbType.Blob);
-                int streamLength = (int)stream.Length;
-
-                OracleParameter param = OC.Parameters.Add("Pictures", OracleType.Blob);
-                param.OracleType = lob;**/
+                OC.Parameters.Add("IMAGEN", OracleDbType.Blob).Value = producto.Imagen;
 
                 OC.ExecuteNonQuery();
                 conexion.Close();
@@ -107,6 +98,7 @@ namespace YuyitosLibrary
                     TipoProducto tp = new TipoProducto();
                     tp.Id_tipo_producto = int.Parse(ODR["ID_TIPO_PRODUCTO"].ToString());
                     producto.Tipo_producto = tp;
+                    producto.Imagen = (byte[])ODR["IMAGEN"];
 
                     if (producto.Id_producto == id_producto)
                     {
@@ -140,13 +132,14 @@ namespace YuyitosLibrary
                 OC.Parameters.Add("V_ID_FAMILIA_PRODUCTO", OracleDbType.Int64).Value = producto.Id_familia;
                 OC.Parameters.Add("V_ID_PROVEEDOR", OracleDbType.Int64).Value = producto.Id_proveedor;
                 OC.Parameters.Add("V_ID_TIPO_PRODUCTO", OracleDbType.Int64).Value = producto.Id_tipo_prod;
-
+                OC.Parameters.Add("V_IMAGEN", OracleDbType.Blob).Value = producto.Imagen;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
             }
             catch (Exception)
             {
+                throw;
                 conexion.Close();
                 return false;
             }
@@ -938,29 +931,6 @@ namespace YuyitosLibrary
             {
                 conexion.Close();
                 return null;
-            }
-        }
-        public string VerImagen(string id_producto)
-        {
-            try
-            {
-                conexion.Open();
-                OracleCommand OC = new OracleCommand("SELECT IMAGEN FROM PRODUCTO WHERE ID_PRODUCTO = '"+id_producto+"'",conexion);
-                OC.CommandType = System.Data.CommandType.Text;
-                OracleDataReader ODR = OC.ExecuteReader();
-                string imagen = "";
-                while (ODR.Read())
-                {
-                    imagen = Convert.ToBase64String((byte[])ODR["IMAGEN"]);
-                }
-                conexion.Close();
-                return imagen;
-            }
-            catch (Exception)
-            {
-                conexion.Close();
-                return "";
-                
             }
         }
 
