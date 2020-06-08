@@ -15,22 +15,22 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Image x:Name="image" HorizontalAlignment="Left" Height="66" Margin="741,12,0,0" VerticalAlignment="Top" Width="114" Source="/SystemYuyitos;component/Imagenes/almacen.png"/>
-        <DataGrid x:Name="dgGrillaOrden" HorizontalAlignment="Left" Margin="171,118,0,0" VerticalAlignment="Top" Height="330" Width="573" AutoGenerateColumns="False" SelectionChanged="dgGrillaOrden_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id_orden_pedido}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
-                <DataGridTextColumn Binding="{Binding Fecha_orden,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
-                <DataGridTextColumn Binding="{Binding Fecha_entrega,StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Entrega"/>
-                <DataGridTextColumn Binding="{Binding Valor_final}" ClipboardContentBinding="{x:Null}" Header="Valor Total"/>
-                <DataGridTextColumn Binding="{Binding Estado_orden}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
-                <DataGridTextColumn Binding="{Binding Rut_administrador}" ClipboardContentBinding="{x:Null}" Header="Rut Admin"/>
-            </DataGrid.Columns>
-        </DataGrid>
         <Button x:Name="btnVolver1" 
             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
             BorderBrush="Transparent"
             ToolTip="Volver a Menú" Click="BtnVolver_Click" Margin="10,490,822,20">
             <Image Source="/SystemYuyitos;component/Imagenes/baaaack.png" Width="55" Height="55" Stretch="Fill" />
         </Button>
+        <DataGrid x:Name="dgGrillaOrden" HorizontalAlignment="Left" Margin="190,138,0,0" VerticalAlignment="Top" Height="321" Width="537" AutoGenerateColumns="False" SelectionChanged="dgGrillaOrden_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id_orden_pedido}" ClipboardContentBinding="{x:Null}" Header="N°Orden"/>
+                <DataGridTextColumn Binding="{Binding Fecha_orden, StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Orden"/>
+                <DataGridTextColumn Binding="{Binding Fecha_entrega, StringFormat=\{0:dd-MM-yyyy\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Entrega"/>
+                <DataGridTextColumn Binding="{Binding Valor_final}" ClipboardContentBinding="{x:Null}" Header="Valor Total"/>
+                <DataGridTextColumn Binding="{Binding Estado_orden.Nombre_estado}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                <DataGridTextColumn Binding="{Binding Rut_administrador}" ClipboardContentBinding="{x:Null}" Header="Rut Admin"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Controls:MetroWindow>
 

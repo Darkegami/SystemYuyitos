@@ -139,7 +139,6 @@ namespace YuyitosLibrary
             }
             catch (Exception)
             {
-                throw;
                 conexion.Close();
                 return false;
             }
@@ -204,8 +203,8 @@ namespace YuyitosLibrary
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
                 OC.Parameters.Add("V_NOMBRE_PROV", OracleDbType.Varchar2).Value = proveedor.NombreProv;
                 OC.Parameters.Add("V_TELEFONO", OracleDbType.Int64).Value = proveedor.Telefono;
-                OC.Parameters.Add("V_ID_COMUNA", OracleDbType.Int64).Value = proveedor.Id_comuna;
                 OC.Parameters.Add("V_DIRECCION", OracleDbType.Varchar2).Value = proveedor.Direccion;
+                OC.Parameters.Add("V_ID_COMUNA", OracleDbType.Int64).Value = proveedor.Id_comuna;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -229,8 +228,8 @@ namespace YuyitosLibrary
                 OC.Parameters.Add("V_ID_PROVEEDOR", OracleDbType.Int64).Value = proveedor.IDProv;
                 OC.Parameters.Add("V_NOMBRE_PROV", OracleDbType.Varchar2).Value = proveedor.NombreProv;
                 OC.Parameters.Add("V_TELEFONO", OracleDbType.Int64).Value = proveedor.Telefono;
-                OC.Parameters.Add("V_ID_COMUNA", OracleDbType.Int64).Value = proveedor.Id_comuna;
                 OC.Parameters.Add("V_DIRECCION", OracleDbType.Varchar2).Value = proveedor.Direccion;
+                OC.Parameters.Add("V_ID_COMUNA", OracleDbType.Int64).Value = proveedor.Id_comuna;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -350,9 +349,9 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("COMPROBAR_PRODUCTO_ORDEN", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
+                OC.Parameters.Add("CURSOR_T", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 OC.Parameters.Add("V_ID_ORDEN",OracleDbType.Varchar2).Value = id_orden;
                 OC.Parameters.Add("V_ID_PRODUCTO",OracleDbType.Varchar2).Value = id_producto;
-                OC.Parameters.Add("CURSOR_T",OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 OracleDataReader ODR = OC.ExecuteReader();
                 List<DetalleOrdenCompra> listDetalleOrden = new List<DetalleOrdenCompra>();
                 while (ODR.Read())
@@ -481,9 +480,9 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("PRODUCTOS_FILTRADOS", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_ID_PROVEEDOR",OracleDbType.Int64).Value = id_proveedor;
-                OC.Parameters.Add("V_ID_FAMILIA",OracleDbType.Int64).Value = id_familia;
-                OC.Parameters.Add("CURSOR_T",OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                OC.Parameters.Add("CURSOR_T", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                OC.Parameters.Add("V_ID_PROVEEDOR",OracleDbType.Int64).Value=id_proveedor;
+                OC.Parameters.Add("V_ID_FAMILIA",OracleDbType.Int64).Value=id_familia;
                 OracleDataReader ODR = OC.ExecuteReader();
                 List<Producto> listProducto = new List<Producto>();
                 while (ODR.Read())
@@ -514,8 +513,8 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("LISTAR_DETALLE_ORDEN", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_ID_ORDEN",OracleDbType.Varchar2).Value = id_orden;
-                OC.Parameters.Add("CURSOR_T",OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                OC.Parameters.Add("CURSOR_T", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                OC.Parameters.Add("V_ID_ORDEN",OracleDbType.Varchar2).Value = id_orden.ToString();
                 OracleDataReader ODR = OC.ExecuteReader();
                 List<DetalleOrdenCompra> listDetalleOrden = new List<DetalleOrdenCompra>();
                 while (ODR.Read())
@@ -551,9 +550,9 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("INSERTAR_DETALLE_ORDEN",conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("CANTIDAD",OracleDbType.Int64).Value =detalleOrden.Cantidad_pack;
-                OC.Parameters.Add("ID_ORDEN", OracleDbType.Varchar2).Value=detalleOrden.Id_orden;
-                OC.Parameters.Add("ID_PRODUCTO", OracleDbType.Varchar2).Value = detalleOrden.Id_producto;
+                OC.Parameters.Add("V_CANTIDAD",OracleDbType.Int64).Value =detalleOrden.Cantidad_pack;
+                OC.Parameters.Add("V_ID_ORDEN", OracleDbType.Varchar2).Value=detalleOrden.Id_orden;
+                OC.Parameters.Add("V_ID_PRODUCTO", OracleDbType.Varchar2).Value = detalleOrden.Id_producto;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -574,8 +573,8 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("ELIMINAR_DETALLE_ORDEN",conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_ID_ORDEN",OracleDbType.Varchar2).Value = id_orden;
                 OC.Parameters.Add("V_ID_PRODUCTO", OracleDbType.Varchar2).Value = id_producto;
+                OC.Parameters.Add("V_ID_ORDEN",OracleDbType.Varchar2).Value = id_orden;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -655,12 +654,12 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("CONFIRMAR_RECEPCION",conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_COMENTARIOS", OracleDbType.Varchar2).Value = recepcionCompra.Comentarios;
-                OC.Parameters.Add("V_FECHA_RECEPCION", OracleDbType.Varchar2).Value = recepcionCompra.Fecha_recepcion.ToString("dd-MM-yyyy");
-                OC.Parameters.Add("V_ID_ESTADO", OracleDbType.Int64).Value = recepcionCompra.Id_estado_recepcion;
-                OC.Parameters.Add("V_ID_ORDEN", OracleDbType.Varchar2).Value = recepcionCompra.Id_orden_compra;
                 OC.Parameters.Add("V_ID_RECEPCION", OracleDbType.Varchar2).Value = recepcionCompra.Id_recepcion_compra;
+                OC.Parameters.Add("V_FECHA_RECEPCION", OracleDbType.Varchar2).Value = recepcionCompra.Fecha_recepcion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("V_COMENTARIOS", OracleDbType.Varchar2).Value = recepcionCompra.Comentarios;
                 OC.Parameters.Add("V_RUT_ADMIN", OracleDbType.Varchar2).Value = recepcionCompra.Rut_administrador;
+                OC.Parameters.Add("V_ID_ORDEN", OracleDbType.Varchar2).Value = recepcionCompra.Id_orden_compra;
+                OC.Parameters.Add("V_ID_ESTADO", OracleDbType.Int64).Value = recepcionCompra.Id_estado_recepcion;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;
@@ -681,12 +680,12 @@ namespace YuyitosLibrary
                 conexion.Open();
                 OracleCommand OC = new OracleCommand("DENEGAR_RECEPCION", conexion);
                 OC.CommandType = System.Data.CommandType.StoredProcedure;
-                OC.Parameters.Add("V_COMENTARIOS", OracleDbType.Varchar2).Value = recepcionCompra.Comentarios;
-                OC.Parameters.Add("V_FECHA_RECEPCION", OracleDbType.Varchar2).Value = recepcionCompra.Fecha_recepcion.ToString("dd-MM-yyyy");
-                OC.Parameters.Add("V_ID_ESTADO", OracleDbType.Int64).Value = recepcionCompra.Id_estado_recepcion;
-                OC.Parameters.Add("V_ID_ORDEN", OracleDbType.Varchar2).Value = recepcionCompra.Id_orden_compra;
                 OC.Parameters.Add("V_ID_RECEPCION", OracleDbType.Varchar2).Value = recepcionCompra.Id_recepcion_compra;
+                OC.Parameters.Add("V_FECHA_RECEPCION", OracleDbType.Varchar2).Value = recepcionCompra.Fecha_recepcion.ToString("dd-MM-yyyy");
+                OC.Parameters.Add("V_COMENTARIOS", OracleDbType.Varchar2).Value = recepcionCompra.Comentarios;
                 OC.Parameters.Add("V_RUT_ADMIN", OracleDbType.Varchar2).Value = recepcionCompra.Rut_administrador;
+                OC.Parameters.Add("V_ID_ORDEN", OracleDbType.Varchar2).Value = recepcionCompra.Id_orden_compra;
+                OC.Parameters.Add("V_ID_ESTADO", OracleDbType.Int64).Value = recepcionCompra.Id_estado_recepcion;
                 OC.ExecuteNonQuery();
                 conexion.Close();
                 return true;

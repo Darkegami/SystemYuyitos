@@ -223,7 +223,6 @@ namespace SystemYuyitos
             }
             catch (Exception)
             {
-
                 return;
             }
             
