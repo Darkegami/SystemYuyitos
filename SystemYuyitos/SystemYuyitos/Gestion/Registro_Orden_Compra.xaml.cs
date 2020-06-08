@@ -239,18 +239,27 @@ namespace SystemYuyitos
                 }
                 else
                 {
-                    if (YC.EliminarDetalleOrden(txtIdOrden.Text.Trim(),cboProducto.SelectedValue.ToString()))
+                    if (YC.LaOrdenNoFueEntregada(txtIdOrden.Text.Trim()))
                     {
-                        MessageBox.Show("Se ha eliminado un producto del detalle de la orden","PRODUCTO ELIMINADO DE LA ORDEN");
-                        this.cargarGrillaOrden();
-                        this.cargarGrillaProducto(txtIdOrden.Text);
-                        return;
+                        if (YC.EliminarDetalleOrden(txtIdOrden.Text.Trim(), cboProducto.SelectedValue.ToString()))
+                        {
+                            MessageBox.Show("Se ha eliminado un producto del detalle de la orden", "PRODUCTO ELIMINADO DE LA ORDEN");
+                            this.cargarGrillaOrden();
+                            this.cargarGrillaProducto(txtIdOrden.Text);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se ha encontrado esta orden en la BD", "ERROR");
+                            return;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("No se ha encontrado esta orden en la BD","ERROR");
+                        MessageBox.Show("Ingrese una orden de compra correcta y que no haya sido recepcionada", "ERROR");
                         return;
                     }
+
                 }
             }
             catch (Exception)
